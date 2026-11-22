@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kolekcija — Coherence Group</title>
+<style>
+/* Classical — design-system tokens and component classes. This file is the source of truth for the system's look; retune it here and see readme.md. */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Lora:wght@400;600&display=swap');
+
+:root {
+  --color-bg: #f3f2f2;
+  --color-surface: #eae9e9;
+  --color-text: #201f1d;
+  --color-accent: #b68235;
+  --color-accent-2: #ac803e;
+  --color-divider: color-mix(in srgb, #201f1d 16%, transparent);
+
+  /* Tonal ramps — generated in OKLCH on one shared lightness scale, so the
+     same step of any role matches the others in visual value. */
+  --color-neutral-100: #f8f4f4;
+  --color-neutral-200: #eae7e7;
+  --color-neutral-300: #d7d3d3;
+  --color-neutral-400: #bab6b6;
+  --color-neutral-500: #9b9797;
+  --color-neutral-600: #7d7979;
+  --color-neutral-700: #605d5d;
+  --color-neutral-800: #444141;
+  --color-neutral-900: #2d2b2b;
+
+  --color-accent-100: #fff3e4;
+  --color-accent-200: #ffe3bf;
+  --color-accent-300: #facb8d;
+  --color-accent-400: #e1ad66;
+  --color-accent-500: #c28d41;
+  --color-accent-600: #a06f24;
+  --color-accent-700: #7d5411;
+  --color-accent-800: #5a3b0a;
+  --color-accent-900: #3a270d;
+
+  --color-accent-2-100: #fff3e4;
+  --color-accent-2-200: #ffe3be;
+  --color-accent-2-300: #f5cd96;
+  --color-accent-2-400: #dbaf70;
+  --color-accent-2-500: #bc8f4e;
+  --color-accent-2-600: #9b7232;
+  --color-accent-2-700: #79561f;
+  --color-accent-2-800: #573d14;
+  --color-accent-2-900: #382810;
+
+  --font-heading: "Cormorant Garamond", system-ui, sans-serif;
+  --font-heading-weight: 600; /* review round 3: bold retired — semibold is the
+     interface headings' ceiling (they need the weight at small sizes); display
+     text goes lighter still, to the normal cut (see the deck) */
+  --font-body: "Lora", system-ui, sans-serif;
+
+  --space-1: 4.6px;
+  --space-2: 9.2px;
+  --space-3: 13.8px;
+  --space-4: 18.4px;
+  --space-6: 27.6px;
+  --space-8: 36.8px;
+
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 7px;
+
+  /* Elevation — derived from the ground: soft ink-tinted shadows on a
+     light theme, a hairline edge + ambient darkness on a dark one. */
+  --shadow-sm: 0 1px 2px color-mix(in srgb, #2d2b2b 14%, transparent);
+  --shadow-md: 0 3px 10px color-mix(in srgb, #2d2b2b 16%, transparent);
+  --shadow-lg: 0 12px 32px color-mix(in srgb, #2d2b2b 22%, transparent);
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+}
+h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: var(--font-heading-weight); }
+
+.plate{filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;
+  border:6px solid var(--color-surface);outline:1px solid var(--color-divider)}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   Components — built with the tokens above. Plain CSS
+   on plain HTML: no JavaScript, no build step. Each class is documented in
+   readme.md and demonstrated in foundations/ and components/.
+   ══════════════════════════════════════════════════════════════════════ */
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; font-size: 15px; line-height: 1.55; font-weight: 400; }
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+  line-height: 1.12; letter-spacing: -0.015em; margin: 0 0 var(--space-2);
+}
+h1 { font-size: 42px; }
+h2 { font-size: 32px; }
+h3 { font-size: 25px; }
+h4 { font-size: 20px; }
+h5 { font-size: 16px; }
+h6 { font-size: 13px; }
+h6 { letter-spacing: 0.08em; text-transform: uppercase; }
+p { margin: 0 0 var(--space-3); }
+a { color: var(--color-accent); text-underline-offset: 3px; }
+img { display: block; max-width: 100%; }
+figure { margin: 0; }
+figcaption {
+  font-size: 11px; margin-top: var(--space-1);
+  color: color-mix(in srgb, var(--color-text) 55%, transparent);
+}
+.text-muted { color: color-mix(in srgb, var(--color-text) 55%, transparent); }
+:focus { outline: none; }
+:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+::selection { background: color-mix(in srgb, var(--color-accent) 30%, transparent); }
+
+/* — rules — */
+.hr {
+  height: 1px; border: 0; margin: var(--space-4) 0;
+  background: var(--color-divider);
+}
+
+/* — buttons — */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  cursor: pointer; text-decoration: none;
+  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+  font-size: 14px; line-height: 1.2; color: var(--color-text); /* matches the .input's 14px —
+     the pair sits side by side in sign-up rows */
+  background: transparent; border: 1px solid transparent;
+  padding: var(--space-2) calc(var(--space-3) * 1.2);
+  border-radius: var(--radius-md);
+}
+.btn svg { display: block; }
+.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.btn-primary { color: var(--color-accent); border-color: var(--color-accent); }
+.btn-primary:hover { background: color-mix(in srgb, var(--color-accent) 12%, transparent); }
+.btn-primary:active { background: color-mix(in srgb, var(--color-accent) 22%, transparent); }
+.btn-secondary { border-color: var(--color-divider); }
+.btn-secondary:hover { background: color-mix(in srgb, var(--color-text) 7%, transparent); }
+.btn-secondary:active { background: color-mix(in srgb, var(--color-text) 14%, transparent); }
+.btn-ghost { color: var(--color-accent); padding-inline: var(--space-1); }
+.btn-ghost:hover { background: color-mix(in srgb, var(--color-accent) 10%, transparent); }
+.btn-ghost:active { background: color-mix(in srgb, var(--color-accent) 18%, transparent); }
+.btn-icon { width: 36px; height: 36px; padding: 0; }
+.btn-block { width: 100%; margin-top: var(--space-2); }
+
+/* — forms — */
+.field > label {
+  display: block; font-size: 12px; margin-bottom: 5px;
+  color: color-mix(in srgb, var(--color-text) 70%, transparent);
+}
+.input {
+  width: 100%; min-height: 36px; padding: 6px 10px; font: inherit;
+  font-size: 14px; color: var(--color-text); caret-color: var(--color-accent);
+  background: transparent;
+  border: 1px solid var(--color-divider); border-radius: var(--radius-md);
+}
+.input:hover { border-color: color-mix(in srgb, var(--color-text) 45%, transparent); }
+.input:focus-visible { border-color: var(--color-accent); outline-offset: 0; }
+textarea.input { min-height: 90px; resize: vertical; }
+.radio { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; font-size: 14px; }
+.radio input, .seg-opt input {
+  position: absolute; opacity: 0; width: 0; height: 0; pointer-events: none;
+}
+.radio .dot {
+  width: 16px; height: 16px; flex: none; border-radius: 50%;
+  border: 1.5px solid var(--color-divider);
+}
+.radio:hover .dot { border-color: var(--color-accent); }
+.radio input:checked + .dot {
+  border-color: var(--color-accent); background: var(--color-accent);
+  box-shadow: inset 0 0 0 4px var(--color-bg);
+}
+.radio input:focus-visible + .dot { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+.seg {
+  display: inline-flex; overflow: hidden;
+  border: 1px solid var(--color-divider); border-radius: var(--radius-md);
+}
+.seg-opt {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 12px; font-size: 13px; cursor: pointer;
+}
+.seg-opt + .seg-opt { border-left: 1px solid var(--color-divider); }
+.seg-opt:has(input:checked) { color: var(--color-accent); box-shadow: inset 0 0 0 1px var(--color-accent); }
+.seg-opt:not(:has(input:checked)):hover { background: color-mix(in srgb, var(--color-text) 7%, transparent); }
+.seg-opt:has(input:focus-visible) { outline: 2px solid var(--color-accent); outline-offset: -2px; }
+
+/* — cards — */
+.card {
+  display: flex; flex-direction: column; gap: var(--space-2);
+  padding: var(--space-3); border-radius: var(--radius-md); background: transparent; border: 1px solid var(--color-divider);
+}
+.card-kicker { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent); }
+.card-title {
+  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+  font-size: 17px; line-height: 1.2;
+}
+.card-body { margin: 0; font-size: 13px; opacity: 0.8; flex: 1; }
+.card-meta {
+  display: flex; align-items: center; gap: 6px; font-size: 11px;
+  color: color-mix(in srgb, var(--color-text) 50%, transparent);
+}
+.elev-sm { box-shadow: var(--shadow-sm); }
+.elev-md { box-shadow: var(--shadow-md); }
+.elev-lg { box-shadow: var(--shadow-lg); }
+
+/* — tags — */
+.tag {
+  display: inline-flex; align-items: center; font-size: 11px;
+  letter-spacing: 0.02em; padding: 3px 10px;
+  border-radius: calc(var(--radius-md) * 0.75);
+}
+.tag-accent { background: var(--color-accent-100); color: var(--color-accent-800); }
+.tag-accent-2 { background: var(--color-accent-2-100); color: var(--color-accent-2-800); }
+.tag-neutral { background: var(--color-neutral-100); color: var(--color-neutral-800); }
+.tag-outline { border: 1px solid var(--color-accent); color: var(--color-accent); }
+
+/* — navigation — */
+.nav {
+  display: flex; align-items: center; gap: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--color-divider);
+}
+.nav-brand {
+  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+  font-size: 18px; margin-right: auto;
+}
+.nav a { color: inherit; text-decoration: none; font-size: 14px; }
+.nav a:hover, .nav a[aria-current='page'] { color: var(--color-accent); }
+
+/* — tables — */
+.table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.table th {
+  text-align: left; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-text) 60%, transparent);
+  padding: var(--space-2); border-bottom: 1px solid var(--color-divider);
+}
+.table td {
+  padding: var(--space-2);
+  border-bottom: 1px solid var(--color-divider);
+}
+.table tbody tr:hover { background: color-mix(in srgb, var(--color-text) 4%, transparent); }
+
+/* — dialog — */
+.dialog-backdrop {
+  position: fixed; inset: 0; display: grid; place-items: center;
+  padding: var(--space-4);
+  background: color-mix(in srgb, var(--color-neutral-900) 50%, transparent);
+}
+.dialog {
+  width: min(440px, 100%); display: flex; flex-direction: column; gap: var(--space-3);
+  padding: var(--space-4); border-radius: var(--radius-lg);
+  background: var(--color-surface); box-shadow: var(--shadow-lg); border: 1px solid var(--color-divider);
+}
+.dialog-title {
+  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+  font-size: 20px;
+}
+.dialog-body { font-size: 14px; opacity: 0.85; }
+.dialog-actions { display: flex; justify-content: flex-end; gap: var(--space-2); margin-top: var(--space-2); }
+
+
+
+html { scroll-behavior: smooth; }
+body { margin: 0; overflow-x: hidden; background: var(--color-bg); color: var(--color-text); font-family: var(--font-body); }
+a.link { color: var(--color-accent-700); text-underline-offset: 3px; }
+a.link:hover { color: var(--color-accent); }
+::selection { background: color-mix(in srgb, var(--color-accent) 30%, transparent); }
+.nav-links { display: flex; align-items: center; gap: clamp(18px, 2.6vw, 34px); }
+.nav-links a { color: inherit; text-decoration: none; font-size: 14px; }
+.nav-links a:hover { color: var(--color-accent); }
+.nav-toggle { display: none; background: transparent; border: 0; cursor: pointer; color: var(--color-text); padding: 8px; margin: -8px -8px -8px 0; }
+#mobileMenu { display: none; }
+@media (max-width: 860px) {
+  .nav-links { display: none; }
+  .nav-toggle { display: inline-flex; align-items: center; justify-content: center; }
+  .about-grid { grid-template-columns: 1fr !important; gap: 22px !important; }
+  .form-row { grid-template-columns: 1fr !important; }
+  .gallery-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .gallery-grid > .gal-item { grid-column: auto !important; }
+  .contact-aside { border-left: 0 !important; padding-left: 0 !important; border-top: 1px solid var(--color-divider); padding-top: 32px !important; }
+}
+@media (max-width: 560px) {
+  .gallery-grid { grid-template-columns: 1fr !important; }
+  #vrh { min-height: 78vh !important; }
+}
+.mega { position: fixed; left: 0; right: 0; top: 77px; height: 80vh; z-index: 48; background: #161616; color: #f3f2f2; border-top: 1px solid rgba(182,130,53,0.5); box-shadow: var(--shadow-lg); opacity: 0; visibility: hidden; transform: translateY(-8px); transition: opacity .28s ease, transform .28s ease, visibility 0s linear .28s; }
+.mega.open { opacity: 1; visibility: visible; transform: none; transition: opacity .28s ease, transform .28s ease; }
+.mega-inner { max-width: 1400px; height: 100%; margin: 0 auto; padding: clamp(32px,4vw,56px) clamp(20px,5vw,72px); display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1.6fr); gap: clamp(32px,5vw,88px); }
+.mega-left { display: flex; flex-direction: column; justify-content: space-between; min-height: 0; }
+.mega-links { display: flex; flex-direction: column; border-top: 1px solid rgba(243,242,242,0.16); }
+.mega-links a { display: flex; align-items: baseline; gap: 18px; padding: 14px 0; border-bottom: 1px solid rgba(243,242,242,0.16); font-family: var(--font-heading); font-weight: 400; font-size: clamp(18px,1.82vw,26.6px); line-height: 1.1; color: rgba(243,242,242,0.6); text-decoration: none; transition: color .2s, padding-left .25s; }
+.mega-links a span { font-size: 15px; color: var(--color-accent); font-feature-settings: 'tnum' 1; min-width: 28px; }
+.mega-links a.active, .mega-links a:hover { color: #f3f2f2; padding-left: 8px; }
+.mega-right { position: relative; min-height: 0; }
+.mega-panel { position: absolute; inset: 0; display: flex; flex-direction: column; gap: 22px; opacity: 0; transition: opacity .35s ease; pointer-events: none; }
+.mega-panel.active { opacity: 1; pointer-events: auto; }
+.mega-panel h3 { font-family: var(--font-heading); font-weight: 400; font-size: clamp(26px,2.4vw,36px); line-height: 1.1; margin: 0 0 8px; color: #f3f2f2; }
+.mega-panel p { font-size: 16px; line-height: 1.6; margin: 0; max-width: 54ch; color: rgba(243,242,242,0.8); }
+.mega-panel .ph { flex: 1; min-height: 0; border: 1px solid rgba(182,130,53,0.6); padding: 6px; }
+.mega-panel .ph img { width: 100%; height: 100%; object-fit: cover; }
+.nav-links a.primene-open { color: var(--color-accent); }
+@media (max-width: 860px) { .mega { display: none; } }
+html { overflow-x: clip; }
+.ss-arrow { position: absolute; top: 50%; width: 46px; height: 46px; margin-top: -23px; display: flex; align-items: center; justify-content: center; border-radius: 50%; border: 1px solid var(--color-accent); background: color-mix(in srgb, #161616 55%, transparent); color: #f3f2f2; cursor: pointer; opacity: 0; transition: opacity .25s, background .2s; z-index: 2; }
+.ss-prev { left: 16px; } .ss-next { right: 16px; }
+.ss:hover .ss-arrow, .ss-arrow:focus-visible { opacity: 1; }
+.ss-arrow:hover { background: color-mix(in srgb, var(--color-accent) 35%, #161616); }
+.ss-arrow:active { background: var(--color-accent-600); }
+@media (hover: none) { .ss-arrow { opacity: 1; } }
+.bleed-l, .bleed-r { --gut: calc(max((100vw - 1200px) / 2, 0px) + clamp(20px, 5vw, 72px) - 24px); --bl: min(25%, var(--gut)); }
+.bleed-l { width: calc(100% + var(--bl)); margin-left: calc(-1 * var(--bl)) !important; }
+.bleed-r { width: calc(100% + var(--bl)); }
+@media (max-width: 860px) { .bleed-l, .bleed-r { width: auto; margin-left: 0 !important; } }
+
+.mat{border-top:1px solid var(--color-divider);}
+.mat-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:clamp(28px,3.5vw,56px);padding:clamp(48px,6vw,88px) clamp(20px,4vw,56px);align-items:stretch;}
+.mat-q{font-family:var(--font-heading);font-style:italic;font-weight:400;font-size:clamp(24px,2.2vw,31px);line-height:1.22;margin:26px 0 18px;text-wrap:pretty;}
+.mat-t{font-size:12.5px;letter-spacing:0.12em;line-height:1.85;text-transform:uppercase;margin:0;color:color-mix(in srgb,var(--color-text) 72%,transparent);text-wrap:pretty;}
+.mg{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));grid-template-rows:repeat(4,minmax(0,1fr));gap:12px;height:clamp(510px,44.2vw,697px);align-self:start;}
+.mg-item{position:relative;overflow:hidden;cursor:zoom-in;margin:0;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);background:var(--color-surface);}
+.mg-item img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:sepia(0.22) saturate(0.82) contrast(1.05);transition:transform .8s cubic-bezier(.2,.7,.2,1);}
+.mg-item:hover img{transform:scale(1.045);}
+.mg-ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:repeating-linear-gradient(135deg,var(--color-neutral-200) 0 10px,var(--color-neutral-100) 10px 20px);font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:var(--color-neutral-700);}
+.mg-5 .mg-item:nth-child(1){grid-area:1/1/3/5}.mg-5 .mg-item:nth-child(2){grid-area:1/5/2/7}.mg-5 .mg-item:nth-child(3){grid-area:2/5/3/7}.mg-5 .mg-item:nth-child(4){grid-area:3/1/5/3}.mg-5 .mg-item:nth-child(5){grid-area:3/3/5/7}
+.mg-4 .mg-item:nth-child(1){grid-area:1/1/3/4}.mg-4 .mg-item:nth-child(2){grid-area:1/4/3/7}.mg-4 .mg-item:nth-child(3){grid-area:3/1/5/3}.mg-4 .mg-item:nth-child(4){grid-area:3/3/5/7}
+.mg-3 .mg-item:nth-child(1){grid-area:1/1/5/4}.mg-3 .mg-item:nth-child(2){grid-area:1/4/3/7}.mg-3 .mg-item:nth-child(3){grid-area:3/4/5/7}
+.mg-7 .mg-item:nth-child(1){grid-area:1/1/3/4}.mg-7 .mg-item:nth-child(2){grid-area:1/4/2/7}.mg-7 .mg-item:nth-child(3){grid-area:2/4/3/7}.mg-7 .mg-item:nth-child(4){grid-area:3/1/5/3}.mg-7 .mg-item:nth-child(5){grid-area:3/3/4/5}.mg-7 .mg-item:nth-child(6){grid-area:4/3/5/5}.mg-7 .mg-item:nth-child(7){grid-area:3/5/5/7}
+.mg-6 .mg-item:nth-child(1){grid-area:1/1/3/4}.mg-6 .mg-item:nth-child(2){grid-area:1/4/2/7}.mg-6 .mg-item:nth-child(3){grid-area:2/4/3/7}.mg-6 .mg-item:nth-child(4){grid-area:3/1/5/3}.mg-6 .mg-item:nth-child(5){grid-area:3/3/5/5}.mg-6 .mg-item:nth-child(6){grid-area:3/5/5/7}
+.lb{position:fixed;inset:0;z-index:80;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb,#161616 20%,transparent);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);opacity:0;visibility:hidden;transition:opacity .3s ease,visibility 0s linear .3s;}
+.lb.open{opacity:1;visibility:visible;transition:opacity .3s ease;}
+.lb-stage{display:flex;flex-direction:column;gap:14px;transform:scale(.94);transition:transform .35s cubic-bezier(.2,.7,.2,1);}
+.lb.open .lb-stage{transform:none;}
+.lb-frame{width:60vw;border:6px solid var(--color-surface);outline:1px solid rgba(182,130,53,0.6);background:var(--color-surface);box-shadow:var(--shadow-lg);}
+.lb-frame img{width:100%;height:auto;max-height:76vh;object-fit:contain;display:block;transition:opacity .25s;}
+.lb-frame .mg-ph{height:40vw;max-height:76vh;font-size:14px;}
+.lb-cap{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--font-heading);font-size:20px;color:var(--color-text);}
+.lb-cap span:last-child{font-size:15px;font-feature-settings:'tnum' 1;color:var(--color-accent-700);}
+.lb-arrow,.lb-close{position:absolute;width:52px;height:52px;display:flex;align-items:center;justify-content:center;border-radius:50%;border:1px solid var(--color-accent);background:color-mix(in srgb,#161616 55%,transparent);color:#f3f2f2;cursor:pointer;transition:background .2s;}
+.lb-arrow{top:50%;margin-top:-26px;}.lb-prev{left:calc(20vw - 84px);}.lb-next{right:calc(20vw - 84px);}
+.lb-close{top:24px;right:24px;width:44px;height:44px;}
+.lb-arrow:hover,.lb-close:hover{background:color-mix(in srgb,var(--color-accent) 35%,#161616);}
+.lb-arrow:active,.lb-close:active{background:var(--color-accent-600);}
+@media (max-width:980px){.mat-grid{grid-template-columns:1fr;}.mat-side{max-width:560px;}}
+@media (max-width:640px){.mg{height:auto;grid-template-columns:1fr 1fr;grid-template-rows:none;grid-auto-rows:170px;}.mg .mg-item:nth-child(n){grid-area:auto;}.mg .mg-item:first-child{grid-column:1/3;grid-row:span 2;}.lb-frame{width:92vw;}.lb-prev{left:8px;}.lb-next{right:8px;}.lb-arrow{top:auto;bottom:24px;margin:0;}}
+
+@media (max-width:1080px){.nav-links{display:none !important}.nav-toggle{display:inline-flex !important;align-items:center;justify-content:center}.mega{display:none !important}}
+</style>
+</head>
+<body>
+
+<nav class="nav" style="position:fixed;top:0;left:0;right:0;z-index:50;background:color-mix(in srgb, var(--color-bg) 25%, transparent);backdrop-filter:saturate(1.1) blur(6px);padding-inline:clamp(20px,5vw,72px);">
+  <a href="index.html#vrh" style="margin-right:auto;display:flex;align-items:center;"><img src="images/logo-coherence.png" alt="Coherence Group" style="height:48px;width:auto;display:block;"></a>
+  <div class="nav-links">
+    <a href="o-nama.html">O nama</a>
+    <a href="kolekcija.html" aria-current="page">Kolekcija</a>
+    <a href="index.html#primene" id="primeneLink" aria-haspopup="true" aria-expanded="false">Primene</a>
+    <a href="izdvajamo.html" id="izdvajamoLink" aria-haspopup="true" aria-expanded="false">Izdvajamo</a>
+    <a href="index.html#kontakt">Kontakt</a>
+    <a href="index.html#kontakt" class="btn btn-primary" style="text-decoration:none;">Zatraži ponudu</a>
+  </div>
+  <div class="nav-links lang-sw" style="gap:2px;border:1px solid var(--color-divider);border-radius:var(--radius-md);padding:2px;margin-left:clamp(10px,1.4vw,20px);"><a href="kolekcija.html" hreflang="sr" lang="sr" aria-current="true" style="font-size:12px;letter-spacing:0.1em;padding:5px 8px;border-radius:var(--radius-sm);text-decoration:none;color:var(--color-accent);box-shadow:inset 0 0 0 1px var(--color-accent);">SR</a><a href="en/kolekcija.html" hreflang="en" lang="en" style="font-size:12px;letter-spacing:0.1em;padding:5px 8px;border-radius:var(--radius-sm);text-decoration:none;color:inherit;">EN</a><a href="ru/kolekcija.html" hreflang="ru" lang="ru" style="font-size:12px;letter-spacing:0.1em;padding:5px 8px;border-radius:var(--radius-sm);text-decoration:none;color:inherit;">RU</a></div>
+  <button type="button" class="nav-toggle" aria-label="Otvori meni" onclick="toggleMenu()">
+    <svg id="iconOpen" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    <svg id="iconClose" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" style="display:none;"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+</nav>
+
+<div class="mega" id="megaMenu">
+  <div class="mega-inner">
+    <div class="mega-left">
+      <div>
+        <span style="display:block;font-size:13px;letter-spacing:0.14em;text-transform:uppercase;color:var(--color-accent-300);margin-bottom:14px;">Primene</span>
+        <h2 style="font-family:var(--font-heading);font-weight:400;font-size:clamp(36px,4vw,60px);line-height:1.05;letter-spacing:-0.01em;margin:0;color:#f3f2f2;max-width:10ch;">Prostor u četiri čina</h2>
+      </div>
+      <nav class="mega-links">
+        <a href="kupatilo.html" data-key="kupatilo" class="active">Kupatilo</a>
+        <a href="kuhinja.html" data-key="kuhinja">Kuhinja</a>
+        <a href="ambijent.html" data-key="ambijent">Ambijent</a>
+        <a href="detalj.html" data-key="detalj">Detalj</a>
+      </nav>
+    </div>
+    <div class="mega-right">
+      <div class="mega-panel active" data-key="kupatilo">
+        <div><h3>Trenutak samo za sebe</h3><p>Kvarc unosi mir i eleganciju u prostor svakodnevnih rituala</p></div>
+        <div class="ph"><img src="images/meni-kupatilo.jpg" alt="Kupatilo"></div>
+      </div>
+      <div class="mega-panel" data-key="kuhinja">
+        <div><h3>Srce doma ima svoju scenu</h3><p>Površina na kojoj se susreću ukusi, razgovori i trenuci za pamćenje</p></div>
+        <div class="ph"><img src="images/meni-kuhinja.jpg" alt="Kuhinja"></div>
+      </div>
+      <div class="mega-panel" data-key="ambijent">
+        <div><h3>Prostor dobija karakter</h3><p>Kvarc daje enterijeru ritam, dubinu i prepoznatljiv izraz</p></div>
+        <div class="ph"><img src="images/meni-ambijent.jpg" alt="Ambijent"></div>
+      </div>
+      <div class="mega-panel" data-key="detalj">
+        <div><h3>Završni akord prostora</h3><p>Ponekad je jedan pažljivo oblikovan detalj dovoljan da zaokruži celu priču.</p></div>
+        <div class="ph"><img src="images/meni-detalj.jpg" alt="Detalj"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="mega" id="megaMenu2">
+  <div class="mega-inner">
+    <div class="mega-left">
+      <div>
+        <span style="display:block;font-size:13px;letter-spacing:0.14em;text-transform:uppercase;color:var(--color-accent-300);margin-bottom:14px;">Izdvajamo</span>
+        <h2 style="font-family:var(--font-heading);font-weight:400;font-size:clamp(36px,4vw,60px);line-height:1.05;letter-spacing:-0.01em;margin:0;color:#f3f2f2;max-width:10ch;">Od ideje do arhitekture</h2>
+      </div>
+      <nav class="mega-links">
+        <a href="secenje.html" data-key="secenje" class="active">Usluge sečenja</a>
+        <a href="projekti.html" data-key="projekti">Projekti na zgradama</a>
+      </nav>
+    </div>
+    <div class="mega-right">
+      <div class="mega-panel active" data-key="secenje">
+        <div><h3>Preciznost u svakom rezu</h3><p>Kvarcne ploče sečemo po meri, kako bi se svaki element skladno uklopio u zamišljeni prostor</p></div>
+        <div class="ph"><img src="images/meni-secenje.jpg" alt="Usluge sečenja"></div>
+      </div>
+      <div class="mega-panel" data-key="projekti">
+        <div><h3>Arhitektura koja ostavlja utisak</h3><p>Otkrijte kako kvarcne obloge daju zgradama prepoznatljiv karakter i trajnu eleganciju</p></div>
+        <div class="ph"><img src="images/meni-projekti.jpg" alt="Projekti na zgradama"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="mobileMenu" style="position:fixed;top:65px;left:0;right:0;z-index:49;background:var(--color-bg);border-bottom:1px solid var(--color-divider);box-shadow:var(--shadow-md);padding:12px clamp(20px,5vw,72px) 24px;">
+  <div style="display:flex;gap:4px;padding:6px 0 10px;border-bottom:1px solid var(--color-divider);"><a href="kolekcija.html" hreflang="sr" lang="sr" aria-current="true" style="font-size:12px;letter-spacing:0.1em;padding:5px 8px;border-radius:var(--radius-sm);text-decoration:none;color:var(--color-accent);box-shadow:inset 0 0 0 1px var(--color-accent);">SR</a><a href="en/kolekcija.html" hreflang="en" lang="en" style="font-size:12px;letter-spacing:0.1em;padding:5px 8px;border-radius:var(--radius-sm);text-decoration:none;color:inherit;">EN</a><a href="ru/kolekcija.html" hreflang="ru" lang="ru" style="font-size:12px;letter-spacing:0.1em;padding:5px 8px;border-radius:var(--radius-sm);text-decoration:none;color:inherit;">RU</a></div>
+  <a href="o-nama.html" onclick="closeMenu()" style="display:block;font-family:var(--font-heading);font-size:20px;color:var(--color-text);text-decoration:none;padding:14px 0;border-bottom:1px solid var(--color-divider);">O nama</a>
+  <a href="kolekcija.html" onclick="closeMenu()" style="display:block;font-family:var(--font-heading);font-size:20px;color:var(--color-text);text-decoration:none;padding:14px 0;border-bottom:1px solid var(--color-divider);">Kolekcija</a>
+  <a href="index.html#primene" onclick="closeMenu()" style="display:block;font-family:var(--font-heading);font-size:20px;color:var(--color-text);text-decoration:none;padding:14px 0 6px;">Primene</a>
+  <a href="kupatilo.html" onclick="closeMenu()" style="display:block;font-family:var(--font-heading);font-size:17px;color:var(--color-text);text-decoration:none;padding:9px 0 9px 18px;">Kupatilo</a>
+  <a href="kuhinja.html" onclick="closeMenu()" style="display:block;font-family:var(--font-heading);font-size:17px;color:var(--color-text);text-decoration:none;padding:9px 0 9px 18px;">Kuhinja</a>
+  <a href="ambijent.html" onclick="closeMenu()" style="display:block;font-family:var(--font-heading);font-size:17px;color:var(--color-text);text-decoration:none;padding:9px 0 9px 18px;">Ambijent</a>
+  <a href="detalj.html" onclick="closeMenu()" style="display:block;font-family:var(--font-heading);font-size:17px;color:var(--color-text);text-decoration:none;padding:9px 0 9px 18px;">Detalj</a>
+  <div style="border-bottom:1px solid var(--color-divider);margin-top:6px;"></div>
+  <a href="izdvajamo.html" onclick="closeMenu()" style="display:block;font-family:var(--font-heading);font-size:20px;color:var(--color-text);text-decoration:none;padding:14px 0 6px;">Izdvajamo</a>
+  <a href="secenje.html" onclick="closeMenu()" style="display:block;font-family:var(--font-heading);font-size:17px;color:var(--color-text);text-decoration:none;padding:9px 0 9px 18px;">Usluge sečenja</a>
+  <a href="projekti.html" onclick="closeMenu()" style="display:block;font-family:var(--font-heading);font-size:17px;color:var(--color-text);text-decoration:none;padding:9px 0 9px 18px;">Projekti na zgradama</a>
+  <div style="border-bottom:1px solid var(--color-divider);margin-top:6px;"></div>
+  <a href="index.html#kontakt" onclick="closeMenu()" style="display:block;font-family:var(--font-heading);font-size:20px;color:var(--color-text);text-decoration:none;padding:14px 0;border-bottom:1px solid var(--color-divider);">Kontakt</a>
+  <a href="index.html#kontakt" onclick="closeMenu()" class="btn btn-primary btn-block" style="text-decoration:none;margin-top:18px;">Zatraži ponudu</a>
+</div>
+
+
+<section id="vrh" style="position:relative;width:100%;min-height:88vh;display:flex;align-items:flex-end;overflow:hidden;background:#201f1d url('images/kolekcija-hero.jpg') center/cover no-repeat;">
+  <div style="position:absolute;inset:0;background:linear-gradient(0deg, rgba(22,20,17,0.85) 0%, rgba(22,20,17,0.35) 55%, rgba(22,20,17,0.1) 100%);"></div>
+  <div style="position:relative;z-index:1;max-width:1200px;width:100%;margin:0 auto;padding:0 clamp(20px,5vw,72px) clamp(56px,8vw,104px);">
+    <div style="max-width:780px;">
+      <span style="display:block;font-size:13px;letter-spacing:0.2em;text-transform:uppercase;color:var(--color-accent-300);margin-bottom:22px;">Kolekcija</span>
+      <h1 style="font-family:var(--font-heading);font-weight:400;font-size:clamp(44px,6.2vw,88px);line-height:1.04;letter-spacing:-0.01em;margin:0;color:#f8f4f4;">Materijali koji oblikuju prostor</h1>
+      <p style="font-size:clamp(17px,1.5vw,20px);line-height:1.6;max-width:54ch;margin:26px 0 0;color:color-mix(in srgb, #f8f4f4 88%, transparent);">Svaki dekor nosi sopstveni karakter, od mlečno belih do duboko sivih tonova, i svaki je već pronašao svoje mesto u stvarnim prostorima.</p>
+    </div>
+  </div>
+</section>
+
+<section style="background:#161616;color:#f3f2f2;"><div style="max-width:1200px;margin:0 auto;padding:clamp(64px,9vw,120px) clamp(20px,5vw,72px);">
+  <div style="text-align:center;margin-bottom:clamp(36px,5vw,64px);">
+    <h2 style="font-family:var(--font-heading);font-weight:400;font-size:clamp(30px,3.6vw,46px);line-height:1.1;letter-spacing:-0.01em;margin:0;color:var(--color-accent-400);">Srž prostora koji traje</h2>
+  </div>
+  <div class="about-grid" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,5vw,80px);align-items:start;">
+    <p style="font-size:16.5px;line-height:1.7;margin:0;text-align:justify;hyphens:auto;color:rgba(243,242,242,0.82);">Kvarc je mnogo više od lepog lica – to je srž prostora koji traje. Kao jedan od najčvršćih prirodnih materijala, kvarc pruža <strong style="font-weight:600;">izuzetnu otpornost na habanje, ogrebotine i toplotu</strong>, što ga čini idealnim izborom za kuhinje, kupatila, podove, zidove i nameštaj. Njegova površina <strong style="font-weight:600;">ne upija tečnosti</strong>, laka je za održavanje i zadržava svoju lepotu godinama bez potrebe za dodatnim tretmanima. Kada birate kvarc, birate spoj snage, estetike i funkcionalnosti koji svakodnevni život čini jednostavnijim i otmenijim.</p>
+    <p style="font-size:16.5px;line-height:1.7;margin:0;text-align:justify;hyphens:auto;color:rgba(243,242,242,0.82);">U poređenju sa prirodnim kamenom poput mermera ili granita, kvarc nudi sličnu eleganciju, ali uz <strong style="font-weight:600;">niže troškove i veću postojanost</strong>. Njegova fabrička obrada omogućava preciznu kontrolu boja, šara i tekstura, što pruža neograničene mogućnosti za dizajn. Bez nepredvidivih pukotina i <strong style="font-weight:600;">bez potrebe za impregnacijom</strong>, kvarcne ploče su racionalan izbor i za domaćinstva i za komercijalne prostore. Savremen, pouzdan i pristupačan – kvarc je materijal budućnosti, dostupan već danas.</p>
+  </div>
+</div>
+</section>
+
+<section class="mat" id="amore" data-name="Amore" style="background:var(--color-bg);">
+  <div class="mat-grid">
+    <div class="mat-side">
+      <div style="display:flex;align-items:flex-start;gap:clamp(12px,1.4vw,20px);container-type:inline-size;">
+        <figure style="flex:0 0 66.667%;filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);margin:0;"><div class="zoom" style="overflow:hidden;aspect-ratio:1/1;cursor:zoom-in;"><img src="images/decor-amore-xl.jpg" alt="Dekor Amore" style="transition:transform .6s cubic-bezier(.2,.7,.2,1);transform-origin:50% 50%;width:100%;aspect-ratio:1/1;object-fit:cover;"></div></figure>
+        <div style="min-width:0;padding-top:2px;"><h2 style="font-family:var(--font-heading);font-weight:400;font-size:clamp(13px,4.4cqi,38px);line-height:1;letter-spacing:0.02em;margin:0;white-space:nowrap;text-transform:uppercase;">Amore</h2><span style="font-family:var(--font-heading);font-style:italic;font-size:clamp(13px,3.6cqi,22px);color:var(--color-accent-700);display:block;margin-top:6px;white-space:nowrap;">Strast</span></div>
+      </div>
+      <div style="height:1px;background:var(--color-divider);margin-top:24px;"></div>
+      <p class="mat-q">„U toplim tonovima i nežnim šarama, Amore unosi emociju u svaki prostor“</p>
+      <p class="mat-t">Mlečno bela baza prožeta najmekšim potezima zemljanih žilica polako se kovitlajući u kamen koji zrači prozirnim sjajem</p>
+      <a href="index.html#kontakt" class="btn btn-primary" style="text-decoration:none;margin-top:28px;">Pošaljite upit za Amore</a>
+    </div>
+    <div class="mg mg-5"><figure class="mg-item" data-ph="Fotografija 1"><div class="mg-ph">Fotografija 1</div></figure><figure class="mg-item" data-ph="Fotografija 2"><div class="mg-ph">Fotografija 2</div></figure><figure class="mg-item" data-ph="Fotografija 3"><div class="mg-ph">Fotografija 3</div></figure><figure class="mg-item" data-ph="Fotografija 4"><div class="mg-ph">Fotografija 4</div></figure><figure class="mg-item" data-ph="Fotografija 5"><div class="mg-ph">Fotografija 5</div></figure></div>
+  </div>
+</section>
+
+<section class="mat" id="figaro" data-name="Figaro" style="background:var(--color-surface);">
+  <div class="mat-grid">
+    <div class="mat-side">
+      <div style="display:flex;align-items:flex-start;gap:clamp(12px,1.4vw,20px);container-type:inline-size;">
+        <figure style="flex:0 0 66.667%;filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);margin:0;"><div class="zoom" style="overflow:hidden;aspect-ratio:1/1;cursor:zoom-in;"><img src="images/decor-figaro-xl.jpg" alt="Dekor Figaro" style="transition:transform .6s cubic-bezier(.2,.7,.2,1);transform-origin:50% 50%;width:100%;aspect-ratio:1/1;object-fit:cover;"></div></figure>
+        <div style="min-width:0;padding-top:2px;"><h2 style="font-family:var(--font-heading);font-weight:400;font-size:clamp(13px,4.4cqi,38px);line-height:1;letter-spacing:0.02em;margin:0;white-space:nowrap;text-transform:uppercase;">Figaro</h2><span style="font-family:var(--font-heading);font-style:italic;font-size:clamp(13px,3.6cqi,22px);color:var(--color-accent-700);display:block;margin-top:6px;white-space:nowrap;">Karakter</span></div>
+      </div>
+      <div style="height:1px;background:var(--color-divider);margin-top:24px;"></div>
+      <p class="mat-q">„Smela i izražajna, Figaro kolekcija dominira stilom i samopouzdanjem“</p>
+      <p class="mat-t">Glatka siva kamena ploča obogaćena porastom teksturom sa kredasto belim venama u mermernom dizajnu</p>
+      <a href="index.html#kontakt" class="btn btn-primary" style="text-decoration:none;margin-top:28px;">Pošaljite upit za Figaro</a>
+    </div>
+    <div class="mg mg-4"><figure class="mg-item" data-src="images/figaro-2.jpg"><img src="images/figaro-2.jpg" alt="Figaro — primena 1" loading="lazy"></figure><figure class="mg-item" data-src="images/figaro-1.jpg"><img src="images/figaro-1.jpg" alt="Figaro — primena 2" loading="lazy"></figure><figure class="mg-item" data-src="images/figaro-3.jpg"><img src="images/figaro-3.jpg" alt="Figaro — primena 3" loading="lazy"></figure><figure class="mg-item" data-src="images/figaro-4.jpg"><img src="images/figaro-4.jpg" alt="Figaro — primena 4" loading="lazy"></figure></div>
+  </div>
+</section>
+<section class="mat" id="serenade" data-name="Serenade" style="background:var(--color-bg);">
+  <div class="mat-grid">
+    <div class="mat-side">
+      <div style="display:flex;align-items:flex-start;gap:clamp(12px,1.4vw,20px);container-type:inline-size;">
+        <figure style="flex:0 0 66.667%;filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);margin:0;"><div class="zoom" style="overflow:hidden;aspect-ratio:1/1;cursor:zoom-in;"><img src="images/decor-serenade-xl.jpg" alt="Dekor Serenade" style="transition:transform .6s cubic-bezier(.2,.7,.2,1);transform-origin:50% 50%;width:100%;aspect-ratio:1/1;object-fit:cover;"></div></figure>
+        <div style="min-width:0;padding-top:2px;"><h2 style="font-family:var(--font-heading);font-weight:400;font-size:clamp(13px,4.4cqi,38px);line-height:1;letter-spacing:0.02em;margin:0;white-space:nowrap;text-transform:uppercase;">Serenade</h2><span style="font-family:var(--font-heading);font-style:italic;font-size:clamp(13px,3.6cqi,22px);color:var(--color-accent-700);display:block;margin-top:6px;white-space:nowrap;">Harmonija</span></div>
+      </div>
+      <div style="height:1px;background:var(--color-divider);margin-top:24px;"></div>
+      <p class="mat-q">„Sa savršenim balansom boja i tekstura, Serenade donosi mir i eleganciju“</p>
+      <p class="mat-t">Nežna boja kajsije prošarana delikatnim beličastim venama uneće razdraganost i živost u vašu prostoriju</p>
+      <a href="index.html#kontakt" class="btn btn-primary" style="text-decoration:none;margin-top:28px;">Pošaljite upit za Serenade</a>
+    </div>
+    <div class="mg mg-4"><figure class="mg-item" data-src="images/serenade-1.jpg"><img src="images/serenade-1.jpg" alt="Serenade — primena 1" loading="lazy"></figure><figure class="mg-item" data-src="images/serenade-2.jpg"><img src="images/serenade-2.jpg" alt="Serenade — primena 2" loading="lazy"></figure><figure class="mg-item" data-src="images/serenade-3.jpg"><img src="images/serenade-3.jpg" alt="Serenade — primena 3" loading="lazy"></figure><figure class="mg-item" data-src="images/serenade-4.jpg"><img src="images/serenade-4.jpg" alt="Serenade — primena 4" loading="lazy"></figure></div>
+  </div>
+</section>
+<section class="mat" id="spring" data-name="Spring" style="background:var(--color-surface);">
+  <div class="mat-grid">
+    <div class="mat-side">
+      <div style="display:flex;align-items:flex-start;gap:clamp(12px,1.4vw,20px);container-type:inline-size;">
+        <figure style="flex:0 0 66.667%;filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);margin:0;"><div class="zoom" style="overflow:hidden;aspect-ratio:1/1;cursor:zoom-in;"><img src="images/decor-spring-xl.jpg" alt="Dekor Spring" style="transition:transform .6s cubic-bezier(.2,.7,.2,1);transform-origin:50% 50%;width:100%;aspect-ratio:1/1;object-fit:cover;"></div></figure>
+        <div style="min-width:0;padding-top:2px;"><h2 style="font-family:var(--font-heading);font-weight:400;font-size:clamp(13px,4.4cqi,38px);line-height:1;letter-spacing:0.02em;margin:0;white-space:nowrap;text-transform:uppercase;">Spring</h2><span style="font-family:var(--font-heading);font-style:italic;font-size:clamp(13px,3.6cqi,22px);color:var(--color-accent-700);display:block;margin-top:6px;white-space:nowrap;">Svežina</span></div>
+      </div>
+      <div style="height:1px;background:var(--color-divider);margin-top:24px;"></div>
+      <p class="mat-q">„Inspirisana prirodom, Spring osvežava enterijer prozračnošću i lakoćom“</p>
+      <p class="mat-t">Snežno beli kamen sa nežnim obrisima od uglja koji ostavljaju svoj trag u vremenu</p>
+      <a href="index.html#kontakt" class="btn btn-primary" style="text-decoration:none;margin-top:28px;">Pošaljite upit za Spring</a>
+    </div>
+    <div class="mg mg-6"><figure class="mg-item" data-src="images/spring-2.jpg"><img src="images/spring-2.jpg" alt="Spring — primena 2" loading="lazy"></figure><figure class="mg-item" data-src="images/spring-3.jpg"><img src="images/spring-3.jpg" alt="Spring — primena 3" loading="lazy"></figure><figure class="mg-item" data-src="images/spring-4.jpg"><img src="images/spring-4.jpg" alt="Spring — primena 4" loading="lazy"></figure><figure class="mg-item" data-src="images/spring-5.jpg"><img src="images/spring-5.jpg" alt="Spring — primena 5" loading="lazy"></figure><figure class="mg-item" data-src="images/spring-6.jpg"><img src="images/spring-6.jpg" alt="Spring — primena 6" loading="lazy"></figure><figure class="mg-item" data-src="images/spring-7.jpg"><img src="images/spring-7.jpg" alt="Spring — primena 7" loading="lazy"></figure></div>
+  </div>
+</section>
+<section class="mat" id="aida" data-name="Aida" style="background:var(--color-bg);">
+  <div class="mat-grid">
+    <div class="mat-side">
+      <div style="display:flex;align-items:flex-start;gap:clamp(12px,1.4vw,20px);container-type:inline-size;">
+        <figure style="flex:0 0 66.667%;filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);margin:0;"><div class="zoom" style="overflow:hidden;aspect-ratio:1/1;cursor:zoom-in;"><img src="images/decor-aida-xl.jpg" alt="Dekor Aida" style="transition:transform .6s cubic-bezier(.2,.7,.2,1);transform-origin:50% 50%;width:100%;aspect-ratio:1/1;object-fit:cover;"></div></figure>
+        <div style="min-width:0;padding-top:2px;"><h2 style="font-family:var(--font-heading);font-weight:400;font-size:clamp(13px,4.4cqi,38px);line-height:1;letter-spacing:0.02em;margin:0;white-space:nowrap;text-transform:uppercase;">Aida</h2><span style="font-family:var(--font-heading);font-style:italic;font-size:clamp(13px,3.6cqi,22px);color:var(--color-accent-700);display:block;margin-top:6px;white-space:nowrap;">Rafinesa</span></div>
+      </div>
+      <div style="height:1px;background:var(--color-divider);margin-top:24px;"></div>
+      <p class="mat-q">„Klasična i otmena, Aida oplemenjuje prostor suptilnom grandioznošću“</p>
+      <p class="mat-t">Najčistija bela razlivena u toplim sunčevim zracima preko cele površine, prožeta najfinijom peskovitom teksturom</p>
+      <a href="index.html#kontakt" class="btn btn-primary" style="text-decoration:none;margin-top:28px;">Pošaljite upit za Aida</a>
+    </div>
+    <div class="mg mg-3"><figure class="mg-item" data-src="images/aida-1.jpg"><img src="images/aida-1.jpg" alt="Aida — primena 1" loading="lazy"></figure><figure class="mg-item" data-ph="Fotografija 2"><div class="mg-ph">Fotografija 2</div></figure><figure class="mg-item" data-ph="Fotografija 3"><div class="mg-ph">Fotografija 3</div></figure></div>
+  </div>
+</section>
+<section class="mat" id="boheme" data-name="Boheme" style="background:var(--color-surface);">
+  <div class="mat-grid">
+    <div class="mat-side">
+      <div style="display:flex;align-items:flex-start;gap:clamp(12px,1.4vw,20px);container-type:inline-size;">
+        <figure style="flex:0 0 66.667%;filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);margin:0;"><div class="zoom" style="overflow:hidden;aspect-ratio:1/1;cursor:zoom-in;"><img src="images/decor-boheme-xl.jpg" alt="Dekor Boheme" style="transition:transform .6s cubic-bezier(.2,.7,.2,1);transform-origin:50% 50%;width:100%;aspect-ratio:1/1;object-fit:cover;"></div></figure>
+        <div style="min-width:0;padding-top:2px;"><h2 style="font-family:var(--font-heading);font-weight:400;font-size:clamp(13px,4.4cqi,38px);line-height:1;letter-spacing:0.02em;margin:0;white-space:nowrap;text-transform:uppercase;">Boheme</h2><span style="font-family:var(--font-heading);font-style:italic;font-size:clamp(13px,3.6cqi,22px);color:var(--color-accent-700);display:block;margin-top:6px;white-space:nowrap;">Sloboda</span></div>
+      </div>
+      <div style="height:1px;background:var(--color-divider);margin-top:24px;"></div>
+      <p class="mat-q">„Kreativna i nesputana, Boheme kolekcija govori jezikom umetničke slobode“</p>
+      <p class="mat-t">Čista blistavo bela kvarcna ploča uneće moderan izgled i umirujući ton u vašem domu</p>
+      <a href="index.html#kontakt" class="btn btn-primary" style="text-decoration:none;margin-top:28px;">Pošaljite upit za Boheme</a>
+    </div>
+    <div class="mg mg-3"><figure class="mg-item" data-src="images/boheme-1.jpg"><img src="images/boheme-1.jpg" alt="Boheme — primena 1" loading="lazy"></figure><figure class="mg-item" data-ph="Fotografija 2"><div class="mg-ph">Fotografija 2</div></figure><figure class="mg-item" data-ph="Fotografija 3"><div class="mg-ph">Fotografija 3</div></figure></div>
+  </div>
+</section>
+<section class="mat" id="sonata" data-name="Sonata" style="background:var(--color-bg);">
+  <div class="mat-grid">
+    <div class="mat-side">
+      <div style="display:flex;align-items:flex-start;gap:clamp(12px,1.4vw,20px);container-type:inline-size;">
+        <figure style="flex:0 0 66.667%;filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);margin:0;"><div class="zoom" style="overflow:hidden;aspect-ratio:1/1;cursor:zoom-in;"><img src="images/decor-sonata-xl.jpg" alt="Dekor Sonata" style="transition:transform .6s cubic-bezier(.2,.7,.2,1);transform-origin:50% 50%;width:100%;aspect-ratio:1/1;object-fit:cover;"></div></figure>
+        <div style="min-width:0;padding-top:2px;"><h2 style="font-family:var(--font-heading);font-weight:400;font-size:clamp(13px,4.4cqi,38px);line-height:1;letter-spacing:0.02em;margin:0;white-space:nowrap;text-transform:uppercase;">Sonata</h2><span style="font-family:var(--font-heading);font-style:italic;font-size:clamp(13px,3.6cqi,22px);color:var(--color-accent-700);display:block;margin-top:6px;white-space:nowrap;">Balans</span></div>
+      </div>
+      <div style="height:1px;background:var(--color-divider);margin-top:24px;"></div>
+      <p class="mat-q">„Uz finu ritmiku tonova i tekstura, Sonata unosi sklad u svaki ambijent“</p>
+      <p class="mat-t">Čisti mermerno beli kvarc isprepletan najfinijim zemljanim žilicama koje razigrano sačinjavaju ploču pogodnu za najotmenije prostorije</p>
+      <a href="index.html#kontakt" class="btn btn-primary" style="text-decoration:none;margin-top:28px;">Pošaljite upit za Sonata</a>
+    </div>
+    <div class="mg mg-3"><figure class="mg-item" data-ph="Fotografija 1"><div class="mg-ph">Fotografija 1</div></figure><figure class="mg-item" data-ph="Fotografija 2"><div class="mg-ph">Fotografija 2</div></figure><figure class="mg-item" data-ph="Fotografija 3"><div class="mg-ph">Fotografija 3</div></figure></div>
+  </div>
+</section>
+<section class="mat" id="moonlight" data-name="Moonlight" style="background:var(--color-surface);">
+  <div class="mat-grid">
+    <div class="mat-side">
+      <div style="display:flex;align-items:flex-start;gap:clamp(12px,1.4vw,20px);container-type:inline-size;">
+        <figure style="flex:0 0 66.667%;filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);margin:0;"><div class="zoom" style="overflow:hidden;aspect-ratio:1/1;cursor:zoom-in;"><img src="images/decor-moonlight-xl.jpg" alt="Dekor Moonlight" style="transition:transform .6s cubic-bezier(.2,.7,.2,1);transform-origin:50% 50%;width:100%;aspect-ratio:1/1;object-fit:cover;"></div></figure>
+        <div style="min-width:0;padding-top:2px;"><h2 style="font-family:var(--font-heading);font-weight:400;font-size:clamp(13px,4.4cqi,38px);line-height:1;letter-spacing:0.02em;margin:0;white-space:nowrap;text-transform:uppercase;">Moonlight</h2><span style="font-family:var(--font-heading);font-style:italic;font-size:clamp(13px,3.6cqi,22px);color:var(--color-accent-700);display:block;margin-top:6px;white-space:nowrap;">Misterija</span></div>
+      </div>
+      <div style="height:1px;background:var(--color-divider);margin-top:24px;"></div>
+      <p class="mat-q">„Suptilni odsjaji i tamni tonovi stvaraju atmosferu tišine, elegancije i dubine“</p>
+      <p class="mat-t">Ekspanzivan i nesputan, Moonlight ima osnovu od najdublje crne boje sa reflektujućim srebrnim iskricama koje blistaju poput zvezda na ponoćnom nebu</p>
+      <a href="index.html#kontakt" class="btn btn-primary" style="text-decoration:none;margin-top:28px;">Pošaljite upit za Moonlight</a>
+    </div>
+    <div class="mg mg-3"><figure class="mg-item" data-src="images/moonlight-1.jpg"><img src="images/moonlight-1.jpg" alt="Moonlight — primena 1" loading="lazy"></figure><figure class="mg-item" data-ph="Fotografija 2"><div class="mg-ph">Fotografija 2</div></figure><figure class="mg-item" data-ph="Fotografija 3"><div class="mg-ph">Fotografija 3</div></figure></div>
+  </div>
+</section>
+<section class="mat" id="daphne" data-name="Daphne" style="background:var(--color-bg);">
+  <div class="mat-grid">
+    <div class="mat-side">
+      <div style="display:flex;align-items:flex-start;gap:clamp(12px,1.4vw,20px);container-type:inline-size;">
+        <figure style="flex:0 0 66.667%;filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);margin:0;"><div class="zoom" style="overflow:hidden;aspect-ratio:1/1;cursor:zoom-in;"><img src="images/decor-daphne-xl.jpg" alt="Dekor Daphne" style="transition:transform .6s cubic-bezier(.2,.7,.2,1);transform-origin:50% 50%;width:100%;aspect-ratio:1/1;object-fit:cover;"></div></figure>
+        <div style="min-width:0;padding-top:2px;"><h2 style="font-family:var(--font-heading);font-weight:400;font-size:clamp(13px,4.4cqi,38px);line-height:1;letter-spacing:0.02em;margin:0;white-space:nowrap;text-transform:uppercase;">Daphne</h2><span style="font-family:var(--font-heading);font-style:italic;font-size:clamp(13px,3.6cqi,22px);color:var(--color-accent-700);display:block;margin-top:6px;white-space:nowrap;">Gracioznost</span></div>
+      </div>
+      <div style="height:1px;background:var(--color-divider);margin-top:24px;"></div>
+      <p class="mat-q">„Lagane nijanse i nežne šare unose mekoću i profinjenost u svaki prostor“</p>
+      <p class="mat-t">Simfonija raskoši, sa mekim kaskadnim sivim prugama koje razmućuju kremasto-belu osnovu</p>
+      <a href="index.html#kontakt" class="btn btn-primary" style="text-decoration:none;margin-top:28px;">Pošaljite upit za Daphne</a>
+    </div>
+    <div class="mg mg-3"><figure class="mg-item" data-src="images/daphne-1.jpg"><img src="images/daphne-1.jpg" alt="Daphne — primena 1" loading="lazy"></figure><figure class="mg-item" data-src="images/daphne-2.jpg"><img src="images/daphne-2.jpg" alt="Daphne — primena 2" loading="lazy"></figure><figure class="mg-item" data-ph="Fotografija 3"><div class="mg-ph">Fotografija 3</div></figure></div>
+  </div>
+</section>
+<section class="mat" id="opus" data-name="Opus" style="background:var(--color-surface);">
+  <div class="mat-grid">
+    <div class="mat-side">
+      <div style="display:flex;align-items:flex-start;gap:clamp(12px,1.4vw,20px);container-type:inline-size;">
+        <figure style="flex:0 0 66.667%;filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);margin:0;"><div class="zoom" style="overflow:hidden;aspect-ratio:1/1;cursor:zoom-in;"><img src="images/decor-opus-xl.jpg" alt="Dekor Opus" style="transition:transform .6s cubic-bezier(.2,.7,.2,1);transform-origin:50% 50%;width:100%;aspect-ratio:1/1;object-fit:cover;"></div></figure>
+        <div style="min-width:0;padding-top:2px;"><h2 style="font-family:var(--font-heading);font-weight:400;font-size:clamp(13px,4.4cqi,38px);line-height:1;letter-spacing:0.02em;margin:0;white-space:nowrap;text-transform:uppercase;">Opus</h2><span style="font-family:var(--font-heading);font-style:italic;font-size:clamp(13px,3.6cqi,22px);color:var(--color-accent-700);display:block;margin-top:6px;white-space:nowrap;">Majstorstvo</span></div>
+      </div>
+      <div style="height:1px;background:var(--color-divider);margin-top:24px;"></div>
+      <p class="mat-q">„Snažna struktura i bogatstvo tekstura — Opus je kvarc za velika dela i hrabre vizije“</p>
+      <p class="mat-t">Misteriozno tamna zemljana podloga, obogaćena sitnim mrljama i sedimentima sa velom organskog okera i braonkastog zelenila poput erozije na stenovitom brdu, poboljšana poliranom završnicom</p>
+      <a href="index.html#kontakt" class="btn btn-primary" style="text-decoration:none;margin-top:28px;">Pošaljite upit za Opus</a>
+    </div>
+    <div class="mg mg-3"><figure class="mg-item" data-src="images/opus-1.jpg"><img src="images/opus-1.jpg" alt="Opus — primena 1" loading="lazy"></figure><figure class="mg-item" data-src="images/opus-2.jpg"><img src="images/opus-2.jpg" alt="Opus — primena 2" loading="lazy"></figure><figure class="mg-item" data-ph="Fotografija 3"><div class="mg-ph">Fotografija 3</div></figure></div>
+  </div>
+</section>
+<section class="mat" id="butterfly" data-name="Butterfly" style="background:var(--color-bg);">
+  <div class="mat-grid">
+    <div class="mat-side">
+      <div style="display:flex;align-items:flex-start;gap:clamp(12px,1.4vw,20px);container-type:inline-size;">
+        <figure style="flex:0 0 66.667%;filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);margin:0;"><div class="zoom" style="overflow:hidden;aspect-ratio:1/1;cursor:zoom-in;"><img src="images/decor-butterfly-xl.jpg" alt="Dekor Butterfly" style="transition:transform .6s cubic-bezier(.2,.7,.2,1);transform-origin:50% 50%;width:100%;aspect-ratio:1/1;object-fit:cover;"></div></figure>
+        <div style="min-width:0;padding-top:2px;"><h2 style="font-family:var(--font-heading);font-weight:400;font-size:clamp(13px,4.4cqi,38px);line-height:1;letter-spacing:0.02em;margin:0;white-space:nowrap;text-transform:uppercase;">Butterfly</h2><span style="font-family:var(--font-heading);font-style:italic;font-size:clamp(13px,3.6cqi,22px);color:var(--color-accent-700);display:block;margin-top:6px;white-space:nowrap;">Transformacija</span></div>
+      </div>
+      <div style="height:1px;background:var(--color-divider);margin-top:24px;"></div>
+      <p class="mat-q">„Vedri tonovi i dinamični uzorci donose lakoću, igru svetla i nepredvidivu lepotu“</p>
+      <p class="mat-t">Ploča obasuta živopisnim fragmentima raznobojnih kristala koji obogaćuju svežu belu pozadinu čineći unikatni dizajn</p>
+      <a href="index.html#kontakt" class="btn btn-primary" style="text-decoration:none;margin-top:28px;">Pošaljite upit za Butterfly</a>
+    </div>
+    <div class="mg mg-3"><figure class="mg-item" data-src="images/butterfly-1.jpg"><img src="images/butterfly-1.jpg" alt="Butterfly — primena 1" loading="lazy"></figure><figure class="mg-item" data-src="images/butterfly-2.jpg"><img src="images/butterfly-2.jpg" alt="Butterfly — primena 2" loading="lazy"></figure><figure class="mg-item" data-ph="Fotografija 3"><div class="mg-ph">Fotografija 3</div></figure></div>
+  </div>
+</section>
+<section class="mat" id="elvira" data-name="Elvira" style="background:var(--color-surface);">
+  <div class="mat-grid">
+    <div class="mat-side">
+      <div style="display:flex;align-items:flex-start;gap:clamp(12px,1.4vw,20px);container-type:inline-size;">
+        <figure style="flex:0 0 66.667%;filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);margin:0;"><div class="zoom" style="overflow:hidden;aspect-ratio:1/1;cursor:zoom-in;"><img src="images/decor-elvira-xl.jpg" alt="Dekor Elvira" style="transition:transform .6s cubic-bezier(.2,.7,.2,1);transform-origin:50% 50%;width:100%;aspect-ratio:1/1;object-fit:cover;"></div></figure>
+        <div style="min-width:0;padding-top:2px;"><h2 style="font-family:var(--font-heading);font-weight:400;font-size:clamp(13px,4.4cqi,38px);line-height:1;letter-spacing:0.02em;margin:0;white-space:nowrap;text-transform:uppercase;">Elvira</h2><span style="font-family:var(--font-heading);font-style:italic;font-size:clamp(13px,3.6cqi,22px);color:var(--color-accent-700);display:block;margin-top:6px;white-space:nowrap;">Drama</span></div>
+      </div>
+      <div style="height:1px;background:var(--color-divider);margin-top:24px;"></div>
+      <p class="mat-q">„Tamna elegancija sa snažnim kontrastima, Elvira ostavlja snažan i nezaboravan utisak“</p>
+      <p class="mat-t">Razlomljene grubo zrnaste teksture i mineralni odlomci neutralne boje, na klasičnom sivom platnu</p>
+      <a href="index.html#kontakt" class="btn btn-primary" style="text-decoration:none;margin-top:28px;">Pošaljite upit za Elvira</a>
+    </div>
+    <div class="mg mg-3"><figure class="mg-item" data-src="images/elvira-1.jpg"><img src="images/elvira-1.jpg" alt="Elvira — primena 1" loading="lazy"></figure><figure class="mg-item" data-ph="Fotografija 2"><div class="mg-ph">Fotografija 2</div></figure><figure class="mg-item" data-ph="Fotografija 3"><div class="mg-ph">Fotografija 3</div></figure></div>
+  </div>
+</section>
+
+<section style="background:#161616;color:#f3f2f2;">
+  <div style="max-width:820px;margin:0 auto;padding:clamp(64px,9vw,120px) clamp(20px,5vw,72px);text-align:center;">
+    <span style="display:block;font-size:13px;letter-spacing:0.14em;text-transform:uppercase;color:var(--color-accent-300);margin-bottom:14px;">Upit</span>
+    <h2 style="font-family:var(--font-heading);font-weight:400;font-size:clamp(30px,3.6vw,46px);line-height:1.1;letter-spacing:-0.01em;margin:0 0 28px;color:#f3f2f2;">Pronašli ste svoj materijal?</h2>
+    <p style="font-size:17px;line-height:1.75;color:rgba(243,242,242,0.82);margin:0 0 36px;">Pošaljite nam upit sa nazivom dekora i okvirnim merama. Pomoći ćemo vam da izaberete pravu ploču i pripremićemo ponudu po meri vašeg prostora.</p>
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:14px;">
+      <a href="index.html#kontakt" class="btn btn-primary" style="text-decoration:none;font-size:15px;padding:12px 22px;">Pošaljite upit</a>
+      <a href="index.html#primene" class="btn btn-secondary" style="text-decoration:none;font-size:15px;padding:12px 22px;color:#f3f2f2;border-color:rgba(243,242,242,0.3);">Pogledajte primene</a>
+    </div>
+  </div>
+</section>
+
+<div class="lb" id="lb" aria-hidden="true" role="dialog" aria-label="Galerija">
+  <div class="lb-stage"><div class="lb-frame" id="lbFrame"></div><div class="lb-cap"><span id="lbName"></span><span id="lbCount"></span></div></div>
+  <button type="button" class="lb-arrow lb-prev" id="lbPrev" aria-label="Prethodna fotografija"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+  <button type="button" class="lb-arrow lb-next" id="lbNext" aria-label="Sledeća fotografija"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+  <button type="button" class="lb-close" id="lbClose" aria-label="Zatvori galeriju"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+</div>
+
+<footer style="border-top:1px solid var(--color-divider);background:var(--color-surface);">
+  <div style="max-width:1200px;margin:0 auto;padding:48px clamp(20px,5vw,72px);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:24px;">
+    <img src="images/logo-coherence.png" alt="Coherence Group" style="height:44px;width:auto;">
+    <p style="font-size:13px;line-height:1.6;margin:0;color:color-mix(in srgb, var(--color-text) 62%, transparent);">Kvarcne površine za dom, poslovni prostor i fasade.<br>Dragiše Lapčevića 31, Beograd · kontakt@coherence.rs</p>
+    <span style="font-size:12px;color:color-mix(in srgb, var(--color-text) 55%, transparent);">© 2026 Coherence Group</span>
+  </div>
+</footer>
+
+<script>
+function toggleMenu(){var m=document.getElementById('mobileMenu');var open=m.style.display==='block';m.style.display=open?'none':'block';document.getElementById('iconOpen').style.display=open?'block':'none';document.getElementById('iconClose').style.display=open?'none':'block';}
+function closeMenu(){document.getElementById('mobileMenu').style.display='none';document.getElementById('iconOpen').style.display='block';document.getElementById('iconClose').style.display='none';}
+function submitForm(e){e.preventDefault();document.getElementById('quoteForm').style.display='none';document.getElementById('quoteThanks').style.display='block';return false;}
+(function(){var nav=document.querySelector('nav.nav'),all=[];
+function setup(linkId,megaId){var link=document.getElementById(linkId),mega=document.getElementById(megaId),timer;if(!link||!mega)return;
+var m={hide:function(){clearTimeout(timer);mega.classList.remove('open');link.classList.remove('primene-open');link.setAttribute('aria-expanded','false');}};all.push(m);
+function pos(){mega.style.top=nav.getBoundingClientRect().bottom+'px';}
+function open(){all.forEach(function(x){if(x!==m)x.hide();});clearTimeout(timer);pos();mega.classList.add('open');link.classList.add('primene-open');link.setAttribute('aria-expanded','true');}
+function close(){clearTimeout(timer);timer=setTimeout(m.hide,180);}
+link.addEventListener('mouseenter',open);link.addEventListener('mouseleave',close);
+mega.addEventListener('mouseenter',function(){clearTimeout(timer);});mega.addEventListener('mouseleave',close);
+link.addEventListener('click',function(e){e.preventDefault();if(mega.classList.contains('open'))m.hide();else open();});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')m.hide();});
+window.addEventListener('scroll',function(){if(mega.classList.contains('open'))pos();},{passive:true});
+mega.querySelectorAll('.mega-links a').forEach(function(a){function act(){var k=a.dataset.key;mega.querySelectorAll('.mega-links a').forEach(function(x){x.classList.toggle('active',x===a);});mega.querySelectorAll('.mega-panel').forEach(function(p){p.classList.toggle('active',p.dataset.key===k);});}a.addEventListener('mouseenter',act);a.addEventListener('focus',act);});
+}
+setup('primeneLink','megaMenu');setup('izdvajamoLink','megaMenu2');
+})();
+(function(){var root=document.getElementById('estetikaSlider');if(!root)return;
+var INTERVAL=2300,SPEED=600,DELAY=700;
+var track=root.querySelector('.ss-track'),orig=[].slice.call(track.children),n=orig.length;
+track.insertBefore(orig[n-1].cloneNode(true),orig[0]);track.appendChild(orig[0].cloneNode(true));
+var i=1,timer=null,busy=false,hover=false,started=false;
+function set(anim){track.style.transition=anim?'transform '+SPEED+'ms cubic-bezier(.65,0,.35,1)':'none';track.style.transform='translateX('+(-i*100)+'%)';}
+set(false);
+track.addEventListener('transitionend',function(){busy=false;if(i===n+1){i=1;set(false);}else if(i===0){i=n;set(false);}});
+function go(d){if(busy)return;busy=true;i+=d;set(true);}
+function play(){stop();if(!hover&&started)timer=setInterval(function(){go(1);},INTERVAL);}
+function stop(){clearInterval(timer);timer=null;}
+root.addEventListener('mouseenter',function(){hover=true;stop();});
+root.addEventListener('mouseleave',function(){hover=false;play();});
+root.querySelector('.ss-prev').addEventListener('click',function(){go(-1);});
+root.querySelector('.ss-next').addEventListener('click',function(){go(1);});
+document.addEventListener('visibilitychange',function(){if(document.hidden)stop();else play();});
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&!started){io.disconnect();setTimeout(function(){started=true;play();},DELAY);}});},{threshold:0.35});
+io.observe(root);
+})();
+document.querySelectorAll('.zoom').forEach(function(box){var img=box.querySelector('img');
+function maxScale(){var w=box.clientWidth,h=box.clientHeight;if(!img.naturalWidth)return 1;var fit=Math.max(w/img.naturalWidth,h/img.naturalHeight);return Math.max(1,1/fit);}
+box.addEventListener('mouseenter',function(){img.style.transform='scale('+maxScale()+')';});
+box.addEventListener('mousemove',function(e){var r=box.getBoundingClientRect();img.style.transformOrigin=((e.clientX-r.left)/r.width*100)+'% '+((e.clientY-r.top)/r.height*100)+'%';});
+box.addEventListener('mouseleave',function(){img.style.transform='scale(1)';img.style.transformOrigin='50% 50%';});
+});
+</script>
+<script>
+(function(){var lb=document.getElementById('lb'),frame=document.getElementById('lbFrame'),nameEl=document.getElementById('lbName'),cnt=document.getElementById('lbCount');
+var cur=null,idx=0,lx=0,ly=0,blocked=null;
+document.addEventListener('mousemove',function(e){lx=e.clientX;ly=e.clientY;},{passive:true});
+function render(){var it=cur.items[idx];frame.innerHTML=it.dataset.src?'<img src="'+it.dataset.src+'" alt="'+cur.name+'">':'<div class="mg-ph">'+it.dataset.ph+'</div>';nameEl.textContent=cur.name;cnt.textContent=(idx+1)+' / '+cur.items.length;}
+function open(g,i){cur=g;idx=i;render();lb.classList.add('open');lb.setAttribute('aria-hidden','false');}
+function close(){lb.classList.remove('open');lb.setAttribute('aria-hidden','true');var el=document.elementFromPoint(lx,ly);blocked=el&&el.closest?el.closest('.mg-item'):null;}
+function step(d){if(!cur)return;idx=(idx+d+cur.items.length)%cur.items.length;render();}
+document.querySelectorAll('.mat').forEach(function(sec){var g={name:sec.dataset.name,items:[].slice.call(sec.querySelectorAll('.mg-item'))};
+g.items.forEach(function(it,i){var t;
+it.addEventListener('mouseenter',function(){if(lb.classList.contains('open')||blocked===it)return;t=setTimeout(function(){open(g,i);},380);});
+it.addEventListener('mouseleave',function(){clearTimeout(t);if(blocked===it)blocked=null;});
+it.addEventListener('click',function(){clearTimeout(t);open(g,i);});});});
+document.getElementById('lbPrev').addEventListener('click',function(e){e.stopPropagation();step(-1);});
+document.getElementById('lbNext').addEventListener('click',function(e){e.stopPropagation();step(1);});
+document.getElementById('lbClose').addEventListener('click',close);
+lb.addEventListener('click',function(e){if(e.target===lb)close();});
+document.addEventListener('keydown',function(e){if(!lb.classList.contains('open'))return;if(e.key==='Escape')close();if(e.key==='ArrowLeft')step(-1);if(e.key==='ArrowRight')step(1);});
+})();
+</script>
+<button type="button" id="toTop" aria-label="Povratak na vrh" style="position:fixed;right:clamp(16px,2.5vw,32px);bottom:clamp(16px,2.5vw,32px);z-index:60;width:48px;height:48px;display:flex;align-items:center;justify-content:center;border-radius:50%;border:1px solid var(--color-accent);background:color-mix(in srgb,#161616 72%,transparent);backdrop-filter:blur(6px);color:#f3f2f2;cursor:pointer;box-shadow:var(--shadow-md);opacity:0;visibility:hidden;transform:translateY(12px);transition:opacity .35s ease,transform .35s ease,visibility 0s linear .35s,background .2s;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg></button>
+<script>
+(function(){var b=document.getElementById('toTop');if(!b)return;
+b.addEventListener('mouseenter',function(){b.style.background='color-mix(in srgb,var(--color-accent) 35%,#161616)';});
+b.addEventListener('mouseleave',function(){b.style.background='color-mix(in srgb,#161616 72%,transparent)';});
+b.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+function th(){var s=document.querySelectorAll('body > section, body > main');var nav=document.querySelector('nav.nav');var nh=nav?nav.offsetHeight:0;return s.length>=3?s[2].getBoundingClientRect().top+window.scrollY-nh:window.innerHeight*1.5;}
+var t=th(),on=false;
+function upd(){var show=window.scrollY>=t-2;if(show===on)return;on=show;b.style.opacity=show?'1':'0';b.style.visibility=show?'visible':'hidden';b.style.transform=show?'none':'translateY(12px)';b.style.transition=show?'opacity .35s ease,transform .35s ease,background .2s':'opacity .35s ease,transform .35s ease,visibility 0s linear .35s,background .2s';}
+window.addEventListener('scroll',upd,{passive:true});window.addEventListener('resize',function(){t=th();upd();});window.addEventListener('load',function(){t=th();upd();});upd();
+})();
+</script>
+</body>
+</html>

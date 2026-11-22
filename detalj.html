@@ -309,9 +309,12 @@ html { overflow-x: clip; }
 .ss-arrow:hover { background: color-mix(in srgb, var(--color-accent) 35%, #161616); }
 .ss-arrow:active { background: var(--color-accent-600); }
 @media (hover: none) { .ss-arrow { opacity: 1; } }
-.bleed-l { width: 125%; margin-left: -25% !important; }
-.bleed-r { width: 125%; }
+.bleed-l, .bleed-r { --gut: calc(max((100vw - 1200px) / 2, 0px) + clamp(20px, 5vw, 72px) - 24px); --bl: min(25%, var(--gut)); }
+.bleed-l { width: calc(100% + var(--bl)); margin-left: calc(-1 * var(--bl)) !important; }
+.bleed-r { width: calc(100% + var(--bl)); }
 @media (max-width: 860px) { .bleed-l, .bleed-r { width: auto; margin-left: 0 !important; } }
+
+@media (max-width:1080px){.nav-links{display:none !important}.nav-toggle{display:inline-flex !important;align-items:center;justify-content:center}.mega{display:none !important}}
 </style>
 </head>
 <body>
@@ -319,13 +322,14 @@ html { overflow-x: clip; }
 <nav class="nav" style="position:fixed;top:0;left:0;right:0;z-index:50;background:color-mix(in srgb, var(--color-bg) 25%, transparent);backdrop-filter:saturate(1.1) blur(6px);padding-inline:clamp(20px,5vw,72px);">
   <a href="index.html#vrh" style="margin-right:auto;display:flex;align-items:center;"><img src="images/logo-coherence.png" alt="Coherence Group" style="height:48px;width:auto;display:block;"></a>
   <div class="nav-links">
-    <a href="index.html#o-nama">O nama</a>
-    <a href="index.html#kolekcija">Kolekcija</a>
+    <a href="o-nama.html">O nama</a>
+    <a href="kolekcija.html">Kolekcija</a>
     <a href="index.html#primene" id="primeneLink" aria-haspopup="true" aria-expanded="false">Primene</a>
     <a href="izdvajamo.html" id="izdvajamoLink" aria-haspopup="true" aria-expanded="false">Izdvajamo</a>
     <a href="index.html#kontakt">Kontakt</a>
     <a href="index.html#kontakt" class="btn btn-primary" style="text-decoration:none;">Zatraži ponudu</a>
   </div>
+  <div class="nav-links lang-sw" style="gap:2px;border:1px solid var(--color-divider);border-radius:var(--radius-md);padding:2px;margin-left:clamp(10px,1.4vw,20px);"><a href="detalj.html" hreflang="sr" lang="sr" aria-current="true" style="font-size:12px;letter-spacing:0.1em;padding:5px 8px;border-radius:var(--radius-sm);text-decoration:none;color:var(--color-accent);box-shadow:inset 0 0 0 1px var(--color-accent);">SR</a><a href="en/detalj.html" hreflang="en" lang="en" style="font-size:12px;letter-spacing:0.1em;padding:5px 8px;border-radius:var(--radius-sm);text-decoration:none;color:inherit;">EN</a><a href="ru/detalj.html" hreflang="ru" lang="ru" style="font-size:12px;letter-spacing:0.1em;padding:5px 8px;border-radius:var(--radius-sm);text-decoration:none;color:inherit;">RU</a></div>
   <button type="button" class="nav-toggle" aria-label="Otvori meni" onclick="toggleMenu()">
     <svg id="iconOpen" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
     <svg id="iconClose" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" style="display:none;"><path d="M6 6l12 12M18 6L6 18"/></svg>
@@ -391,8 +395,9 @@ html { overflow-x: clip; }
   </div>
 </div>
 <div id="mobileMenu" style="position:fixed;top:65px;left:0;right:0;z-index:49;background:var(--color-bg);border-bottom:1px solid var(--color-divider);box-shadow:var(--shadow-md);padding:12px clamp(20px,5vw,72px) 24px;">
-  <a href="index.html#o-nama" onclick="closeMenu()" style="display:block;font-family:var(--font-heading);font-size:20px;color:var(--color-text);text-decoration:none;padding:14px 0;border-bottom:1px solid var(--color-divider);">O nama</a>
-  <a href="index.html#kolekcija" onclick="closeMenu()" style="display:block;font-family:var(--font-heading);font-size:20px;color:var(--color-text);text-decoration:none;padding:14px 0;border-bottom:1px solid var(--color-divider);">Kolekcija</a>
+  <div style="display:flex;gap:4px;padding:6px 0 10px;border-bottom:1px solid var(--color-divider);"><a href="detalj.html" hreflang="sr" lang="sr" aria-current="true" style="font-size:12px;letter-spacing:0.1em;padding:5px 8px;border-radius:var(--radius-sm);text-decoration:none;color:var(--color-accent);box-shadow:inset 0 0 0 1px var(--color-accent);">SR</a><a href="en/detalj.html" hreflang="en" lang="en" style="font-size:12px;letter-spacing:0.1em;padding:5px 8px;border-radius:var(--radius-sm);text-decoration:none;color:inherit;">EN</a><a href="ru/detalj.html" hreflang="ru" lang="ru" style="font-size:12px;letter-spacing:0.1em;padding:5px 8px;border-radius:var(--radius-sm);text-decoration:none;color:inherit;">RU</a></div>
+  <a href="o-nama.html" onclick="closeMenu()" style="display:block;font-family:var(--font-heading);font-size:20px;color:var(--color-text);text-decoration:none;padding:14px 0;border-bottom:1px solid var(--color-divider);">O nama</a>
+  <a href="kolekcija.html" onclick="closeMenu()" style="display:block;font-family:var(--font-heading);font-size:20px;color:var(--color-text);text-decoration:none;padding:14px 0;border-bottom:1px solid var(--color-divider);">Kolekcija</a>
   <a href="index.html#primene" onclick="closeMenu()" style="display:block;font-family:var(--font-heading);font-size:20px;color:var(--color-text);text-decoration:none;padding:14px 0 6px;">Primene</a>
   <a href="kupatilo.html" onclick="closeMenu()" style="display:block;font-family:var(--font-heading);font-size:17px;color:var(--color-text);text-decoration:none;padding:9px 0 9px 18px;">Kupatilo</a>
   <a href="kuhinja.html" onclick="closeMenu()" style="display:block;font-family:var(--font-heading);font-size:17px;color:var(--color-text);text-decoration:none;padding:9px 0 9px 18px;">Kuhinja</a>
@@ -551,6 +556,18 @@ box.addEventListener('mouseenter',function(){img.style.transform='scale('+maxSca
 box.addEventListener('mousemove',function(e){var r=box.getBoundingClientRect();img.style.transformOrigin=((e.clientX-r.left)/r.width*100)+'% '+((e.clientY-r.top)/r.height*100)+'%';});
 box.addEventListener('mouseleave',function(){img.style.transform='scale(1)';img.style.transformOrigin='50% 50%';});
 });
+</script>
+<button type="button" id="toTop" aria-label="Povratak na vrh" style="position:fixed;right:clamp(16px,2.5vw,32px);bottom:clamp(16px,2.5vw,32px);z-index:60;width:48px;height:48px;display:flex;align-items:center;justify-content:center;border-radius:50%;border:1px solid var(--color-accent);background:color-mix(in srgb,#161616 72%,transparent);backdrop-filter:blur(6px);color:#f3f2f2;cursor:pointer;box-shadow:var(--shadow-md);opacity:0;visibility:hidden;transform:translateY(12px);transition:opacity .35s ease,transform .35s ease,visibility 0s linear .35s,background .2s;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg></button>
+<script>
+(function(){var b=document.getElementById('toTop');if(!b)return;
+b.addEventListener('mouseenter',function(){b.style.background='color-mix(in srgb,var(--color-accent) 35%,#161616)';});
+b.addEventListener('mouseleave',function(){b.style.background='color-mix(in srgb,#161616 72%,transparent)';});
+b.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+function th(){var s=document.querySelectorAll('body > section, body > main');var nav=document.querySelector('nav.nav');var nh=nav?nav.offsetHeight:0;return s.length>=3?s[2].getBoundingClientRect().top+window.scrollY-nh:window.innerHeight*1.5;}
+var t=th(),on=false;
+function upd(){var show=window.scrollY>=t-2;if(show===on)return;on=show;b.style.opacity=show?'1':'0';b.style.visibility=show?'visible':'hidden';b.style.transform=show?'none':'translateY(12px)';b.style.transition=show?'opacity .35s ease,transform .35s ease,background .2s':'opacity .35s ease,transform .35s ease,visibility 0s linear .35s,background .2s';}
+window.addEventListener('scroll',upd,{passive:true});window.addEventListener('resize',function(){t=th();upd();});window.addEventListener('load',function(){t=th();upd();});upd();
+})();
 </script>
 </body>
 </html>
