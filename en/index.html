@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Coherence Group — quartz surfaces</title>
+<style>
+/* Classical — design-system tokens and component classes. This file is the source of truth for the system's look; retune it here and see readme.md. */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Lora:wght@400;600&display=swap');
+
+:root {
+  --color-bg: #f3f2f2;
+  --color-surface: #eae9e9;
+  --color-text: #201f1d;
+  --color-accent: #b68235;
+  --color-accent-2: #ac803e;
+  --color-divider: color-mix(in srgb, #201f1d 16%, transparent);
+
+  /* Tonal ramps — generated in OKLCH on one shared lightness scale, so the
+     same step of any role matches the others in visual value. */
+  --color-neutral-100: #f8f4f4;
+  --color-neutral-200: #eae7e7;
+  --color-neutral-300: #d7d3d3;
+  --color-neutral-400: #bab6b6;
+  --color-neutral-500: #9b9797;
+  --color-neutral-600: #7d7979;
+  --color-neutral-700: #605d5d;
+  --color-neutral-800: #444141;
+  --color-neutral-900: #2d2b2b;
+
+  --color-accent-100: #fff3e4;
+  --color-accent-200: #ffe3bf;
+  --color-accent-300: #facb8d;
+  --color-accent-400: #e1ad66;
+  --color-accent-500: #c28d41;
+  --color-accent-600: #a06f24;
+  --color-accent-700: #7d5411;
+  --color-accent-800: #5a3b0a;
+  --color-accent-900: #3a270d;
+
+  --color-accent-2-100: #fff3e4;
+  --color-accent-2-200: #ffe3be;
+  --color-accent-2-300: #f5cd96;
+  --color-accent-2-400: #dbaf70;
+  --color-accent-2-500: #bc8f4e;
+  --color-accent-2-600: #9b7232;
+  --color-accent-2-700: #79561f;
+  --color-accent-2-800: #573d14;
+  --color-accent-2-900: #382810;
+
+  --font-heading: "Cormorant Garamond", system-ui, sans-serif;
+  --font-heading-weight: 600; /* review round 3: bold retired — semibold is the
+     interface headings' ceiling (they need the weight at small sizes); display
+     text goes lighter still, to the normal cut (see the deck) */
+  --font-body: "Lora", system-ui, sans-serif;
+
+  --space-1: 4.6px;
+  --space-2: 9.2px;
+  --space-3: 13.8px;
+  --space-4: 18.4px;
+  --space-6: 27.6px;
+  --space-8: 36.8px;
+
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 7px;
+
+  /* Elevation — derived from the ground: soft ink-tinted shadows on a
+     light theme, a hairline edge + ambient darkness on a dark one. */
+  --shadow-sm: 0 1px 2px color-mix(in srgb, #2d2b2b 14%, transparent);
+  --shadow-md: 0 3px 10px color-mix(in srgb, #2d2b2b 16%, transparent);
+  --shadow-lg: 0 12px 32px color-mix(in srgb, #2d2b2b 22%, transparent);
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+}
+h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: var(--font-heading-weight); }
+
+.plate{filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;
+  border:6px solid var(--color-surface);outline:1px solid var(--color-divider)}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   Components — built with the tokens above. Plain CSS
+   on plain HTML: no JavaScript, no build step. Each class is documented in
+   readme.md and demonstrated in foundations/ and components/.
+   ══════════════════════════════════════════════════════════════════════ */
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; font-size: 15px; line-height: 1.55; font-weight: 400; }
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+  line-height: 1.12; letter-spacing: -0.015em; margin: 0 0 var(--space-2);
+}
+h1 { font-size: 42px; }
+h2 { font-size: 32px; }
+h3 { font-size: 25px; }
+h4 { font-size: 20px; }
+h5 { font-size: 16px; }
+h6 { font-size: 13px; }
+h6 { letter-spacing: 0.08em; text-transform: uppercase; }
+p { margin: 0 0 var(--space-3); }
+a { color: var(--color-accent); text-underline-offset: 3px; }
+img { display: block; max-width: 100%; }
+figure { margin: 0; }
+figcaption {
+  font-size: 11px; margin-top: var(--space-1);
+  color: color-mix(in srgb, var(--color-text) 55%, transparent);
+}
+.text-muted { color: color-mix(in srgb, var(--color-text) 55%, transparent); }
+:focus { outline: none; }
+:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+::selection { background: color-mix(in srgb, var(--color-accent) 30%, transparent); }
+
+/* — rules — */
+.hr {
+  height: 1px; border: 0; margin: var(--space-4) 0;
+  background: var(--color-divider);
+}
+
+/* — buttons — */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  cursor: pointer; text-decoration: none;
+  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+  font-size: 14px; line-height: 1.2; color: var(--color-text); /* matches the .input's 14px —
+     the pair sits side by side in sign-up rows */
+  background: transparent; border: 1px solid transparent;
+  padding: var(--space-2) calc(var(--space-3) * 1.2);
+  border-radius: var(--radius-md);
+}
+.btn svg { display: block; }
+.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.btn-primary { color: var(--color-accent); border-color: var(--color-accent); }
+.btn-primary:hover { background: color-mix(in srgb, var(--color-accent) 12%, transparent); }
+.btn-primary:active { background: color-mix(in srgb, var(--color-accent) 22%, transparent); }
+.btn-secondary { border-color: var(--color-divider); }
+.btn-secondary:hover { background: color-mix(in srgb, var(--color-text) 7%, transparent); }
+.btn-secondary:active { background: color-mix(in srgb, var(--color-text) 14%, transparent); }
+.btn-ghost { color: var(--color-accent); padding-inline: var(--space-1); }
+.btn-ghost:hover { background: color-mix(in srgb, var(--color-accent) 10%, transparent); }
+.btn-ghost:active { background: color-mix(in srgb, var(--color-accent) 18%, transparent); }
+.btn-icon { width: 36px; height: 36px; padding: 0; }
+.btn-block { width: 100%; margin-top: var(--space-2); }
+
+/* — forms — */
+.field > label {
+  display: block; font-size: 12px; margin-bottom: 5px;
+  color: color-mix(in srgb, var(--color-text) 70%, transparent);
+}
+.input {
+  width: 100%; min-height: 36px; padding: 6px 10px; font: inherit;
+  font-size: 14px; color: var(--color-text); caret-color: var(--color-accent);
+  background: transparent;
+  border: 1px solid var(--color-divider); border-radius: var(--radius-md);
+}
+.input:hover { border-color: color-mix(in srgb, var(--color-text) 45%, transparent); }
+.input:focus-visible { border-color: var(--color-accent); outline-offset: 0; }
+textarea.input { min-height: 90px; resize: vertical; }
+.radio { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; font-size: 14px; }
+.radio input, .seg-opt input {
+  position: absolute; opacity: 0; width: 0; height: 0; pointer-events: none;
+}
+.radio .dot {
+  width: 16px; height: 16px; flex: none; border-radius: 50%;
+  border: 1.5px solid var(--color-divider);
+}
+.radio:hover .dot { border-color: var(--color-accent); }
+.radio input:checked + .dot {
+  border-color: var(--color-accent); background: var(--color-accent);
+  box-shadow: inset 0 0 0 4px var(--color-bg);
+}
+.radio input:focus-visible + .dot { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+.seg {
+  display: inline-flex; overflow: hidden;
+  border: 1px solid var(--color-divider); border-radius: var(--radius-md);
+}
+.seg-opt {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 12px; font-size: 13px; cursor: pointer;
+}
+.seg-opt + .seg-opt { border-left: 1px solid var(--color-divider); }
+.seg-opt:has(input:checked) { color: var(--color-accent); box-shadow: inset 0 0 0 1px var(--color-accent); }
+.seg-opt:not(:has(input:checked)):hover { background: color-mix(in srgb, var(--color-text) 7%, transparent); }
+.seg-opt:has(input:focus-visible) { outline: 2px solid var(--color-accent); outline-offset: -2px; }
+
+/* — cards — */
+.card {
+  display: flex; flex-direction: column; gap: var(--space-2);
+  padding: var(--space-3); border-radius: var(--radius-md); background: transparent; border: 1px solid var(--color-divider);
+}
+.card-kicker { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent); }
+.card-title {
+  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+  font-size: 17px; line-height: 1.2;
+}
+.card-body { margin: 0; font-size: 13px; opacity: 0.8; flex: 1; }
+.card-meta {
+  display: flex; align-items: center; gap: 6px; font-size: 11px;
+  color: color-mix(in srgb, var(--color-text) 50%, transparent);
+}
+.elev-sm { box-shadow: var(--shadow-sm); }
+.elev-md { box-shadow: var(--shadow-md); }
+.elev-lg { box-shadow: var(--shadow-lg); }
+
+/* — tags — */
+.tag {
+  display: inline-flex; align-items: center; font-size: 11px;
+  letter-spacing: 0.02em; padding: 3px 10px;
+  border-radius: calc(var(--radius-md) * 0.75);
+}
+.tag-accent { background: var(--color-accent-100); color: var(--color-accent-800); }
+.tag-accent-2 { background: var(--color-accent-2-100); color: var(--color-accent-2-800); }
+.tag-neutral { background: var(--color-neutral-100); color: var(--color-neutral-800); }
+.tag-outline { border: 1px solid var(--color-accent); color: var(--color-accent); }
+
+/* — navigation — */
+.nav {
+  display: flex; align-items: center; gap: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--color-divider);
+}
+.nav-brand {
+  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+  font-size: 18px; margin-right: auto;
+}
+.nav a { color: inherit; text-decoration: none; font-size: 14px; }
+.nav a:hover, .nav a[aria-current='page'] { color: var(--color-accent); }
+
+/* — tables — */
+.table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.table th {
+  text-align: left; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-text) 60%, transparent);
+  padding: var(--space-2); border-bottom: 1px solid var(--color-divider);
+}
+.table td {
+  padding: var(--space-2);
+  border-bottom: 1px solid var(--color-divider);
+}
+.table tbody tr:hover { background: color-mix(in srgb, var(--color-text) 4%, transparent); }
+
+/* — dialog — */
+.dialog-backdrop {
+  position: fixed; inset: 0; display: grid; place-items: center;
+  padding: var(--space-4);
+  background: color-mix(in srgb, var(--color-neutral-900) 50%, transparent);
+}
+.dialog {
+  width: min(440px, 100%); display: flex; flex-direction: column; gap: var(--space-3);
+  padding: var(--space-4); border-radius: var(--radius-lg);
+  background: var(--color-surface); box-shadow: var(--shadow-lg); border: 1px solid var(--color-divider);
+}
+.dialog-title {
+  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+  font-size: 20px;
+}
+.dialog-body { font-size: 14px; opacity: 0.85; }
+.dialog-actions { display: flex; justify-content: flex-end; gap: var(--space-2); margin-top: var(--space-2); }
+
+
+
+html { scroll-behavior: smooth; }
+body { margin: 0; overflow-x: hidden; background: var(--color-bg); color: var(--color-text); font-family: var(--font-body); }
+a.link { color: var(--color-accent-700); text-underline-offset: 3px; }
+a.link:hover { color: var(--color-accent); }
+::selection { background: color-mix(in srgb, var(--color-accent) 30%, transparent); }
+.nav-links { display: flex; align-items: center; gap: clamp(18px, 2.6vw, 34px); }
+.nav-links a { color: inherit; text-decoration: none; font-size: 14px; }
+.nav-links a:hover { color: var(--color-accent); }
+.nav-toggle { display: none; background: transparent; border: 0; cursor: pointer; color: var(--color-text); padding: 8px; margin: -8px -8px -8px 0; }
+#mobileMenu { display: none; }
+@media (max-width: 860px) {
+  .nav-links { display: none; }
+  .nav-toggle { display: inline-flex; align-items: center; justify-content: center; }
+  .about-grid { grid-template-columns: 1fr !important; gap: 22px !important; }
+  .form-row { grid-template-columns: 1fr !important; }
+  .gallery-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .gallery-grid > .gal-item { grid-column: auto !important; }
+  .contact-aside { border-left: 0 !important; padding-left: 0 !important; border-top: 1px solid var(--color-divider); padding-top: 32px !important; }
+}
+@media (max-width: 560px) {
+  .gallery-grid { grid-template-columns: 1fr !important; }
+  #vrh { min-height: 78vh !important; }
+}
+.mega { position: fixed; left: 0; right: 0; top: 77px; height: 80vh; z-index: 48; background: #161616; color: #f3f2f2; border-top: 1px solid rgba(182,130,53,0.5); box-shadow: var(--shadow-lg); opacity: 0; visibility: hidden; transform: translateY(-8px); transition: opacity .28s ease, transform .28s ease, visibility 0s linear .28s; }
+.mega.open { opacity: 1; visibility: visible; transform: none; transition: opacity .28s ease, transform .28s ease; }
+.mega-inner { max-width: 1400px; height: 100%; margin: 0 auto; padding: clamp(32px,4vw,56px) clamp(20px,5vw,72px); display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1.6fr); gap: clamp(32px,5vw,88px); }
+.mega-left { display: flex; flex-direction: column; justify-content: space-between; min-height: 0; }
+.mega-links { display: flex; flex-direction: column; border-top: 1px solid rgba(243,242,242,0.16); }
+.mega-links a { display: flex; align-items: baseline; gap: 18px; padding: 14px 0; border-bottom: 1px solid rgba(243,242,242,0.16); font-family: var(--font-heading); font-weight: 400; font-size: clamp(18px,1.82vw,26.6px); line-height: 1.1; color: rgba(243,242,242,0.6); text-decoration: none; transition: color .2s, padding-left .25s; }
+.mega-links a span { font-size: 15px; color: var(--color-accent); font-feature-settings: 'tnum' 1; min-width: 28px; }
+.mega-links a.active, .mega-links a:hover { color: #f3f2f2; padding-left: 8px; }
+.mega-right { position: relative; min-height: 0; }
+.mega-panel { position: absolute; inset: 0; display: flex; flex-direction: column; gap: 22px; opacity: 0; transition: opacity .35s ease; pointer-events: none; }
+.mega-panel.active { opacity: 1; pointer-events: auto; }
+.mega-panel h3 { font-family: var(--font-heading); font-weight: 400; font-size: clamp(26px,2.4vw,36px); line-height: 1.1; margin: 0 0 8px; color: #f3f2f2; }
+.mega-panel p { font-size: 16px; line-height: 1.6; margin: 0; max-width: 54ch; color: rgba(243,242,242,0.8); }
+.mega-panel .ph { flex: 1; min-height: 0; border: 1px solid rgba(182,130,53,0.6); padding: 6px; }
+.mega-panel .ph img { width: 100%; height: 100%; object-fit: cover; }
+.nav-links a.primene-open { color: var(--color-accent); }
+@media (max-width: 860px) { .mega { display: none; } }
+</style>
+<style>
+.zk-grid{overflow:visible;grid-template-columns:repeat(4,minmax(0,1fr))!important}
+@media (max-width:980px){.zk-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media (max-width:520px){.zk-grid{grid-template-columns:1fr!important}}
+.zk-card{position:relative;z-index:1;display:flex;flex-direction:column;min-height:300px;box-sizing:border-box;transition:transform .7s cubic-bezier(.33,0,.2,1),box-shadow .7s ease;transform-origin:center}
+.zk-card:hover{transform:scale(1.2);z-index:5;box-shadow:0 22px 48px rgba(0,0,0,.45),0 6px 14px rgba(0,0,0,.3)}
+.zk-body{margin-top:auto;display:grid;grid-template-rows:auto 0fr;transition:grid-template-rows .9s cubic-bezier(.33,0,.2,1),transform .9s cubic-bezier(.33,0,.2,1)}
+.zk-card:hover .zk-body{grid-template-rows:auto 1fr;transform:translateY(-18px)}
+.zk-card h3{font-size:42px!important;line-height:1.05;margin:0!important;transition:font-size .9s cubic-bezier(.33,0,.2,1),margin .9s cubic-bezier(.33,0,.2,1)}
+.zk-card:hover h3{font-size:21px!important;margin:0 0 16px!important}
+.zk-card p{min-height:0;overflow:hidden;opacity:0;transition:opacity .4s ease}
+.zk-card:hover p{opacity:1;transition:opacity 1.2s ease .35s}
+@media (hover:none){.zk-body{grid-template-rows:auto 1fr!important}.zk-card h3{font-size:21px!important;margin:0 0 8px!important}.zk-card p{max-height:none;opacity:1}}
+
+@media (max-width:1080px){.nav-links{display:none !important}.nav-toggle{display:inline-flex !important;align-items:center;justify-content:center}.mega{display:none !important}}
+</style>
+</head>
+<body>
+
+<nav class="nav" style="position:sticky;top:0;z-index:50;background:color-mix(in srgb, var(--color-bg) 25%, transparent);backdrop-filter:saturate(1.1) blur(6px);padding-inline:clamp(20px,5vw,72px);">
+  <a href="#vrh" style="margin-right:auto;display:flex;align-items:center;"><img src="../images/logo-coherence.png" alt="Coherence Group" style="height:48px;width:auto;display:block;"></a>
+  <div class="nav-links"><a href="o-nama.html">About us</a> <a href="kolekcija.html">Collection</a> <a href="#primene" id="primeneLink" aria-haspopup="true" aria-expanded="false">Applications</a> <a href="izdvajamo.html" id="izdvajamoLink" aria-haspopup="true" aria-expanded="false">Featured</a> <a href="#kontakt">Contact</a> <a href="#kontakt" class="btn btn-primary" style="text-decoration:none;">Request a quote</a></div>
+  <div class="nav-links lang-sw" style="gap:2px;border:1px solid var(--color-divider);border-radius:var(--radius-md);padding:2px;margin-left:clamp(10px,1.4vw,20px);"><a href="../index.html" hreflang="sr" lang="sr" style="font-size:12px;letter-spacing:0.1em;padding:5px 8px;border-radius:var(--radius-sm);text-decoration:none;color:inherit;">SR</a><a href="index.html" hreflang="en" lang="en" aria-current="true" style="font-size:12px;letter-spacing:0.1em;padding:5px 8px;border-radius:var(--radius-sm);text-decoration:none;color:var(--color-accent);box-shadow:inset 0 0 0 1px var(--color-accent);">EN</a><a href="../ru/index.html" hreflang="ru" lang="ru" style="font-size:12px;letter-spacing:0.1em;padding:5px 8px;border-radius:var(--radius-sm);text-decoration:none;color:inherit;">RU</a></div>
+  <button type="button" class="nav-toggle" aria-label="Open menu" onclick="toggleMenu()">
+    <svg id="iconOpen" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+    <svg id="iconClose" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" style="display:none;"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+  </button>
+</nav>
+
+<div class="mega" id="megaMenu">
+  <div class="mega-inner">
+    <div class="mega-left">
+      <div>
+        <span style="display:block;font-size:13px;letter-spacing:0.14em;text-transform:uppercase;color:var(--color-accent-300);margin-bottom:14px;">Applications</span>
+        <h2 style="font-family:var(--font-heading);font-weight:400;font-size:clamp(36px,4vw,60px);line-height:1.05;letter-spacing:-0.01em;margin:0;color:#f3f2f2;max-width:10ch;">Space in four acts</h2>
+      </div>
+      <nav class="mega-links"><a href="kupatilo.html" data-key="kupatilo" class="active">Bathroom</a> <a href="kuhinja.html" data-key="kuhinja">Kitchen</a> <a href="ambijent.html" data-key="ambijent">Ambience</a> <a href="detalj.html" data-key="detalj">Detail</a></nav>
+    </div>
+    <div class="mega-right">
+      <div class="mega-panel active" data-key="kupatilo">
+        <div><h3>A moment just for yourself</h3><p>Quartz brings calm and elegance to the space of everyday rituals</p></div>
+        <div class="ph"><img src="../images/meni-kupatilo.jpg" alt="Bathroom"></div>
+      </div>
+      <div class="mega-panel" data-key="kuhinja">
+        <div><h3>The heart of the home has its own stage</h3><p>A surface where flavours, conversations and memorable moments meet</p></div>
+        <div class="ph"><img src="../images/meni-kuhinja.jpg" alt="Kitchen"></div>
+      </div>
+      <div class="mega-panel" data-key="ambijent">
+        <div><h3>Space gains character</h3><p>Quartz gives an interior rhythm, depth and a distinctive expression</p></div>
+        <div class="ph"><img src="../images/meni-ambijent.jpg" alt="Ambience"></div>
+      </div>
+      <div class="mega-panel" data-key="detalj">
+        <div><h3>The final chord of a space</h3><p>Sometimes one carefully shaped detail is enough to complete the whole story.</p></div>
+        <div class="ph"><img src="../images/meni-detalj.jpg" alt="Detail"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="mega" id="megaMenu2">
+  <div class="mega-inner">
+    <div class="mega-left">
+      <div>
+        <span style="display:block;font-size:13px;letter-spacing:0.14em;text-transform:uppercase;color:var(--color-accent-300);margin-bottom:14px;">Featured</span>
+        <h2 style="font-family:var(--font-heading);font-weight:400;font-size:clamp(36px,4vw,60px);line-height:1.05;letter-spacing:-0.01em;margin:0;color:#f3f2f2;max-width:10ch;">From idea to architecture</h2>
+      </div>
+      <nav class="mega-links"><a href="secenje.html" data-key="secenje" class="active">Cutting services</a> <a href="projekti.html" data-key="projekti">Building projects</a></nav>
+    </div>
+    <div class="mega-right">
+      <div class="mega-panel active" data-key="secenje">
+        <div><h3>Precision in every cut</h3><p>We cut quartz slabs to measure, so that every element fits harmoniously into the space you envision</p></div>
+        <div class="ph"><img src="../images/meni-secenje.jpg" alt="Cutting services"></div>
+      </div>
+      <div class="mega-panel" data-key="projekti">
+        <div><h3>Architecture that makes an impression</h3><p>Discover how quartz cladding gives buildings a distinctive character and lasting elegance</p></div>
+        <div class="ph"><img src="../images/meni-projekti.jpg" alt="Building projects"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="mobileMenu" style="position:fixed;top:65px;left:0;right:0;z-index:49;background:var(--color-bg);border-bottom:1px solid var(--color-divider);box-shadow:var(--shadow-md);padding:12px clamp(20px,5vw,72px) 24px;">
+  <div style="display:flex;gap:4px;padding:6px 0 10px;border-bottom:1px solid var(--color-divider);"><a href="../index.html" hreflang="sr" lang="sr" style="font-size:12px;letter-spacing:0.1em;padding:5px 8px;border-radius:var(--radius-sm);text-decoration:none;color:inherit;">SR</a><a href="index.html" hreflang="en" lang="en" aria-current="true" style="font-size:12px;letter-spacing:0.1em;padding:5px 8px;border-radius:var(--radius-sm);text-decoration:none;color:var(--color-accent);box-shadow:inset 0 0 0 1px var(--color-accent);">EN</a><a href="../ru/index.html" hreflang="ru" lang="ru" style="font-size:12px;letter-spacing:0.1em;padding:5px 8px;border-radius:var(--radius-sm);text-decoration:none;color:inherit;">RU</a></div>
+  <a href="o-nama.html" onclick="closeMenu()" style="display:block;font-family:var(--font-heading);font-size:20px;color:var(--color-text);text-decoration:none;padding:14px 0;border-bottom:1px solid var(--color-divider);">About us</a>
+  <a href="kolekcija.html" onclick="closeMenu()" style="display:block;font-family:var(--font-heading);font-size:20px;color:var(--color-text);text-decoration:none;padding:14px 0;border-bottom:1px solid var(--color-divider);">Collection</a>
+  <a href="#primene" onclick="closeMenu()" style="display:block;font-family:var(--font-heading);font-size:20px;color:var(--color-text);text-decoration:none;padding:14px 0 6px;">Applications</a>
+  <a href="kupatilo.html" onclick="closeMenu()" style="display:block;font-family:var(--font-heading);font-size:17px;color:var(--color-text);text-decoration:none;padding:9px 0 9px 18px;">Bathroom</a>
+  <a href="kuhinja.html" onclick="closeMenu()" style="display:block;font-family:var(--font-heading);font-size:17px;color:var(--color-text);text-decoration:none;padding:9px 0 9px 18px;">Kitchen</a>
+  <a href="ambijent.html" onclick="closeMenu()" style="display:block;font-family:var(--font-heading);font-size:17px;color:var(--color-text);text-decoration:none;padding:9px 0 9px 18px;">Ambience</a>
+  <a href="detalj.html" onclick="closeMenu()" style="display:block;font-family:var(--font-heading);font-size:17px;color:var(--color-text);text-decoration:none;padding:9px 0 9px 18px;">Detail</a>
+  <div style="border-bottom:1px solid var(--color-divider);margin-top:6px;"></div>
+  <a href="izdvajamo.html" onclick="closeMenu()" style="display:block;font-family:var(--font-heading);font-size:20px;color:var(--color-text);text-decoration:none;padding:14px 0 6px;">Featured</a>
+  <a href="secenje.html" onclick="closeMenu()" style="display:block;font-family:var(--font-heading);font-size:17px;color:var(--color-text);text-decoration:none;padding:9px 0 9px 18px;">Cutting services</a>
+  <a href="projekti.html" onclick="closeMenu()" style="display:block;font-family:var(--font-heading);font-size:17px;color:var(--color-text);text-decoration:none;padding:9px 0 9px 18px;">Building projects</a>
+  <div style="border-bottom:1px solid var(--color-divider);margin-top:6px;"></div>
+  <a href="#kontakt" onclick="closeMenu()" style="display:block;font-family:var(--font-heading);font-size:20px;color:var(--color-text);text-decoration:none;padding:14px 0;border-bottom:1px solid var(--color-divider);">Contact</a>
+  <a href="#kontakt" onclick="closeMenu()" class="btn btn-primary btn-block" style="text-decoration:none;margin-top:18px;">Request a quote</a>
+</div>
+
+<section id="vrh" style="position:relative;width:100%;min-height:88vh;display:flex;align-items:center;overflow:hidden;background:#201f1d url('../images/hero-figaro.jpg') center/cover no-repeat;">
+  <div style="position:absolute;inset:0;background:linear-gradient(90deg, rgba(22,20,17,0.92) 0%, rgba(22,20,17,0.55) 45%, rgba(22,20,17,0.18) 100%);opacity:0.55;"></div>
+  <div style="position:relative;z-index:1;max-width:1200px;width:100%;margin:0 auto;padding:0 clamp(20px,5vw,72px);">
+    <div style="max-width:760px;">
+      <span style="display:block;font-size:13px;letter-spacing:0.2em;text-transform:uppercase;color:var(--color-accent-300);margin-bottom:26px;">Coherence Group — quartz surfaces</span>
+      <h1 style="font-family:var(--font-heading);font-weight:400;font-size:clamp(44px,6.2vw,88px);line-height:1.04;letter-spacing:-0.01em;margin:0;color:#f8f4f4;">Quartz for spaces that speak of luxury</h1>
+      <p style="font-size:clamp(17px,1.5vw,20px);line-height:1.6;max-width:52ch;margin:30px 0 0;color:color-mix(in srgb, #f8f4f4 88%, transparent);">Bring harmony and warmth into your space with authentic surfaces that last — quartz compositions, composed like music.</p>
+      <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:40px;"><a href="#kontakt" style="display:inline-flex;align-items:center;justify-content:center;font-family:var(--font-heading);font-weight:600;font-size:15px;padding:12px 22px;border-radius:var(--radius-md);border:1px solid var(--color-accent-300);color:var(--color-accent-300);text-decoration:none;">Request a quote</a> <a href="#kontakt" style="display:inline-flex;align-items:center;justify-content:center;font-family:var(--font-heading);font-weight:600;font-size:15px;padding:12px 22px;border-radius:var(--radius-md);border:1px solid color-mix(in srgb, #f8f4f4 60%, transparent);color:#f8f4f4;text-decoration:none;">Visit our showroom</a></div>
+    </div>
+  </div>
+</section>
+
+<section id="o-nama" style="max-width:1200px;margin:0 auto;padding:clamp(64px,9vw,120px) clamp(20px,5vw,72px) 0;">
+  <span style="display:block;font-size:13px;letter-spacing:0.14em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:20px;">About us</span>
+  <div class="about-grid" style="display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(28px,5vw,80px);align-items:start;">
+    <h2 style="font-family:var(--font-heading);font-weight:400;font-size:clamp(30px,3.6vw,46px);line-height:1.12;letter-spacing:-0.01em;margin:0;">Surfaces composed like music</h2>
+    <div>
+      <p style="font-size:16.5px;line-height:1.7;margin:0 0 16px;text-align:justify;hyphens:auto;">Coherence Group designs and supplies quartz slabs for kitchens, bathrooms, commercial spaces and building façades. Every surface is high-density engineered quartz — non-porous, durable and made to last for decades of everyday life.</p>
+      <p style="font-size:16.5px;line-height:1.7;margin:0;text-align:justify;hyphens:auto;color:color-mix(in srgb, var(--color-text) 82%, transparent);">Every decor in our collection bears the name of an opera. This is more than poetry: each slab has its own character, its own tempo and its own stage where it sounds best — from an intimate aria to a grand, dramatic composition.</p>
+    </div>
+  </div>
+</section>
+
+<section style="max-width:1200px;margin:0 auto;padding:clamp(56px,7vw,96px) clamp(20px,5vw,72px);">
+  <span style="display:block;font-size:13px;letter-spacing:0.14em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:6px;">Why quartz</span>
+  <h2 style="font-family:var(--font-heading);font-weight:400;font-size:clamp(28px,3.2vw,40px);line-height:1.12;letter-spacing:-0.01em;margin:0 0 44px;max-width:20ch;">Benefits you feel every day</h2>
+  <div class="zk-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;background:var(--color-accent);border:1px solid var(--color-accent);">
+      <div class="zk-card" style="background:#161616;color:#ffffff;padding:28px 24px;"><span style="align-self:flex-start;display:inline-flex;width:44px;height:44px;border:1px solid var(--color-accent);border-radius:50%;align-items:center;justify-content:center;color:var(--color-accent);margin-bottom:18px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5S12.5 5 12 2.5C11.5 5 10 7.4 8 9S5 13 5 15a7 7 0 0 0 7 7z"></path></svg></span><div class="zk-body"><h3 style="font-family:var(--font-heading);font-weight:600;font-size:21px;margin:0 0 8px;color:#ffffff;">Non-porous and hygienic</h3><p style="font-size:14.5px;line-height:1.6;margin:0;color:#ffffff;">The compact surface does not absorb liquids or stains, does not harbour bacteria and needs no sealing.</p></div></div>
+      <div class="zk-card" style="background:#161616;color:#ffffff;padding:28px 24px;"><span style="align-self:flex-start;display:inline-flex;width:44px;height:44px;border:1px solid var(--color-accent);border-radius:50%;align-items:center;justify-content:center;color:var(--color-accent);margin-bottom:18px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></span><div class="zk-body"><h3 style="font-family:var(--font-heading);font-weight:600;font-size:21px;margin:0 0 8px;color:#ffffff;">Wear resistance</h3><p style="font-size:14.5px;line-height:1.6;margin:0;color:#ffffff;">Exceptional hardness and resistance to scratches, impact and heat — for surfaces in everyday use.</p></div></div>
+      <div class="zk-card" style="background:#161616;color:#ffffff;padding:28px 24px;"><span style="align-self:flex-start;display:inline-flex;width:44px;height:44px;border:1px solid var(--color-accent);border-radius:50%;align-items:center;justify-content:center;color:var(--color-accent);margin-bottom:18px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg></span><div class="zk-body"><h3 style="font-family:var(--font-heading);font-weight:600;font-size:21px;margin:0 0 8px;color:#ffffff;">Colour stability</h3><p style="font-size:14.5px;line-height:1.6;margin:0;color:#ffffff;">Tone and pattern stay true for years — no fading in light and no change with use.</p></div></div>
+      <div class="zk-card" style="background:#161616;color:#ffffff;padding:28px 24px;"><span style="align-self:flex-start;display:inline-flex;width:44px;height:44px;border:1px solid var(--color-accent);border-radius:50%;align-items:center;justify-content:center;color:var(--color-accent);margin-bottom:18px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"></path><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"></path></svg></span><div class="zk-body"><h3 style="font-family:var(--font-heading);font-weight:600;font-size:21px;margin:0 0 8px;color:#ffffff;">Easy maintenance</h3><p style="font-size:14.5px;line-height:1.6;margin:0;color:#ffffff;">Water and a mild detergent are all it takes. No special products, no polishing, no worries.</p></div></div>
+  </div>
+</section>
+
+<hr style="height:1px;border:0;margin:0 auto;background:var(--color-divider);max-width:1200px;">
+
+<section id="kolekcija" style="max-width:1200px;margin:0 auto;padding:clamp(64px,9vw,120px) clamp(20px,5vw,72px);">
+  <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:20px;margin-bottom:48px;">
+    <div>
+      <span style="display:block;font-size:13px;letter-spacing:0.14em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:14px;">Collection</span>
+      <h2 style="font-family:var(--font-heading);font-weight:400;font-size:clamp(30px,3.6vw,46px);line-height:1.1;letter-spacing:-0.01em;margin:0;">Twelve decors, twelve arias</h2>
+    </div>
+    <p style="font-size:15px;line-height:1.65;max-width:38ch;margin:0;color:color-mix(in srgb, var(--color-text) 78%, transparent);">Each slab bears the name of an opera that reflects its character — from a gentle serenade to a lavish drama.</p>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:clamp(24px,3vw,44px);">
+      <div><figure style="filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);margin:0;"><div class="zoom" style="overflow:hidden;aspect-ratio:4/3;cursor:zoom-in;"><img src="../images/decor-amore-xl.jpg" alt="Amore" style="transition:transform .6s cubic-bezier(.2,.7,.2,1);transform-origin:50% 50%;width:100%;height:100%;object-fit:cover;display:block;"></div></figure><h3 style="font-family:var(--font-heading);font-weight:600;font-size:22px;margin:16px 0 4px;">Amore</h3><p style="font-size:14px;line-height:1.55;margin:0;color:color-mix(in srgb, var(--color-text) 72%, transparent);">A warm, romantic shade; a subtle vein like a love aria.</p></div>
+      <div><figure style="filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);margin:0;"><div class="zoom" style="overflow:hidden;aspect-ratio:4/3;cursor:zoom-in;"><img src="../images/decor-figaro-xl.jpg" alt="Figaro" style="transition:transform .6s cubic-bezier(.2,.7,.2,1);transform-origin:50% 50%;width:100%;height:100%;object-fit:cover;display:block;"></div></figure><h3 style="font-family:var(--font-heading);font-weight:600;font-size:22px;margin:16px 0 4px;">Figaro</h3><p style="font-size:14px;line-height:1.55;margin:0;color:color-mix(in srgb, var(--color-text) 72%, transparent);">A lively, bright decor with a dynamic, cheerful rhythm.</p></div>
+      <div><figure style="filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);margin:0;"><div class="zoom" style="overflow:hidden;aspect-ratio:4/3;cursor:zoom-in;"><img src="../images/decor-serenade-xl.jpg" alt="Serenade" style="transition:transform .6s cubic-bezier(.2,.7,.2,1);transform-origin:50% 50%;width:100%;height:100%;object-fit:cover;display:block;"></div></figure><h3 style="font-family:var(--font-heading);font-weight:600;font-size:22px;margin:16px 0 4px;">Serenade</h3><p style="font-size:14px;line-height:1.55;margin:0;color:color-mix(in srgb, var(--color-text) 72%, transparent);">A calm, gentle surface — quiet as an evening song beneath a window.</p></div>
+      <div><figure style="filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);margin:0;"><div class="zoom" style="overflow:hidden;aspect-ratio:4/3;cursor:zoom-in;"><img src="../images/decor-spring-xl.jpg" alt="Spring" style="transition:transform .6s cubic-bezier(.2,.7,.2,1);transform-origin:50% 50%;width:100%;height:100%;object-fit:cover;display:block;"></div></figure><h3 style="font-family:var(--font-heading);font-weight:600;font-size:22px;margin:16px 0 4px;">Spring</h3><p style="font-size:14px;line-height:1.55;margin:0;color:color-mix(in srgb, var(--color-text) 72%, transparent);">A fresh, bright tone that awakens a space like the first day of spring.</p></div>
+      <div><figure style="filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);margin:0;"><div class="zoom" style="overflow:hidden;aspect-ratio:4/3;cursor:zoom-in;"><img src="../images/decor-aida-xl.jpg" alt="Aida" style="transition:transform .6s cubic-bezier(.2,.7,.2,1);transform-origin:50% 50%;width:100%;height:100%;object-fit:cover;display:block;"></div></figure><h3 style="font-family:var(--font-heading);font-weight:600;font-size:22px;margin:16px 0 4px;">Aida</h3><p style="font-size:14px;line-height:1.55;margin:0;color:color-mix(in srgb, var(--color-text) 72%, transparent);">A lavish, dramatic decor with a strong and festive character.</p></div>
+      <div><figure style="filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);margin:0;"><div class="zoom" style="overflow:hidden;aspect-ratio:4/3;cursor:zoom-in;"><img src="../images/decor-boheme-xl.jpg" alt="Boheme" style="transition:transform .6s cubic-bezier(.2,.7,.2,1);transform-origin:50% 50%;width:100%;height:100%;object-fit:cover;display:block;"></div></figure><h3 style="font-family:var(--font-heading);font-weight:600;font-size:22px;margin:16px 0 4px;">Boheme</h3><p style="font-size:14px;line-height:1.55;margin:0;color:color-mix(in srgb, var(--color-text) 72%, transparent);">A free, artistic blend of tones with a bohemian soul.</p></div>
+      <div><figure style="filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);margin:0;"><div class="zoom" style="overflow:hidden;aspect-ratio:4/3;cursor:zoom-in;"><img src="../images/decor-sonata-xl.jpg" alt="Sonata" style="transition:transform .6s cubic-bezier(.2,.7,.2,1);transform-origin:50% 50%;width:100%;height:100%;object-fit:cover;display:block;"></div></figure><h3 style="font-family:var(--font-heading);font-weight:600;font-size:22px;margin:16px 0 4px;">Sonata</h3><p style="font-size:14px;line-height:1.55;margin:0;color:color-mix(in srgb, var(--color-text) 72%, transparent);">A balanced composition of tones — harmony of form and measure.</p></div>
+      <div><figure style="filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);margin:0;"><div class="zoom" style="overflow:hidden;aspect-ratio:4/3;cursor:zoom-in;"><img src="../images/decor-moonlight-xl.jpg" alt="Moonlight" style="transition:transform .6s cubic-bezier(.2,.7,.2,1);transform-origin:50% 50%;width:100%;height:100%;object-fit:cover;display:block;"></div></figure><h3 style="font-family:var(--font-heading);font-weight:600;font-size:22px;margin:16px 0 4px;">Moonlight</h3><p style="font-size:14px;line-height:1.55;margin:0;color:color-mix(in srgb, var(--color-text) 72%, transparent);">The cool, silvery glow of a night scene and moonlight.</p></div>
+      <div><figure style="filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);margin:0;"><div class="zoom" style="overflow:hidden;aspect-ratio:4/3;cursor:zoom-in;"><img src="../images/decor-daphne-xl.jpg" alt="Daphne" style="transition:transform .6s cubic-bezier(.2,.7,.2,1);transform-origin:50% 50%;width:100%;height:100%;object-fit:cover;display:block;"></div></figure><h3 style="font-family:var(--font-heading);font-weight:600;font-size:22px;margin:16px 0 4px;">Daphne</h3><p style="font-size:14px;line-height:1.55;margin:0;color:color-mix(in srgb, var(--color-text) 72%, transparent);">A natural, organic texture inspired by myth and forest.</p></div>
+      <div><figure style="filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);margin:0;"><div class="zoom" style="overflow:hidden;aspect-ratio:4/3;cursor:zoom-in;"><img src="../images/decor-opus-xl.jpg" alt="Opus" style="transition:transform .6s cubic-bezier(.2,.7,.2,1);transform-origin:50% 50%;width:100%;height:100%;object-fit:cover;display:block;"></div></figure><h3 style="font-family:var(--font-heading);font-weight:600;font-size:22px;margin:16px 0 4px;">Opus</h3><p style="font-size:14px;line-height:1.55;margin:0;color:color-mix(in srgb, var(--color-text) 72%, transparent);">A timeless classic — the foundation of every spatial composition.</p></div>
+      <div><figure style="filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);margin:0;"><div class="zoom" style="overflow:hidden;aspect-ratio:4/3;cursor:zoom-in;"><img src="../images/decor-butterfly-xl.jpg" alt="Butterfly" style="transition:transform .6s cubic-bezier(.2,.7,.2,1);transform-origin:50% 50%;width:100%;height:100%;object-fit:cover;display:block;"></div></figure><h3 style="font-family:var(--font-heading);font-weight:600;font-size:22px;margin:16px 0 4px;">Butterfly</h3><p style="font-size:14px;line-height:1.55;margin:0;color:color-mix(in srgb, var(--color-text) 72%, transparent);">A delicate, refined decor with light, fluttering veins.</p></div>
+      <div><figure style="filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);margin:0;"><div class="zoom" style="overflow:hidden;aspect-ratio:4/3;cursor:zoom-in;"><img src="../images/decor-elvira-xl.jpg" alt="Elvira" style="transition:transform .6s cubic-bezier(.2,.7,.2,1);transform-origin:50% 50%;width:100%;height:100%;object-fit:cover;display:block;"></div></figure><h3 style="font-family:var(--font-heading);font-weight:600;font-size:22px;margin:16px 0 4px;">Elvira</h3><p style="font-size:14px;line-height:1.55;margin:0;color:color-mix(in srgb, var(--color-text) 72%, transparent);">An elegant, dark surface with a deep and dignified tone.</p></div>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px 32px;margin-top:clamp(40px,5vw,64px);padding-top:28px;border-top:1px solid var(--color-divider);">
+    <p style="font-family:var(--font-heading);font-weight:400;font-size:clamp(22px,2.2vw,30px);line-height:1.2;margin:0;max-width:30ch;text-wrap:pretty;">See how the decors look in real spaces</p>
+    <a href="kolekcija.html" class="btn btn-primary" style="text-decoration:none;font-size:15px;padding:12px 22px;">Collection in use →</a>
+  </div>
+</section>
+
+<section id="primene" style="background:var(--color-surface);">
+  <div style="max-width:1200px;margin:0 auto;padding:clamp(64px,9vw,120px) clamp(20px,5vw,72px);">
+    <span style="display:block;font-size:13px;letter-spacing:0.14em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:14px;">Applications</span>
+    <h2 style="font-family:var(--font-heading);font-weight:400;font-size:clamp(30px,3.6vw,46px);line-height:1.1;letter-spacing:-0.01em;margin:0 0 48px;max-width:22ch;">From kitchen worktop to building façade</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(28px,4vw,52px);">
+      <div><figure style="filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);margin:0;"><img src="../images/app-kuhinje.webp" alt="Kitchens" style="width:100%;aspect-ratio:3/2;object-fit:cover;display:block;"></figure><h3 style="font-family:var(--font-heading);font-weight:600;font-size:25px;margin:20px 0 8px;"><a href="kuhinja.html" style="color:inherit;text-decoration:none;display:inline-flex;align-items:baseline;gap:8px;" onmouseover="this.style.color='var(--color-accent-700)'" onmouseout="this.style.color='inherit'">Kitchens<span aria-hidden="true" style="font-size:0.8em;color:var(--color-accent);">→</span></a></h3><p style="font-size:15px;line-height:1.65;margin:0;color:color-mix(in srgb, var(--color-text) 80%, transparent);">Worktops, islands and wall cladding resistant to stains, heat and everyday life — the heart of the home that stays flawless.</p></div>
+      <div><figure style="filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);margin:0;"><img src="../images/app-kupatila.webp" alt="Bathrooms" style="width:100%;aspect-ratio:3/2;object-fit:cover;display:block;"></figure><h3 style="font-family:var(--font-heading);font-weight:600;font-size:25px;margin:20px 0 8px;"><a href="kupatilo.html" style="color:inherit;text-decoration:none;display:inline-flex;align-items:baseline;gap:8px;" onmouseover="this.style.color='var(--color-accent-700)'" onmouseout="this.style.color='inherit'">Bathrooms<span aria-hidden="true" style="font-size:0.8em;color:var(--color-accent);">→</span></a></h3><p style="font-size:15px;line-height:1.65;margin:0;color:color-mix(in srgb, var(--color-text) 80%, transparent);">Washbasins, shower enclosures and cladding — a non-porous surface unafraid of moisture and water, bringing a spa feeling home.</p></div>
+      <div><figure style="filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);margin:0;"><img src="../images/app-zgrade.webp" alt="Buildings and façades" style="width:100%;aspect-ratio:3/2;object-fit:cover;display:block;"></figure><h3 style="font-family:var(--font-heading);font-weight:600;font-size:25px;margin:20px 0 8px;"><a href="projekti.html" style="color:inherit;text-decoration:none;display:inline-flex;align-items:baseline;gap:8px;" onmouseover="this.style.color='var(--color-accent-700)'" onmouseout="this.style.color='inherit'">Buildings and façades<span aria-hidden="true" style="font-size:0.8em;color:var(--color-accent);">→</span></a></h3><p style="font-size:15px;line-height:1.65;margin:0;color:color-mix(in srgb, var(--color-text) 80%, transparent);">Ventilated façades, entrances and public spaces — large surfaces of lasting lustre for demanding projects.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="galerija" style="max-width:1200px;margin:0 auto;padding:clamp(64px,9vw,120px) clamp(20px,5vw,72px);">
+  <span style="display:block;font-size:13px;letter-spacing:0.14em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:14px;">Project gallery</span>
+  <h2 style="font-family:var(--font-heading);font-weight:400;font-size:clamp(30px,3.6vw,46px);line-height:1.1;letter-spacing:-0.01em;margin:0 0 48px;max-width:20ch;">Projects where quartz plays the leading role</h2>
+  <div class="gallery-grid" style="display:grid;grid-template-columns:repeat(6,1fr);gap:clamp(16px,2vw,28px);">
+    <figure class="gal-item" style="filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);margin:0;grid-column:span 4;"><img src="../images/gal-1.webp" alt="Project" style="width:100%;aspect-ratio:16/9;object-fit:cover;display:block;"></figure>
+    <figure class="gal-item" style="filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);margin:0;grid-column:span 2;"><img src="../images/gal-2.webp" alt="Project" style="width:100%;aspect-ratio:3/4;object-fit:cover;display:block;"></figure>
+    <figure class="gal-item" style="filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);margin:0;grid-column:span 2;"><img src="../images/gal-3.webp" alt="Project" style="width:100%;aspect-ratio:1/1;object-fit:cover;display:block;"></figure>
+    <figure class="gal-item" style="filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);margin:0;grid-column:span 2;"><img src="../images/gal-4.webp" alt="Project" style="width:100%;aspect-ratio:1/1;object-fit:cover;display:block;"></figure>
+    <figure class="gal-item" style="filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);margin:0;grid-column:span 2;"><img src="../images/gal-5.webp" alt="Project" style="width:100%;aspect-ratio:1/1;object-fit:cover;display:block;"></figure>
+  </div>
+</section>
+
+<section id="proces" style="background:#161616;color:#f3f2f2;position:relative;overflow:hidden;">
+  <img aria-hidden="true" src="../images/logo-ce-bg.png" alt="" style="position:absolute;top:12%;right:clamp(24px,6vw,96px);height:56%;width:auto;max-width:calc(66.666% - clamp(24px,6vw,96px));object-fit:contain;object-position:right center;opacity:0.25;pointer-events:none;">
+  <div style="position:relative;max-width:1200px;margin:0 auto;padding:clamp(64px,9vw,120px) clamp(20px,5vw,72px);">
+    <span style="display:block;font-size:13px;letter-spacing:0.14em;text-transform:uppercase;color:var(--color-accent-300);margin-bottom:14px;">How to order</span>
+    <h2 style="font-family:var(--font-heading);font-weight:400;font-size:clamp(30px,3.6vw,46px);line-height:1.1;letter-spacing:-0.01em;margin:0 0 52px;max-width:20ch;color:#f3f2f2;">From idea to installed surface</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:clamp(28px,3vw,48px);">
+      <div style="border-top:1px solid rgba(243,242,242,0.18);padding-top:22px;"><span style="font-family:var(--font-heading);font-weight:400;font-size:40px;color:var(--color-accent);font-feature-settings:'tnum' 1;display:block;line-height:1;margin-bottom:16px;">01</span><h3 style="font-family:var(--font-heading);font-weight:600;font-size:20px;margin:0 0 8px;color:#f3f2f2;">Consultation</h3><p style="font-size:14.5px;line-height:1.6;margin:0;color:rgba(243,242,242,0.8);">We discuss the space, its purpose and the desired decor — in our showroom or on site.</p></div>
+      <div style="border-top:1px solid rgba(243,242,242,0.18);padding-top:22px;"><span style="font-family:var(--font-heading);font-weight:400;font-size:40px;color:var(--color-accent);font-feature-settings:'tnum' 1;display:block;line-height:1;margin-bottom:16px;">02</span><h3 style="font-family:var(--font-heading);font-weight:600;font-size:20px;margin:0 0 8px;color:#f3f2f2;">Decor selection and quote</h3><p style="font-size:14.5px;line-height:1.6;margin:0;color:rgba(243,242,242,0.8);">You choose a decor from the collection, and we prepare a precise quote with dimensions and lead times.</p></div>
+      <div style="border-top:1px solid rgba(243,242,242,0.18);padding-top:22px;"><span style="font-family:var(--font-heading);font-weight:400;font-size:40px;color:var(--color-accent);font-feature-settings:'tnum' 1;display:block;line-height:1;margin-bottom:16px;">03</span><h3 style="font-family:var(--font-heading);font-weight:600;font-size:20px;margin:0 0 8px;color:#f3f2f2;">Measuring and fabrication</h3><p style="font-size:14.5px;line-height:1.6;margin:0;color:rgba(243,242,242,0.8);">We take measurements on site and fabricate the slabs to fit your space, to the millimetre.</p></div>
+      <div style="border-top:1px solid rgba(243,242,242,0.18);padding-top:22px;"><span style="font-family:var(--font-heading);font-weight:400;font-size:40px;color:var(--color-accent);font-feature-settings:'tnum' 1;display:block;line-height:1;margin-bottom:16px;">04</span><h3 style="font-family:var(--font-heading);font-weight:600;font-size:20px;margin:0 0 8px;color:#f3f2f2;">Installation</h3><p style="font-size:14.5px;line-height:1.6;margin:0;color:rgba(243,242,242,0.8);">Our team delivers and installs the surfaces professionally, cleanly and on schedule.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="kontakt" style="max-width:1200px;margin:0 auto;padding:clamp(64px,9vw,120px) clamp(20px,5vw,72px);">
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(40px,6vw,88px);">
+    <div>
+      <span style="display:block;font-size:13px;letter-spacing:0.14em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:14px;">Contact</span>
+      <h2 style="font-family:var(--font-heading);font-weight:400;font-size:clamp(28px,3.2vw,40px);line-height:1.12;letter-spacing:-0.01em;margin:0 0 12px;">Request a quote</h2>
+      <p style="font-size:15.5px;line-height:1.65;margin:0 0 28px;max-width:44ch;color:color-mix(in srgb, var(--color-text) 80%, transparent);">Leave us a message with your project details and we will get back to you as soon as possible.</p>
+      <form id="quoteForm" onsubmit="return submitForm(event)" style="display:flex;flex-direction:column;gap:16px;max-width:460px;">
+        <div class="field"><label>Full name</label><input class="input" type="text" required="" placeholder="Your name"></div>
+        <div class="form-row" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+          <div class="field"><label>Email</label><input class="input" type="email" required="" placeholder="you@example.com"></div>
+          <div class="field"><label>Phone</label><input class="input" type="tel" placeholder="+381 ..."></div>
+        </div>
+        <div class="field"><label>Message</label><textarea class="input" required="" placeholder="Describe the space, the decor you are interested in, approximate dimensions..."></textarea></div>
+        <button type="submit" class="btn btn-primary" style="align-self:flex-start;">Request a quote</button>
+      </form>
+      <div id="quoteThanks" style="display:none;border:1px solid var(--color-accent);border-radius:var(--radius-md);padding:28px 24px;">
+        <h3 style="font-family:var(--font-heading);font-weight:600;font-size:22px;margin:0 0 8px;color:var(--color-accent-700);">Thank you for your message</h3>
+        <p style="font-size:15px;line-height:1.6;margin:0;color:color-mix(in srgb, var(--color-text) 80%, transparent);">Your enquiry has been received. We will contact you shortly.</p>
+      </div>
+    </div>
+    <div class="contact-aside" style="border-left:1px solid var(--color-divider);padding-left:clamp(0px,3vw,40px);">
+      <div style="margin-bottom:28px;"><div style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:8px;">Address</div><p style="font-size:16px;line-height:1.55;margin:0;">Dragiše Lapčevića 31<br>Belgrade, Serbia</p></div>
+      <div style="margin-bottom:28px;"><div style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:8px;">Opening hours</div><p style="font-size:16px;line-height:1.7;margin:0;">Monday – Friday: 9am – 5pm<br>Saturday: 9am – 1pm<br>Sunday: closed</p></div>
+      <div style="margin-bottom:28px;"><div style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:8px;">Email</div><p style="font-size:16px;line-height:1.55;margin:0;"><a class="link" href="mailto:kontakt@coherence.rs">kontakt@coherence.rs</a></p></div>
+      <div><div style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:8px;">Phones</div><p style="font-size:16px;line-height:1.7;margin:0;"><a class="link" href="tel:+381611649071">+381 61 1649071</a><br><a class="link" href="tel:+38163649466">+381 63 649466</a><br><a class="link" href="tel:+38163388071">+381 63 388071</a></p></div>
+    </div>
+  </div>
+</section>
+
+<footer style="border-top:1px solid var(--color-divider);background:var(--color-surface);">
+  <div style="max-width:1200px;margin:0 auto;padding:48px clamp(20px,5vw,72px);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:24px;">
+    <img src="../images/logo-coherence.png" alt="Coherence Group" style="height:44px;width:auto;">
+    <p style="font-size:13px;line-height:1.6;margin:0;color:color-mix(in srgb, var(--color-text) 62%, transparent);">Quartz surfaces for homes, commercial spaces and façades.<br>Dragiše Lapčevića 31, Belgrade · kontakt@coherence.rs</p>
+    <span style="font-size:12px;color:color-mix(in srgb, var(--color-text) 55%, transparent);">© 2026 Coherence Group</span>
+  </div>
+</footer>
+
+<script>
+function toggleMenu(){var m=document.getElementById('mobileMenu');var open=m.style.display==='block';m.style.display=open?'none':'block';document.getElementById('iconOpen').style.display=open?'block':'none';document.getElementById('iconClose').style.display=open?'none':'block';}
+function closeMenu(){document.getElementById('mobileMenu').style.display='none';document.getElementById('iconOpen').style.display='block';document.getElementById('iconClose').style.display='none';}
+function submitForm(e){e.preventDefault();document.getElementById('quoteForm').style.display='none';document.getElementById('quoteThanks').style.display='block';return false;}
+(function(){var nav=document.querySelector('nav.nav'),all=[];
+function setup(linkId,megaId){var link=document.getElementById(linkId),mega=document.getElementById(megaId),timer;if(!link||!mega)return;
+var m={hide:function(){clearTimeout(timer);mega.classList.remove('open');link.classList.remove('primene-open');link.setAttribute('aria-expanded','false');}};all.push(m);
+function pos(){mega.style.top=nav.getBoundingClientRect().bottom+'px';}
+function open(){all.forEach(function(x){if(x!==m)x.hide();});clearTimeout(timer);pos();mega.classList.add('open');link.classList.add('primene-open');link.setAttribute('aria-expanded','true');}
+function close(){clearTimeout(timer);timer=setTimeout(m.hide,180);}
+link.addEventListener('mouseenter',open);link.addEventListener('mouseleave',close);
+mega.addEventListener('mouseenter',function(){clearTimeout(timer);});mega.addEventListener('mouseleave',close);
+link.addEventListener('click',function(e){e.preventDefault();if(mega.classList.contains('open'))m.hide();else open();});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')m.hide();});
+window.addEventListener('scroll',function(){if(mega.classList.contains('open'))pos();},{passive:true});
+mega.querySelectorAll('.mega-links a').forEach(function(a){function act(){var k=a.dataset.key;mega.querySelectorAll('.mega-links a').forEach(function(x){x.classList.toggle('active',x===a);});mega.querySelectorAll('.mega-panel').forEach(function(p){p.classList.toggle('active',p.dataset.key===k);});}a.addEventListener('mouseenter',act);a.addEventListener('focus',act);});
+}
+setup('primeneLink','megaMenu');setup('izdvajamoLink','megaMenu2');
+})();
+</script>
+<script>
+document.querySelectorAll('#kolekcija .zoom').forEach(function(box){var img=box.querySelector('img');
+function maxScale(){var w=box.clientWidth,h=box.clientHeight;if(!img.naturalWidth)return 1;var fit=Math.max(w/img.naturalWidth,h/img.naturalHeight);return Math.max(1,1/fit);}
+box.addEventListener('mouseenter',function(){img.style.transform='scale('+maxScale()+')';});
+box.addEventListener('mousemove',function(e){var r=box.getBoundingClientRect();img.style.transformOrigin=((e.clientX-r.left)/r.width*100)+'% '+((e.clientY-r.top)/r.height*100)+'%';});
+box.addEventListener('mouseleave',function(){img.style.transform='scale(1)';img.style.transformOrigin='50% 50%';});
+});
+</script>
+<button type="button" id="toTop" aria-label="Back to top" style="position:fixed;right:clamp(16px,2.5vw,32px);bottom:clamp(16px,2.5vw,32px);z-index:60;width:48px;height:48px;display:flex;align-items:center;justify-content:center;border-radius:50%;border:1px solid var(--color-accent);background:color-mix(in srgb,#161616 72%,transparent);backdrop-filter:blur(6px);color:#f3f2f2;cursor:pointer;box-shadow:var(--shadow-md);opacity:0;visibility:hidden;transform:translateY(12px);transition:opacity .35s ease,transform .35s ease,visibility 0s linear .35s,background .2s;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"></path></svg></button>
+<script>
+(function(){var b=document.getElementById('toTop');if(!b)return;
+b.addEventListener('mouseenter',function(){b.style.background='color-mix(in srgb,var(--color-accent) 35%,#161616)';});
+b.addEventListener('mouseleave',function(){b.style.background='color-mix(in srgb,#161616 72%,transparent)';});
+b.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+function th(){var s=document.querySelectorAll('body > section, body > main');var nav=document.querySelector('nav.nav');var nh=nav?nav.offsetHeight:0;return s.length>=3?s[2].getBoundingClientRect().top+window.scrollY-nh:window.innerHeight*1.5;}
+var t=th(),on=false;
+function upd(){var show=window.scrollY>=t-2;if(show===on)return;on=show;b.style.opacity=show?'1':'0';b.style.visibility=show?'visible':'hidden';b.style.transform=show?'none':'translateY(12px)';b.style.transition=show?'opacity .35s ease,transform .35s ease,background .2s':'opacity .35s ease,transform .35s ease,visibility 0s linear .35s,background .2s';}
+window.addEventListener('scroll',upd,{passive:true});window.addEventListener('resize',function(){t=th();upd();});window.addEventListener('load',function(){t=th();upd();});upd();
+})();
+</script>
+
+</body></html>
