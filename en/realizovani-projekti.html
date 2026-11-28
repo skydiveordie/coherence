@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Projects — quartz slabs for kitchens and bathrooms | Coherence Group</title>
+<meta name="description" content="Completed projects with quartz slabs: kitchen worktops, bathrooms and interiors in Belgrade and Serbia. See which quartz was used and how it looks after installation.">
+<style>
+/* Classical — design-system tokens and component classes. This file is the source of truth for the system's look; retune it here and see readme.md. */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Lora:wght@400;600&display=swap');
+
+:root {
+  --color-bg: #f3f2f2;
+  --color-surface: #eae9e9;
+  --color-text: #201f1d;
+  --color-accent: #b68235;
+  --color-accent-2: #ac803e;
+  --color-divider: color-mix(in srgb, #201f1d 16%, transparent);
+
+  /* Tonal ramps — generated in OKLCH on one shared lightness scale, so the
+     same step of any role matches the others in visual value. */
+  --color-neutral-100: #f8f4f4;
+  --color-neutral-200: #eae7e7;
+  --color-neutral-300: #d7d3d3;
+  --color-neutral-400: #bab6b6;
+  --color-neutral-500: #9b9797;
+  --color-neutral-600: #7d7979;
+  --color-neutral-700: #605d5d;
+  --color-neutral-800: #444141;
+  --color-neutral-900: #2d2b2b;
+
+  --color-accent-100: #fff3e4;
+  --color-accent-200: #ffe3bf;
+  --color-accent-300: #facb8d;
+  --color-accent-400: #e1ad66;
+  --color-accent-500: #c28d41;
+  --color-accent-600: #a06f24;
+  --color-accent-700: #7d5411;
+  --color-accent-800: #5a3b0a;
+  --color-accent-900: #3a270d;
+
+  --color-accent-2-100: #fff3e4;
+  --color-accent-2-200: #ffe3be;
+  --color-accent-2-300: #f5cd96;
+  --color-accent-2-400: #dbaf70;
+  --color-accent-2-500: #bc8f4e;
+  --color-accent-2-600: #9b7232;
+  --color-accent-2-700: #79561f;
+  --color-accent-2-800: #573d14;
+  --color-accent-2-900: #382810;
+
+  --font-heading: "Cormorant Garamond", system-ui, sans-serif;
+  --font-heading-weight: 600; /* review round 3: bold retired — semibold is the
+     interface headings' ceiling (they need the weight at small sizes); display
+     text goes lighter still, to the normal cut (see the deck) */
+  --font-body: "Lora", system-ui, sans-serif;
+
+  --space-1: 4.6px;
+  --space-2: 9.2px;
+  --space-3: 13.8px;
+  --space-4: 18.4px;
+  --space-6: 27.6px;
+  --space-8: 36.8px;
+
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 7px;
+
+  /* Elevation — derived from the ground: soft ink-tinted shadows on a
+     light theme, a hairline edge + ambient darkness on a dark one. */
+  --shadow-sm: 0 1px 2px color-mix(in srgb, #2d2b2b 14%, transparent);
+  --shadow-md: 0 3px 10px color-mix(in srgb, #2d2b2b 16%, transparent);
+  --shadow-lg: 0 12px 32px color-mix(in srgb, #2d2b2b 22%, transparent);
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+}
+h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: var(--font-heading-weight); }
+
+.plate{filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;
+  border:6px solid var(--color-surface);outline:1px solid var(--color-divider)}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   Components — built with the tokens above. Plain CSS
+   on plain HTML: no JavaScript, no build step. Each class is documented in
+   readme.md and demonstrated in foundations/ and components/.
+   ══════════════════════════════════════════════════════════════════════ */
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; font-size: 15px; line-height: 1.55; font-weight: 400; }
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+  line-height: 1.12; letter-spacing: -0.015em; margin: 0 0 var(--space-2);
+}
+h1 { font-size: 42px; }
+h2 { font-size: 32px; }
+h3 { font-size: 25px; }
+h4 { font-size: 20px; }
+h5 { font-size: 16px; }
+h6 { font-size: 13px; }
+h6 { letter-spacing: 0.08em; text-transform: uppercase; }
+p { margin: 0 0 var(--space-3); }
+a { color: var(--color-accent); text-underline-offset: 3px; }
+img { display: block; max-width: 100%; }
+figure { margin: 0; }
+figcaption {
+  font-size: 11px; margin-top: var(--space-1);
+  color: color-mix(in srgb, var(--color-text) 55%, transparent);
+}
+.text-muted { color: color-mix(in srgb, var(--color-text) 55%, transparent); }
+:focus { outline: none; }
+:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+::selection { background: color-mix(in srgb, var(--color-accent) 30%, transparent); }
+
+/* — rules — */
+.hr {
+  height: 1px; border: 0; margin: var(--space-4) 0;
+  background: var(--color-divider);
+}
+
+/* — buttons — */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  cursor: pointer; text-decoration: none;
+  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+  font-size: 14px; line-height: 1.2; color: var(--color-text); /* matches the .input's 14px —
+     the pair sits side by side in sign-up rows */
+  background: transparent; border: 1px solid transparent;
+  padding: var(--space-2) calc(var(--space-3) * 1.2);
+  border-radius: var(--radius-md);
+}
+.btn svg { display: block; }
+.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.btn-primary { color: var(--color-accent); border-color: var(--color-accent); }
+.btn-primary:hover { background: color-mix(in srgb, var(--color-accent) 12%, transparent); }
+.btn-primary:active { background: color-mix(in srgb, var(--color-accent) 22%, transparent); }
+.btn-secondary { border-color: var(--color-divider); }
+.btn-secondary:hover { background: color-mix(in srgb, var(--color-text) 7%, transparent); }
+.btn-secondary:active { background: color-mix(in srgb, var(--color-text) 14%, transparent); }
+.btn-ghost { color: var(--color-accent); padding-inline: var(--space-1); }
+.btn-ghost:hover { background: color-mix(in srgb, var(--color-accent) 10%, transparent); }
+.btn-ghost:active { background: color-mix(in srgb, var(--color-accent) 18%, transparent); }
+.btn-icon { width: 36px; height: 36px; padding: 0; }
+.btn-block { width: 100%; margin-top: var(--space-2); }
+
+/* — forms — */
+.field > label {
+  display: block; font-size: 12px; margin-bottom: 5px;
+  color: color-mix(in srgb, var(--color-text) 70%, transparent);
+}
+.input {
+  width: 100%; min-height: 36px; padding: 6px 10px; font: inherit;
+  font-size: 14px; color: var(--color-text); caret-color: var(--color-accent);
+  background: transparent;
+  border: 1px solid var(--color-divider); border-radius: var(--radius-md);
+}
+.input:hover { border-color: color-mix(in srgb, var(--color-text) 45%, transparent); }
+.input:focus-visible { border-color: var(--color-accent); outline-offset: 0; }
+textarea.input { min-height: 90px; resize: vertical; }
+.radio { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; font-size: 14px; }
+.radio input, .seg-opt input {
+  position: absolute; opacity: 0; width: 0; height: 0; pointer-events: none;
+}
+.radio .dot {
+  width: 16px; height: 16px; flex: none; border-radius: 50%;
+  border: 1.5px solid var(--color-divider);
+}
+.radio:hover .dot { border-color: var(--color-accent); }
+.radio input:checked + .dot {
+  border-color: var(--color-accent); background: var(--color-accent);
+  box-shadow: inset 0 0 0 4px var(--color-bg);
+}
+.radio input:focus-visible + .dot { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+.seg {
+  display: inline-flex; overflow: hidden;
+  border: 1px solid var(--color-divider); border-radius: var(--radius-md);
+}
+.seg-opt {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 12px; font-size: 13px; cursor: pointer;
+}
+.seg-opt + .seg-opt { border-left: 1px solid var(--color-divider); }
+.seg-opt:has(input:checked) { color: var(--color-accent); box-shadow: inset 0 0 0 1px var(--color-accent); }
+.seg-opt:not(:has(input:checked)):hover { background: color-mix(in srgb, var(--color-text) 7%, transparent); }
+.seg-opt:has(input:focus-visible) { outline: 2px solid var(--color-accent); outline-offset: -2px; }
+
+/* — cards — */
+.card {
+  display: flex; flex-direction: column; gap: var(--space-2);
+  padding: var(--space-3); border-radius: var(--radius-md); background: transparent; border: 1px solid var(--color-divider);
+}
+.card-kicker { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent); }
+.card-title {
+  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+  font-size: 17px; line-height: 1.2;
+}
+.card-body { margin: 0; font-size: 13px; opacity: 0.8; flex: 1; }
+.card-meta {
+  display: flex; align-items: center; gap: 6px; font-size: 11px;
+  color: color-mix(in srgb, var(--color-text) 50%, transparent);
+}
+.elev-sm { box-shadow: var(--shadow-sm); }
+.elev-md { box-shadow: var(--shadow-md); }
+.elev-lg { box-shadow: var(--shadow-lg); }
+
+/* — tags — */
+.tag {
+  display: inline-flex; align-items: center; font-size: 11px;
+  letter-spacing: 0.02em; padding: 3px 10px;
+  border-radius: calc(var(--radius-md) * 0.75);
+}
+.tag-accent { background: var(--color-accent-100); color: var(--color-accent-800); }
+.tag-accent-2 { background: var(--color-accent-2-100); color: var(--color-accent-2-800); }
+.tag-neutral { background: var(--color-neutral-100); color: var(--color-neutral-800); }
+.tag-outline { border: 1px solid var(--color-accent); color: var(--color-accent); }
+
+/* — navigation — */
+.nav {
+  display: flex; align-items: center; gap: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--color-divider);
+}
+.nav-brand {
+  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+  font-size: 18px; margin-right: auto;
+}
+.nav a { color: inherit; text-decoration: none; font-size: 14px; }
+.nav a:hover, .nav a[aria-current='page'] { color: var(--color-accent); }
+
+/* — tables — */
+.table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.table th {
+  text-align: left; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-text) 60%, transparent);
+  padding: var(--space-2); border-bottom: 1px solid var(--color-divider);
+}
+.table td {
+  padding: var(--space-2);
+  border-bottom: 1px solid var(--color-divider);
+}
+.table tbody tr:hover { background: color-mix(in srgb, var(--color-text) 4%, transparent); }
+
+/* — dialog — */
+.dialog-backdrop {
+  position: fixed; inset: 0; display: grid; place-items: center;
+  padding: var(--space-4);
+  background: color-mix(in srgb, var(--color-neutral-900) 50%, transparent);
+}
+.dialog {
+  width: min(440px, 100%); display: flex; flex-direction: column; gap: var(--space-3);
+  padding: var(--space-4); border-radius: var(--radius-lg);
+  background: var(--color-surface); box-shadow: var(--shadow-lg); border: 1px solid var(--color-divider);
+}
+.dialog-title {
+  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+  font-size: 20px;
+}
+.dialog-body { font-size: 14px; opacity: 0.85; }
+.dialog-actions { display: flex; justify-content: flex-end; gap: var(--space-2); margin-top: var(--space-2); }
+
+
+
+html { scroll-behavior: smooth; }
+body { margin: 0; overflow-x: clip; background: var(--color-bg); color: var(--color-text); font-family: var(--font-body); }
+a.link { color: var(--color-accent-700); text-underline-offset: 3px; }
+a.link:hover { color: var(--color-accent); }
+::selection { background: color-mix(in srgb, var(--color-accent) 30%, transparent); }
+.nav-links { display: flex; align-items: center; gap: clamp(18px, 2.6vw, 34px); }
+.nav-links a { color: inherit; text-decoration: none; font-size: 14px; }
+.nav-links a:hover { color: var(--color-accent); }
+.nav-toggle { display: none; background: transparent; border: 0; cursor: pointer; color: var(--color-text); padding: 8px; margin: -8px -8px -8px 0; }
+#mobileMenu { display: none; }
+@media (max-width: 860px) {
+  .nav-links { display: none; }
+  .nav-toggle { display: inline-flex; align-items: center; justify-content: center; }
+  .about-grid { grid-template-columns: 1fr !important; gap: 22px !important; }
+  .form-row { grid-template-columns: 1fr !important; }
+  .gallery-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .gallery-grid > .gal-item { grid-column: auto !important; }
+  .contact-aside { border-left: 0 !important; padding-left: 0 !important; border-top: 1px solid var(--color-divider); padding-top: 32px !important; }
+}
+@media (max-width: 560px) {
+  .gallery-grid { grid-template-columns: 1fr !important; }
+  #vrh { min-height: 78vh !important; }
+}
+.mega { position: fixed; left: 0; right: 0; top: 77px; height: 80vh; z-index: 48; background: #161616; color: #f3f2f2; border-top: 1px solid rgba(182,130,53,0.5); box-shadow: var(--shadow-lg); opacity: 0; visibility: hidden; transform: translateY(-8px); transition: opacity .28s ease, transform .28s ease, visibility 0s linear .28s; }
+.mega.open { opacity: 1; visibility: visible; transform: none; transition: opacity .28s ease, transform .28s ease; }
+.mega-inner { max-width: 1400px; height: 100%; margin: 0 auto; padding: clamp(32px,4vw,56px) clamp(20px,5vw,72px); display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1.6fr); gap: clamp(32px,5vw,88px); }
+.mega-left { display: flex; flex-direction: column; justify-content: space-between; min-height: 0; }
+.mega-links { display: flex; flex-direction: column; border-top: 1px solid rgba(243,242,242,0.16); }
+.mega-links a { display: flex; align-items: baseline; gap: 18px; padding: 14px 0; border-bottom: 1px solid rgba(243,242,242,0.16); font-family: var(--font-heading); font-weight: 400; font-size: clamp(18px,1.82vw,26.6px); line-height: 1.1; color: rgba(243,242,242,0.6); text-decoration: none; transition: color .2s, padding-left .25s; }
+.mega-links a span { font-size: 15px; color: var(--color-accent); font-feature-settings: 'tnum' 1; min-width: 28px; }
+.mega-links a.active, .mega-links a:hover { color: #f3f2f2; padding-left: 8px; }
+.mega-right { position: relative; min-height: 0; }
+.mega-panel { position: absolute; inset: 0; display: flex; flex-direction: column; gap: 22px; opacity: 0; transition: opacity .35s ease; pointer-events: none; }
+.mega-panel.active { opacity: 1; pointer-events: auto; }
+.mega-panel h3 { font-family: var(--font-heading); font-weight: 400; font-size: clamp(26px,2.4vw,36px); line-height: 1.1; margin: 0 0 8px; color: #f3f2f2; }
+.mega-panel p { font-size: 16px; line-height: 1.6; margin: 0; max-width: 54ch; color: rgba(243,242,242,0.8); }
+.mega-panel .ph { flex: 1; min-height: 0; border: 1px solid rgba(182,130,53,0.6); padding: 6px; }
+.mega-panel .ph img { width: 100%; height: 100%; object-fit: cover; }
+.nav-links a.primene-open { color: var(--color-accent); }
+@media (max-width: 860px) { .mega { display: none; } }
+html {  }
+.ss-arrow { position: absolute; top: 50%; width: 46px; height: 46px; margin-top: -23px; display: flex; align-items: center; justify-content: center; border-radius: 50%; border: 1px solid var(--color-accent); background: color-mix(in srgb, #161616 55%, transparent); color: #f3f2f2; cursor: pointer; opacity: 0; transition: opacity .25s, background .2s; z-index: 2; }
+.ss-prev { left: 16px; } .ss-next { right: 16px; }
+.ss:hover .ss-arrow, .ss-arrow:focus-visible { opacity: 1; }
+.ss-arrow:hover { background: color-mix(in srgb, var(--color-accent) 35%, #161616); }
+.ss-arrow:active { background: var(--color-accent-600); }
+@media (hover: none) { .ss-arrow { opacity: 1; } }
+.bleed-l, .bleed-r { --gut: calc(max((100vw - 1200px) / 2, 0px) + clamp(20px, 5vw, 72px) - 24px); --bl: min(25%, var(--gut)); }
+.bleed-l { width: calc(100% + var(--bl)); margin-left: calc(-1 * var(--bl)) !important; }
+.bleed-r { width: calc(100% + var(--bl)); }
+@media (max-width: 860px) { .bleed-l, .bleed-r { width: auto; margin-left: 0 !important; } }
+
+.mat{border-top:1px solid var(--color-divider);}
+.mat-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:clamp(28px,3.5vw,56px);padding:clamp(48px,6vw,88px) clamp(20px,4vw,56px);align-items:stretch;}
+.mat-q{font-family:var(--font-heading);font-style:italic;font-weight:400;font-size:clamp(24px,2.2vw,31px);line-height:1.22;margin:26px 0 18px;text-wrap:pretty;}
+.mat-t{font-size:12.5px;letter-spacing:0.12em;line-height:1.85;text-transform:uppercase;margin:0;color:color-mix(in srgb,var(--color-text) 72%,transparent);text-wrap:pretty;}
+.mg{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));grid-template-rows:repeat(4,minmax(0,1fr));gap:12px;height:clamp(510px,44.2vw,697px);align-self:start;}
+.mg-item{position:relative;overflow:hidden;margin:0;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);background:var(--color-surface);}
+.mg-item img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:sepia(0.22) saturate(0.82) contrast(1.05);transition:transform .8s cubic-bezier(.2,.7,.2,1);}
+.mg-item:hover img{transform:scale(1.045);}
+.mg-ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:repeating-linear-gradient(135deg,var(--color-neutral-200) 0 10px,var(--color-neutral-100) 10px 20px);font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:var(--color-neutral-700);}
+.mg-5 .mg-item:nth-child(1){grid-area:1/1/3/5}.mg-5 .mg-item:nth-child(2){grid-area:1/5/2/7}.mg-5 .mg-item:nth-child(3){grid-area:2/5/3/7}.mg-5 .mg-item:nth-child(4){grid-area:3/1/5/3}.mg-5 .mg-item:nth-child(5){grid-area:3/3/5/7}
+.mg-4 .mg-item:nth-child(1){grid-area:1/1/3/4}.mg-4 .mg-item:nth-child(2){grid-area:1/4/3/7}.mg-4 .mg-item:nth-child(3){grid-area:3/1/5/3}.mg-4 .mg-item:nth-child(4){grid-area:3/3/5/7}
+.mg-3 .mg-item:nth-child(1){grid-area:1/1/5/4}.mg-3 .mg-item:nth-child(2){grid-area:1/4/3/7}.mg-3 .mg-item:nth-child(3){grid-area:3/4/5/7}
+@media (min-width:641px){.mg-3r .mg-item:nth-child(1){grid-area:1/4/5/7}.mg-3r .mg-item:nth-child(2){grid-area:1/1/3/4}.mg-3r .mg-item:nth-child(3){grid-area:3/1/5/4}}
+@media (min-width:641px){.mg-3w{grid-template-columns:minmax(0,3.7fr) minmax(0,1fr);grid-template-rows:repeat(2,minmax(0,1fr));}.mg-3w .mg-item:nth-child(1){grid-area:1/1/3/2}.mg-3w .mg-item:nth-child(2){grid-area:1/2/2/3}.mg-3w .mg-item:nth-child(3){grid-area:2/2/3/3}.mg-3w .mg-item:nth-child(1) img{object-fit:contain;}}
+.mg-7 .mg-item:nth-child(1){grid-area:1/1/3/4}.mg-7 .mg-item:nth-child(2){grid-area:1/4/2/7}.mg-7 .mg-item:nth-child(3){grid-area:2/4/3/7}.mg-7 .mg-item:nth-child(4){grid-area:3/1/5/3}.mg-7 .mg-item:nth-child(5){grid-area:3/3/4/5}.mg-7 .mg-item:nth-child(6){grid-area:4/3/5/5}.mg-7 .mg-item:nth-child(7){grid-area:3/5/5/7}
+.mg-6 .mg-item:nth-child(1){grid-area:1/1/3/4}.mg-6 .mg-item:nth-child(2){grid-area:1/4/2/7}.mg-6 .mg-item:nth-child(3){grid-area:2/4/3/7}.mg-6 .mg-item:nth-child(4){grid-area:3/1/5/3}.mg-6 .mg-item:nth-child(5){grid-area:3/3/5/5}.mg-6 .mg-item:nth-child(6){grid-area:3/5/5/7}
+.veins{position:absolute;inset:-4%;width:108%;height:108%;pointer-events:none;animation:drift 46s ease-in-out infinite alternate;}
+.veins .v{fill:none;stroke:#b68235;stroke-width:1;vector-effect:non-scaling-stroke;stroke-dasharray:2600;stroke-dashoffset:2600;opacity:0;animation:vein 22s ease-in-out infinite;}
+.veins .v2{animation-duration:27s;animation-delay:-6s}.veins .v3{animation-duration:31s;animation-delay:-13s}.veins .v4{animation-duration:25s;animation-delay:-18s}.veins .v5{animation-duration:34s;animation-delay:-9s}.veins .v6{animation-duration:29s;animation-delay:-21s}
+@keyframes vein{0%{stroke-dashoffset:2600;opacity:0}12%{opacity:.55}50%{stroke-dashoffset:0;opacity:.5}88%{opacity:.25}100%{stroke-dashoffset:-2600;opacity:0}}
+@keyframes drift{0%{transform:translate3d(-1.5%,0,0) rotate(-0.6deg)}100%{transform:translate3d(1.5%,-1%,0) rotate(0.6deg)}}
+@media (prefers-reduced-motion:reduce){.veins,.veins .v{animation:none;opacity:.35;stroke-dashoffset:0}}
+.pj-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(32px,5vw,80px);align-items:center;}
+.pj-grid.pj-rev{grid-template-columns:minmax(0,7fr) minmax(0,5fr);}
+.pj-ph{position:relative;overflow:hidden;margin:0;box-sizing:border-box;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);background:repeating-linear-gradient(135deg,var(--color-neutral-200) 0 10px,var(--color-neutral-100) 10px 20px);display:flex;align-items:center;justify-content:center;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:var(--color-neutral-600);}
+.pj-ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:sepia(0.22) saturate(0.82) contrast(1.05);transition:transform .8s cubic-bezier(.2,.7,.2,1);}
+.pj-ph:hover img{transform:scale(1.045);}
+.pj-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));grid-auto-rows:clamp(150px,17vw,230px);gap:12px;margin-top:clamp(32px,4vw,56px);}
+.pj-meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--color-divider);border-bottom:1px solid var(--color-divider);margin:28px 0 26px;}
+.pj-meta div{padding:14px 0 14px 16px;border-left:1px solid var(--color-divider);}
+.pj-meta div:first-child{padding-left:0;border-left:0;}
+.pj-meta dt{font-size:11.5px;letter-spacing:0.16em;text-transform:uppercase;color:var(--color-accent-700);margin:0 0 6px;}
+.pj-meta dd{font-family:var(--font-heading);font-size:clamp(19px,1.6vw,23px);line-height:1.15;margin:0;color:var(--color-text);}
+.pj-link{display:inline-flex;align-items:center;gap:10px;margin-top:26px;font-size:13px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-accent-700);text-decoration:none;border-bottom:1px solid var(--color-accent);padding-bottom:4px;}
+.pj-link:hover{color:var(--color-accent-900);border-color:var(--color-accent-700);}
+.pj-pillars{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid rgba(182,130,53,0.45);margin-top:clamp(40px,5vw,64px);}
+.pj-pillars div{padding:26px 22px 0;border-left:1px solid rgba(182,130,53,0.3);}
+.pj-pillars div:first-child{border-left:0;padding-left:0;}
+@media (max-width:900px){.pj-grid,.pj-grid.pj-rev{grid-template-columns:1fr;}.pj-rev .pj-lead{order:2;}.pj-pillars{grid-template-columns:1fr 1fr;row-gap:28px;}.pj-pillars div:nth-child(3){border-left:0;padding-left:0;}}
+@media (max-width:560px){.pj-meta{grid-template-columns:1fr;}.pj-meta div{border-left:0;padding-left:0;border-top:1px solid var(--color-divider);}.pj-meta div:first-child{border-top:0;}.pj-pillars{grid-template-columns:1fr;}.pj-pillars div{border-left:0;padding-left:0;}}
+.pj-ph img{cursor:zoom-in;}
+.plb{position:fixed;inset:0;z-index:90;display:flex;align-items:center;justify-content:center;background:rgba(22,22,22,0.2);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);opacity:0;visibility:hidden;transition:opacity .3s ease,visibility 0s linear .3s;overflow:hidden;}
+.plb.open{opacity:1;visibility:visible;transition:opacity .3s ease;}
+.plb-img{position:absolute;max-width:80vw;max-height:80vh;width:auto;height:auto;display:block;border:6px solid var(--color-surface);outline:1px solid rgba(182,130,53,0.6);box-shadow:var(--shadow-lg);background:var(--color-surface);transition:transform .55s cubic-bezier(.65,0,.35,1),opacity .55s ease;}
+.plb-btn{position:absolute;width:52px;height:52px;display:flex;align-items:center;justify-content:center;border-radius:50%;border:1px solid var(--color-accent);background:color-mix(in srgb,#161616 72%,transparent);color:#f3f2f2;cursor:pointer;z-index:2;transition:background .2s;}
+.plb-btn:hover{background:color-mix(in srgb,var(--color-accent) 35%,#161616);}
+.plb-btn:active{background:var(--color-accent-600);}
+.plb-btn:focus-visible{outline:2px solid var(--color-accent);outline-offset:2px;}
+.plb-prev{left:clamp(12px,3vw,40px);top:50%;margin-top:-26px;}.plb-next{right:clamp(12px,3vw,40px);top:50%;margin-top:-26px;}
+.plb-close{top:20px;right:20px;width:44px;height:44px;}
+.plb-count{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);font-size:13px;letter-spacing:0.14em;font-feature-settings:'tnum' 1;color:#f3f2f2;background:color-mix(in srgb,#161616 60%,transparent);padding:6px 14px;border-radius:999px;z-index:2;}
+@media (max-width:640px){.plb-img{max-width:92vw;}.plb-btn{width:44px;height:44px;margin-top:-22px;}}
+@media (max-width:980px){.mat-grid{grid-template-columns:1fr;}.mat-side{max-width:560px;}}
+@media (max-width:640px){.mg{height:auto;grid-template-columns:1fr 1fr;grid-template-rows:none;grid-auto-rows:170px;}.mg .mg-item:nth-child(n){grid-area:auto;}.mg .mg-item:first-child{grid-column:1/3;grid-row:span 2;}}
+
+@media (max-width:1080px){.nav-links{display:none !important}.nav-toggle{display:inline-flex !important;align-items:center;justify-content:center}.mega{display:none !important}}
+</style>
+<style>#mobileMenu{max-height:calc(100dvh - 65px);overflow-y:auto;overscroll-behavior:contain}</style>
+</head>
+<body>
+
+<nav class="nav" style="position:sticky;top:0;z-index:50;background:color-mix(in srgb, var(--color-bg) 25%, transparent);backdrop-filter:saturate(1.1) blur(6px);padding-inline:clamp(20px,5vw,72px);">
+  <a href="index.html#vrh" style="margin-right:auto;display:flex;align-items:center;"><img src="../images/logo-coherence.png" alt="Coherence Group" style="height:48px;width:auto;display:block;"></a>
+  <div class="nav-links"><a href="o-nama.html">About us</a> <a href="kolekcija.html" >Collection</a> <a href="index.html#primene" id="primeneLink" aria-haspopup="true" aria-expanded="false">Applications</a> <a href="realizovani-projekti.html" aria-current="page">Projects</a> <a href="izdvajamo.html" id="izdvajamoLink" aria-haspopup="true" aria-expanded="false">Featured</a> <a href="index.html#kontakt">Contact</a> <a href="index.html#kontakt" class="btn btn-primary" style="text-decoration:none;">Request a quote</a></div>
+  <div class="nav-links lang-sw" style="gap:2px;border:1px solid var(--color-divider);border-radius:var(--radius-md);padding:2px;margin-left:clamp(10px,1.4vw,20px);"><a href="../realizovani-projekti.html" hreflang="sr" lang="sr" style="font-size:12px;letter-spacing:0.1em;padding:5px 8px;border-radius:var(--radius-sm);text-decoration:none;color:inherit;">SR</a><a href="realizovani-projekti.html" hreflang="en" lang="en" aria-current="true" style="font-size:12px;letter-spacing:0.1em;padding:5px 8px;border-radius:var(--radius-sm);text-decoration:none;color:var(--color-accent);box-shadow:inset 0 0 0 1px var(--color-accent);">EN</a><a href="../ru/realizovani-projekti.html" hreflang="ru" lang="ru" style="font-size:12px;letter-spacing:0.1em;padding:5px 8px;border-radius:var(--radius-sm);text-decoration:none;color:inherit;">RU</a></div>
+  <button type="button" class="nav-toggle" aria-label="Open menu" onclick="toggleMenu()">
+    <svg id="iconOpen" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+    <svg id="iconClose" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" style="display:none;"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+  </button>
+</nav>
+
+<div class="mega" id="megaMenu">
+  <div class="mega-inner">
+    <div class="mega-left">
+      <div>
+        <span style="display:block;font-size:13px;letter-spacing:0.14em;text-transform:uppercase;color:var(--color-accent-300);margin-bottom:14px;">Applications</span>
+        <h2 style="font-family:var(--font-heading);font-weight:400;font-size:clamp(36px,4vw,60px);line-height:1.05;letter-spacing:-0.01em;margin:0;color:#f3f2f2;max-width:10ch;">Space in four acts</h2>
+      </div>
+      <nav class="mega-links"><a href="kupatilo.html" data-key="kupatilo" class="active">Bathroom</a> <a href="kuhinja.html" data-key="kuhinja">Kitchen</a> <a href="ambijent.html" data-key="ambijent">Ambience</a> <a href="detalj.html" data-key="detalj">Detail</a></nav>
+    </div>
+    <div class="mega-right">
+      <div class="mega-panel active" data-key="kupatilo">
+        <div><h3>A moment just for yourself</h3><p>Quartz brings calm and elegance to the space of everyday rituals</p></div>
+        <div class="ph"><img src="../images/meni-kupatilo.jpg" alt="Bathroom with quartz surfaces"></div>
+      </div>
+      <div class="mega-panel" data-key="kuhinja">
+        <div><h3>The heart of the home has its own stage</h3><p>A surface where flavours, conversations and memorable moments meet</p></div>
+        <div class="ph"><img src="../images/meni-kuhinja.jpg" alt="Kitchen with a quartz worktop"></div>
+      </div>
+      <div class="mega-panel" data-key="ambijent">
+        <div><h3>Space gains character</h3><p>Quartz gives an interior rhythm, depth and a distinctive expression</p></div>
+        <div class="ph"><img src="../images/meni-ambijent.jpg" alt="Interior with quartz surfaces"></div>
+      </div>
+      <div class="mega-panel" data-key="detalj">
+        <div><h3>The final chord of a space</h3><p>Sometimes one carefully shaped detail is enough to complete the whole story.</p></div>
+        <div class="ph"><img src="../images/meni-detalj.jpg" alt="Quartz surface detail"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="mega" id="megaMenu2">
+  <div class="mega-inner">
+    <div class="mega-left">
+      <div>
+        <span style="display:block;font-size:13px;letter-spacing:0.14em;text-transform:uppercase;color:var(--color-accent-300);margin-bottom:14px;">Featured</span>
+        <h2 style="font-family:var(--font-heading);font-weight:400;font-size:clamp(36px,4vw,60px);line-height:1.05;letter-spacing:-0.01em;margin:0;color:#f3f2f2;max-width:10ch;">From idea to architecture</h2>
+      </div>
+      <nav class="mega-links"><a href="secenje.html" data-key="secenje" class="active">Cutting services</a> <a href="projekti.html" data-key="projekti">Building projects</a></nav>
+    </div>
+    <div class="mega-right">
+      <div class="mega-panel active" data-key="secenje">
+        <div><h3>Precision in every cut</h3><p>We cut quartz slabs to measure, so that every element fits harmoniously into the space you envision</p></div>
+        <div class="ph"><img src="../images/meni-secenje.jpg" alt="Quartz slab cutting to measure"></div>
+      </div>
+      <div class="mega-panel" data-key="projekti">
+        <div><h3>Architecture that makes an impression</h3><p>Discover how quartz cladding gives buildings a distinctive character and lasting elegance</p></div>
+        <div class="ph"><img src="../images/meni-projekti.jpg" alt="Building with quartz façade cladding"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="mobileMenu" style="position:fixed;top:65px;left:0;right:0;z-index:49;background:var(--color-bg);border-bottom:1px solid var(--color-divider);box-shadow:var(--shadow-md);padding:12px clamp(20px,5vw,72px) 24px;">
+  <div style="display:flex;gap:4px;padding:6px 0 10px;border-bottom:1px solid var(--color-divider);"><a href="../realizovani-projekti.html" hreflang="sr" lang="sr" style="font-size:12px;letter-spacing:0.1em;padding:5px 8px;border-radius:var(--radius-sm);text-decoration:none;color:inherit;">SR</a><a href="realizovani-projekti.html" hreflang="en" lang="en" aria-current="true" style="font-size:12px;letter-spacing:0.1em;padding:5px 8px;border-radius:var(--radius-sm);text-decoration:none;color:var(--color-accent);box-shadow:inset 0 0 0 1px var(--color-accent);">EN</a><a href="../ru/realizovani-projekti.html" hreflang="ru" lang="ru" style="font-size:12px;letter-spacing:0.1em;padding:5px 8px;border-radius:var(--radius-sm);text-decoration:none;color:inherit;">RU</a></div>
+  <a href="o-nama.html" onclick="closeMenu()" style="display:block;font-family:var(--font-heading);font-size:20px;color:var(--color-text);text-decoration:none;padding:14px 0;border-bottom:1px solid var(--color-divider);">About us</a>
+  <a href="kolekcija.html" onclick="closeMenu()" style="display:block;font-family:var(--font-heading);font-size:20px;color:var(--color-text);text-decoration:none;padding:14px 0;border-bottom:1px solid var(--color-divider);">Collection</a>
+  <a href="index.html#primene" onclick="closeMenu()" style="display:block;font-family:var(--font-heading);font-size:20px;color:var(--color-text);text-decoration:none;padding:14px 0 6px;">Applications</a>
+  <a href="kupatilo.html" onclick="closeMenu()" style="display:block;font-family:var(--font-heading);font-size:17px;color:var(--color-text);text-decoration:none;padding:9px 0 9px 18px;">Bathroom</a>
+  <a href="kuhinja.html" onclick="closeMenu()" style="display:block;font-family:var(--font-heading);font-size:17px;color:var(--color-text);text-decoration:none;padding:9px 0 9px 18px;">Kitchen</a>
+  <a href="ambijent.html" onclick="closeMenu()" style="display:block;font-family:var(--font-heading);font-size:17px;color:var(--color-text);text-decoration:none;padding:9px 0 9px 18px;">Ambience</a>
+  <a href="detalj.html" onclick="closeMenu()" style="display:block;font-family:var(--font-heading);font-size:17px;color:var(--color-text);text-decoration:none;padding:9px 0 9px 18px;">Detail</a>
+  <div style="border-bottom:1px solid var(--color-divider);margin-top:6px;"></div>
+  <a href="realizovani-projekti.html" onclick="closeMenu()" style="display:block;font-family:var(--font-heading);font-size:20px;color:var(--color-text);text-decoration:none;padding:14px 0;border-bottom:1px solid var(--color-divider);">Projects</a>
+  <a href="izdvajamo.html" onclick="closeMenu()" style="display:block;font-family:var(--font-heading);font-size:20px;color:var(--color-text);text-decoration:none;padding:14px 0 6px;">Featured</a>
+  <a href="secenje.html" onclick="closeMenu()" style="display:block;font-family:var(--font-heading);font-size:17px;color:var(--color-text);text-decoration:none;padding:9px 0 9px 18px;">Cutting services</a>
+  <a href="projekti.html" onclick="closeMenu()" style="display:block;font-family:var(--font-heading);font-size:17px;color:var(--color-text);text-decoration:none;padding:9px 0 9px 18px;">Building projects</a>
+  <div style="border-bottom:1px solid var(--color-divider);margin-top:6px;"></div>
+  <a href="index.html#kontakt" onclick="closeMenu()" style="display:block;font-family:var(--font-heading);font-size:20px;color:var(--color-text);text-decoration:none;padding:14px 0;border-bottom:1px solid var(--color-divider);">Contact</a>
+  <a href="index.html#kontakt" onclick="closeMenu()" class="btn btn-primary btn-block" style="text-decoration:none;margin-top:18px;">Request a quote</a>
+</div>
+
+
+<section id="vrh" style="position:relative;width:100%;min-height:82vh;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#f3f2f2 url('../images/projekti-hero.jpg') center/cover no-repeat;">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse 46% 52% at 50% 50%, rgba(243,242,242,0.78) 0%, rgba(243,242,242,0.35) 60%, rgba(243,242,242,0) 100%);"></div>
+  <div style="position:relative;z-index:1;max-width:820px;width:100%;margin:0 auto;padding:clamp(72px,10vw,140px) clamp(20px,5vw,72px);text-align:center;">
+    <span style="display:block;font-size:13px;letter-spacing:0.2em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:22px;">Projects</span>
+    <h1 style="font-family:var(--font-heading);font-weight:400;font-size:clamp(42px,6vw,84px);line-height:1.04;letter-spacing:-0.01em;margin:0;color:var(--color-text);text-wrap:balance;">Quartz slabs in real spaces, made to measure</h1>
+    <div style="width:64px;height:1px;background:var(--color-accent);margin:28px auto;"></div>
+    <p style="font-size:clamp(17px,1.5vw,20px);line-height:1.6;max-width:52ch;margin:0 auto;color:var(--color-text);text-wrap:pretty;">Kitchens, bathrooms and interiors where quartz slabs from our collection have found their place. A selection of recent projects, from measuring to installation.</p>
+  </div>
+</section>
+
+<section style="position:relative;overflow:hidden;background:#161616;color:#f3f2f2;">
+  <svg class="veins" viewBox="0 0 1600 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+<path class="v v1" d="M-60,140 C240,70 430,280 720,220 S1160,40 1680,190"/>
+<path class="v v2" d="M-60,470 C190,420 390,580 650,520 S1110,330 1680,480"/>
+<path class="v v3" d="M210,-30 C270,170 170,320 340,450 S540,690 490,840"/>
+<path class="v v4" d="M1270,-30 C1190,150 1340,280 1250,430 S1110,660 1190,840"/>
+<path class="v v5" d="M-60,690 C310,640 610,730 920,670 S1420,590 1680,660"/>
+<path class="v v6" d="M760,-30 C820,120 700,240 860,360 C990,460 900,600 1010,840"/>
+</svg>
+<div style="position:relative;max-width:1200px;margin:0 auto;padding:clamp(64px,9vw,120px) clamp(20px,5vw,72px);">
+  <div style="max-width:820px;margin:0 auto;text-align:center;">
+    <h2 style="font-family:var(--font-heading);font-weight:400;font-size:clamp(30px,3.6vw,46px);line-height:1.1;letter-spacing:-0.01em;margin:0;color:var(--color-accent-400);">From the first measurement to the last joint</h2>
+    <p style="font-size:17px;line-height:1.75;margin:28px auto 0;max-width:64ch;color:rgba(243,242,242,0.82);text-wrap:pretty;">Every project begins with a conversation and precise measuring, and ends with a worktop that looks as if it has always been there. We cut, finish and install quartz slabs for kitchens, bathrooms and interiors ourselves, checking every step, so the material can show everything it carries: strength, beauty and durability.</p>
+  </div>
+  <div class="pj-pillars">
+    <div><h3 style="font-family:var(--font-heading);font-weight:400;font-size:24px;line-height:1.1;margin:0 0 12px;color:var(--color-accent-400);">Quality</h3><p style="font-size:15px;line-height:1.65;margin:0;color:rgba(243,242,242,0.78);text-wrap:pretty;">We work with quartz slabs backed by the manufacturer’s warranty, resistant to scratches, heat and stains, and needing no sealing.</p></div>
+    <div><h3 style="font-family:var(--font-heading);font-weight:400;font-size:24px;line-height:1.1;margin:0 0 12px;color:var(--color-accent-400);">Precision</h3><p style="font-size:15px;line-height:1.65;margin:0;color:rgba(243,242,242,0.78);text-wrap:pretty;">On-site measuring and machine cutting deliver joints and cut-outs for the sink and hob accurate to the millimetre.</p></div>
+    <div><h3 style="font-family:var(--font-heading);font-weight:400;font-size:24px;line-height:1.1;margin:0 0 12px;color:var(--color-accent-400);">Installation</h3><p style="font-size:15px;line-height:1.65;margin:0;color:rgba(243,242,242,0.78);text-wrap:pretty;">Our team fits kitchen worktops, washbasins and wall cladding cleanly, safely and on schedule.</p></div>
+    <div><h3 style="font-family:var(--font-heading);font-weight:400;font-size:24px;line-height:1.1;margin:0 0 12px;color:var(--color-accent-400);">Commitment</h3><p style="font-size:15px;line-height:1.65;margin:0;color:rgba(243,242,242,0.78);text-wrap:pretty;">We follow the project from choosing the decor to the final edge finish, and stay available after installation.</p></div>
+  </div>
+</div>
+</section>
+
+<section id="projekat-01" style="background:var(--color-bg);border-top:1px solid var(--color-divider);">
+  <div style="max-width:1200px;margin:0 auto;padding:clamp(64px,8vw,112px) clamp(20px,5vw,72px);">
+  <article>
+  <div class="pj-grid">
+    <div>
+      <span style="display:block;font-family:var(--font-heading);font-weight:400;font-size:clamp(48px,5vw,72px);line-height:1;color:var(--color-accent-400);font-feature-settings:'tnum' 1;margin-bottom:18px;">01</span>
+      <h2 style="font-family:var(--font-heading);font-weight:400;font-size:clamp(30px,3.4vw,46px);line-height:1.08;letter-spacing:-0.01em;margin:0;text-wrap:balance;">Sonata by the river: a kitchen with an island at Belgrade Waterfront</h2>
+      <dl class="pj-meta"><div><dt>Quartz</dt><dd>Sonata</dd></div><div><dt>Space</dt><dd>Kitchen and island</dd></div><div><dt>Location</dt><dd>Belgrade Waterfront</dd></div></dl>
+      <p style="font-size:16.5px;line-height:1.7;margin:0;text-align:justify;hyphens:auto;">The milky surface of the Sonata quartz slab flows through this kitchen without a break: it runs from the worktop up the wall, and on the island it drops to the floor, so the fine veins continue their path over every edge. The joints are almost invisible, and the cut-outs for the sink and hob fit to the millimetre. Under the warm evening light the stone keeps its calm, bright note, and morning coffee, cooking and long conversations at the island become moments you gladly linger in.</p>
+      <a href="kolekcija.html#sonata" class="pj-link">Sonata quartz slab in the collection <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <figure class="pj-ph pj-lead" style="aspect-ratio:4/3;"><img src="../images/projekat-01-1.jpg" alt="Kitchen with an island in Sonata quartz, Belgrade Waterfront" loading="lazy"></figure>
+  </div>
+  <div class="pj-strip"><figure class="pj-ph"><img src="../images/projekat-01-2.jpg" alt="Detail of the Sonata quartz worktop and wall cladding" loading="lazy"></figure><figure class="pj-ph"><img src="../images/projekat-01-3.jpg" alt="Kitchen island and worktop in Sonata quartz" loading="lazy"></figure><figure class="pj-ph"><img src="../images/projekat-01-4.jpg" alt="Surface of the Sonata quartz island with natural veining" loading="lazy"></figure></div>
+  </article>
+  </div>
+</section>
+
+<section id="projekat-02" style="background:var(--color-surface);border-top:1px solid var(--color-divider);">
+  <div style="max-width:1200px;margin:0 auto;padding:clamp(64px,8vw,112px) clamp(20px,5vw,72px);">
+  <article>
+  <div class="pj-grid pj-rev">
+    <figure class="pj-ph pj-lead" style="aspect-ratio:4/3;"><img src="../images/projekat-02-1.jpg" alt="Kitchen island in black Moonlight quartz, Belgrade" loading="lazy"></figure>
+    <div>
+      <span style="display:block;font-family:var(--font-heading);font-weight:400;font-size:clamp(48px,5vw,72px);line-height:1;color:var(--color-accent-400);font-feature-settings:'tnum' 1;margin-bottom:18px;">02</span>
+      <h2 style="font-family:var(--font-heading);font-weight:400;font-size:clamp(30px,3.4vw,46px);line-height:1.08;letter-spacing:-0.01em;margin:0;text-wrap:balance;">Moonlight in the kitchen: a black island under a starry shimmer</h2>
+      <dl class="pj-meta"><div><dt>Quartz</dt><dd>Moonlight</dd></div><div><dt>Space</dt><dd>Kitchen island</dd></div><div><dt>Location</dt><dd>Belgrade</dd></div></dl>
+      <p style="font-size:16.5px;line-height:1.7;margin:0;text-align:justify;hyphens:auto;">The deep black surface of the Moonlight quartz slab is scattered with fine glittering grains, like a night sky captured in stone. The island is conceived as a single solid, monolithic block that runs from the top down the sides, while the warm oak parquet and white fronts around it emphasise its depth. Quartz does not absorb liquids and is not afraid of a hot pan or a sharp knife, so this island copes equally well with a busy morning and a long Sunday dinner, and afterwards is refreshed with a single wipe of a cloth.</p>
+      <a href="kolekcija.html#moonlight" class="pj-link">Moonlight quartz slab in the collection <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+  </div>
+  <div class="pj-strip"><figure class="pj-ph"><img src="../images/projekat-02-2.jpg" alt="Glasses reflected on the black Moonlight quartz worktop" loading="lazy"></figure><figure class="pj-ph"><img src="../images/projekat-02-3.jpg" alt="Side of the Moonlight quartz island" loading="lazy"></figure><figure class="pj-ph"><img src="../images/projekat-02-4.jpg" alt="Monolithic Moonlight quartz island in the kitchen" loading="lazy"></figure><figure class="pj-ph"><img src="../images/projekat-02-5.jpg" alt="Precisely joined corner of the Moonlight quartz island" loading="lazy"></figure></div>
+  </article>
+  </div>
+</section>
+
+<section id="projekat-03" style="background:var(--color-bg);border-top:1px solid var(--color-divider);">
+  <div style="max-width:1200px;margin:0 auto;padding:clamp(64px,8vw,112px) clamp(20px,5vw,72px);">
+  <article>
+  <div class="pj-grid">
+    <div>
+      <span style="display:block;font-family:var(--font-heading);font-weight:400;font-size:clamp(48px,5vw,72px);line-height:1;color:var(--color-accent-400);font-feature-settings:'tnum' 1;margin-bottom:18px;">03</span>
+      <h2 style="font-family:var(--font-heading);font-weight:400;font-size:clamp(30px,3.4vw,46px);line-height:1.08;letter-spacing:-0.01em;margin:0;text-wrap:balance;">Spring in a classic kitchen: whiteness between navy-blue fronts</h2>
+      <dl class="pj-meta"><div><dt>Quartz</dt><dd>Spring</dd></div><div><dt>Space</dt><dd>Kitchen</dd></div><div><dt>Location</dt><dd>Belgrade</dd></div></dl>
+      <p style="font-size:16.5px;line-height:1.7;margin:0;text-align:justify;hyphens:auto;">The Spring quartz slab brings the freshness its name promises: a snow-white base with delicate grey traces stands like a pause between the navy-blue fronts and brass handles. The classic-style kitchen gained a contemporary anchor in the worktop by the sink and in the island with a built-in hob, so everything needed to prepare a meal is within reach. The white surface makes the room feel airier than it is, and easy-care quartz keeps that whiteness just as clean years after the first lunch.</p>
+      <a href="kolekcija.html#spring" class="pj-link">Spring quartz slab in the collection <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <figure class="pj-ph pj-lead" style="aspect-ratio:4/3;"><img src="../images/projekat-03-1.jpg" alt="Kitchen with island and worktop in Spring quartz, Belgrade" loading="lazy"></figure>
+  </div>
+  <div class="pj-strip"><figure class="pj-ph"><img src="../images/projekat-03-2.jpg" alt="Spring quartz island beside tall units" loading="lazy"></figure><figure class="pj-ph"><img src="../images/projekat-03-3.jpg" alt="Spring quartz kitchen worktop with a built-in sink" loading="lazy"></figure><figure class="pj-ph"><img src="../images/projekat-03-4.jpg" alt="Island with a hob and a Spring quartz top" loading="lazy"></figure><figure class="pj-ph"><img src="../images/projekat-03-5.jpg" alt="White Spring quartz worktop in a classic kitchen" loading="lazy"></figure><figure class="pj-ph"><img src="../images/projekat-03-6.jpg" alt="Edge of the Spring quartz island above navy-blue drawers" loading="lazy"></figure></div>
+  </article>
+  </div>
+</section>
+
+<section aria-label="Contact" style="position:relative;overflow:hidden;background:#161616;color:#f3f2f2;">
+  <svg class="veins" viewBox="0 0 1600 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+<path class="v v1" d="M-60,140 C240,70 430,280 720,220 S1160,40 1680,190"/>
+<path class="v v2" d="M-60,470 C190,420 390,580 650,520 S1110,330 1680,480"/>
+<path class="v v3" d="M210,-30 C270,170 170,320 340,450 S540,690 490,840"/>
+<path class="v v4" d="M1270,-30 C1190,150 1340,280 1250,430 S1110,660 1190,840"/>
+<path class="v v5" d="M-60,690 C310,640 610,730 920,670 S1420,590 1680,660"/>
+<path class="v v6" d="M760,-30 C820,120 700,240 860,360 C990,460 900,600 1010,840"/>
+</svg>
+  <div style="position:relative;max-width:820px;margin:0 auto;padding:clamp(64px,8vw,104px) clamp(20px,5vw,72px);text-align:center;">
+    <h2 style="font-family:var(--font-heading);font-weight:400;font-size:clamp(30px,3.6vw,46px);line-height:1.1;letter-spacing:-0.01em;margin:0;color:var(--color-accent-400);text-wrap:balance;">Do you have a space waiting for its stone?</h2>
+    <p style="font-size:17px;line-height:1.7;max-width:52ch;margin:22px auto 0;color:rgba(243,242,242,0.82);text-wrap:pretty;">Write to us about choosing a quartz slab, measuring, pricing or any question about your kitchen or bathroom.</p>
+    <a href="index.html#kontakt" class="btn btn-primary" style="text-decoration:none;margin-top:34px;color:#f3f2f2;">Contact us</a>
+  </div>
+</section>
+
+<section id="projekat-04" style="background:var(--color-surface);border-top:1px solid var(--color-divider);">
+  <div style="max-width:1200px;margin:0 auto;padding:clamp(64px,8vw,112px) clamp(20px,5vw,72px);">
+  <article>
+  <div class="pj-grid pj-rev">
+    <figure class="pj-ph pj-lead" style="aspect-ratio:4/3;"><img src="../images/projekat-04-1.jpg" alt="Dining table in Amore quartz next to the kitchen, Belgrade" loading="lazy"></figure>
+    <div>
+      <span style="display:block;font-family:var(--font-heading);font-weight:400;font-size:clamp(48px,5vw,72px);line-height:1;color:var(--color-accent-400);font-feature-settings:'tnum' 1;margin-bottom:18px;">04</span>
+      <h2 style="font-family:var(--font-heading);font-weight:400;font-size:clamp(30px,3.4vw,46px);line-height:1.08;letter-spacing:-0.01em;margin:0;text-wrap:balance;">Amore throughout the space: from the kitchen to the coffee table in the living room</h2>
+      <dl class="pj-meta"><div><dt>Quartz</dt><dd>Amore</dd></div><div><dt>Space</dt><dd>Kitchen and dining</dd></div><div><dt>Location</dt><dd>Belgrade</dd></div></dl>
+      <p style="font-size:16.5px;line-height:1.7;margin:0;text-align:justify;hyphens:auto;">In this apartment the Amore quartz slab links three areas into one story. On the kitchen wall and worktop it draws calm, diagonal lines; on the dining table with rounded corners it becomes a place to gather; and on the round coffee table in the living room it finishes the sentence begun at the stove. Oak columns with a ribbed texture and herringbone parquet give the stone a warm accompaniment, so the repeated material reads as a quiet thread that guides the eye through the whole space. One decor, three uses, and a home that looks as if it was conceived in a single breath.</p>
+      <a href="kolekcija.html#amore" class="pj-link">Amore quartz slab in the collection <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+  </div>
+  <div class="pj-strip"><figure class="pj-ph"><img style="object-position:50% 64%;" src="../images/projekat-04-2.jpg" alt="Round coffee table and dining table in Amore quartz" loading="lazy"></figure><figure class="pj-ph"><img src="../images/projekat-04-3.jpg" alt="Kitchen, dining area and coffee table with Amore quartz" loading="lazy"></figure><figure class="pj-ph"><img src="../images/projekat-04-4.jpg" alt="Amore quartz kitchen worktop with a board in the same material" loading="lazy"></figure></div>
+  </article>
+  </div>
+</section>
+
+<section id="projekat-05" style="background:var(--color-bg);border-top:1px solid var(--color-divider);">
+  <div style="max-width:1200px;margin:0 auto;padding:clamp(64px,8vw,112px) clamp(20px,5vw,72px);">
+  <article>
+  <div class="pj-grid">
+    <div>
+      <span style="display:block;font-family:var(--font-heading);font-weight:400;font-size:clamp(48px,5vw,72px);line-height:1;color:var(--color-accent-400);font-feature-settings:'tnum' 1;margin-bottom:18px;">05</span>
+      <h2 style="font-family:var(--font-heading);font-weight:400;font-size:clamp(30px,3.4vw,46px);line-height:1.08;letter-spacing:-0.01em;margin:0;text-wrap:balance;">Sonata between walnut and sage: a kitchen with an island in Belgrade</h2>
+      <dl class="pj-meta"><div><dt>Quartz</dt><dd>Sonata</dd></div><div><dt>Space</dt><dd>Kitchen and island</dd></div><div><dt>Location</dt><dd>Belgrade</dd></div></dl>
+      <p style="font-size:16.5px;line-height:1.7;margin:0;text-align:justify;hyphens:auto;">Here the Sonata quartz slab acts as a calm mediator between two expressive colours: warm walnut on the wall units and island, and muted sage green on the base fronts. Its white base with sparse, fine lines does not compete with the wood but leaves it room to breathe. The island is conceived as a large, open surface for whatever the day brings, from kneading dough to morning work on a laptop, and a socket discreetly built into the slab itself keeps the look clean with no cables over the edge. The result is a kitchen in which the warmth of wood and the steadiness of stone complement each other without a single superfluous note.</p>
+      <a href="kolekcija.html#sonata" class="pj-link">Sonata quartz slab in the collection <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <figure class="pj-ph pj-lead" style="aspect-ratio:4/3;"><img src="../images/projekat-05-1.jpg" alt="Kitchen island in Sonata quartz with walnut units, Belgrade" loading="lazy"></figure>
+  </div>
+  <div class="pj-strip"><figure class="pj-ph"><img src="../images/projekat-05-2.jpg" alt="Sonata quartz island and worktop with green fronts" loading="lazy"></figure><figure class="pj-ph"><img src="../images/projekat-05-3.jpg" alt="Sonata quartz wall cladding and worktop below walnut units" loading="lazy"></figure></div>
+  </article>
+  </div>
+</section>
+
+<section aria-label="Consultation" style="position:relative;overflow:hidden;background:#161616;color:#f3f2f2;">
+  <svg class="veins" viewBox="0 0 1600 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+<path class="v v1" d="M-60,140 C240,70 430,280 720,220 S1160,40 1680,190"/>
+<path class="v v2" d="M-60,470 C190,420 390,580 650,520 S1110,330 1680,480"/>
+<path class="v v3" d="M210,-30 C270,170 170,320 340,450 S540,690 490,840"/>
+<path class="v v4" d="M1270,-30 C1190,150 1340,280 1250,430 S1110,660 1190,840"/>
+<path class="v v5" d="M-60,690 C310,640 610,730 920,670 S1420,590 1680,660"/>
+<path class="v v6" d="M760,-30 C820,120 700,240 860,360 C990,460 900,600 1010,840"/>
+</svg>
+  <div style="position:relative;max-width:820px;margin:0 auto;padding:clamp(72px,9vw,120px) clamp(20px,5vw,72px);text-align:center;">
+    <h2 style="font-family:var(--font-heading);font-weight:400;font-size:clamp(30px,3.6vw,46px);line-height:1.1;letter-spacing:-0.01em;margin:0;color:var(--color-accent-400);text-wrap:balance;">Not sure which quartz is right for you?</h2>
+    <p style="font-size:17px;line-height:1.75;max-width:58ch;margin:24px auto 0;color:rgba(243,242,242,0.82);text-wrap:pretty;">We are here to go through decors, thicknesses and edge finishes with you and find the quartz slab that suits both your space and the way you use it. Send us a sketch, a photo or just an idea, and we will propose a solution and an approximate price, with no obligation.</p>
+    <a href="index.html#kontakt" class="btn btn-primary" style="text-decoration:none;margin-top:36px;color:#f3f2f2;">Ask for advice</a>
+  </div>
+</section>
+
+<footer style="border-top:1px solid var(--color-divider);background:var(--color-surface);">
+  <div style="max-width:1200px;margin:0 auto;padding:48px clamp(20px,5vw,72px);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:24px;">
+    <img src="../images/logo-coherence.png" alt="Coherence Group" style="height:44px;width:auto;">
+    <p style="font-size:13px;line-height:1.6;margin:0;color:color-mix(in srgb, var(--color-text) 62%, transparent);">Quartz surfaces for homes, commercial spaces and façades.<br>Dragiše Lapčevića 31, Belgrade · kontakt@coherence.rs</p>
+    <span style="font-size:12px;color:color-mix(in srgb, var(--color-text) 55%, transparent);">© 2026 Coherence Group</span>
+  </div>
+</footer>
+<div class="plb" id="plb" role="dialog" aria-modal="true" aria-label="Project gallery" aria-hidden="true">
+  <button type="button" class="plb-btn plb-prev" id="plbPrev" aria-label="Previous photo"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+  <button type="button" class="plb-btn plb-next" id="plbNext" aria-label="Next photo"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+  <button type="button" class="plb-btn plb-close" id="plbClose" aria-label="Close gallery"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  <span class="plb-count" id="plbCount"></span>
+</div>
+<script>
+(function(){var lb=document.getElementById('plb'),cnt=document.getElementById('plbCount'),list=[],idx=0,cur=null,busy=false;
+function mk(src,alt,x){var im=document.createElement('img');im.className='plb-img';im.src=src;im.alt=alt||'';im.style.transform='translateX('+x+')';im.style.opacity=x==='0'?'1':'0';lb.appendChild(im);return im;}
+function upd(){cnt.textContent=(idx+1)+' / '+list.length;}
+function open(l,i){list=l;idx=i;if(cur)cur.remove();cur=mk(list[idx].src,list[idx].alt,'0');upd();lb.classList.add('open');lb.setAttribute('aria-hidden','false');document.documentElement.style.overflow='hidden';}
+function close(){lb.classList.remove('open');lb.setAttribute('aria-hidden','true');document.documentElement.style.overflow='';}
+function step(d){if(busy||list.length<2)return;busy=true;idx=(idx+d+list.length)%list.length;
+var nx=mk(list[idx].src,list[idx].alt,(d>0?'60vw':'-60vw'));var old=cur;cur=nx;upd();
+requestAnimationFrame(function(){requestAnimationFrame(function(){nx.style.transform='translateX(0)';nx.style.opacity='1';old.style.transform='translateX('+(d>0?'-60vw':'60vw')+')';old.style.opacity='0';});});
+setTimeout(function(){old.remove();busy=false;},560);}
+document.querySelectorAll('article').forEach(function(a){var imgs=[].slice.call(a.querySelectorAll('.pj-ph img'));
+imgs.forEach(function(im,i){im.addEventListener('click',function(){open(imgs.map(function(x){return{src:x.currentSrc||x.src,alt:x.alt};}),i);});});});
+document.getElementById('plbPrev').addEventListener('click',function(e){e.stopPropagation();step(-1);});
+document.getElementById('plbNext').addEventListener('click',function(e){e.stopPropagation();step(1);});
+document.getElementById('plbClose').addEventListener('click',close);
+lb.addEventListener('click',function(e){if(e.target===lb)close();});
+document.addEventListener('keydown',function(e){if(!lb.classList.contains('open'))return;if(e.key==='Escape')close();if(e.key==='ArrowLeft')step(-1);if(e.key==='ArrowRight')step(1);});
+var sx=null;lb.addEventListener('touchstart',function(e){sx=e.touches[0].clientX;},{passive:true});
+lb.addEventListener('touchend',function(e){if(sx===null)return;var dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>40)step(dx<0?1:-1);sx=null;});
+})();
+</script>
+
+
+<script>
+function toggleMenu(){var m=document.getElementById('mobileMenu');var open=m.style.display==='block';m.style.display=open?'none':'block';document.getElementById('iconOpen').style.display=open?'block':'none';document.getElementById('iconClose').style.display=open?'none':'block';}
+function closeMenu(){document.getElementById('mobileMenu').style.display='none';document.getElementById('iconOpen').style.display='block';document.getElementById('iconClose').style.display='none';}
+function submitForm(e){e.preventDefault();document.getElementById('quoteForm').style.display='none';document.getElementById('quoteThanks').style.display='block';return false;}
+(function(){var nav=document.querySelector('nav.nav'),all=[];
+function setup(linkId,megaId){var link=document.getElementById(linkId),mega=document.getElementById(megaId),timer;if(!link||!mega)return;
+var m={hide:function(){clearTimeout(timer);mega.classList.remove('open');link.classList.remove('primene-open');link.setAttribute('aria-expanded','false');}};all.push(m);
+function pos(){mega.style.top=nav.getBoundingClientRect().bottom+'px';}
+function open(){all.forEach(function(x){if(x!==m)x.hide();});clearTimeout(timer);pos();mega.classList.add('open');link.classList.add('primene-open');link.setAttribute('aria-expanded','true');}
+function close(){clearTimeout(timer);timer=setTimeout(m.hide,180);}
+link.addEventListener('mouseenter',open);link.addEventListener('mouseleave',close);
+mega.addEventListener('mouseenter',function(){clearTimeout(timer);});mega.addEventListener('mouseleave',close);
+link.addEventListener('click',function(e){e.preventDefault();if(mega.classList.contains('open'))m.hide();else open();});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')m.hide();});
+window.addEventListener('scroll',function(){if(mega.classList.contains('open'))pos();},{passive:true});
+mega.querySelectorAll('.mega-links a').forEach(function(a){function act(){var k=a.dataset.key;mega.querySelectorAll('.mega-links a').forEach(function(x){x.classList.toggle('active',x===a);});mega.querySelectorAll('.mega-panel').forEach(function(p){p.classList.toggle('active',p.dataset.key===k);});}a.addEventListener('mouseenter',act);a.addEventListener('focus',act);});
+}
+setup('primeneLink','megaMenu');setup('izdvajamoLink','megaMenu2');
+})();
+(function(){var root=document.getElementById('estetikaSlider');if(!root)return;
+var INTERVAL=2300,SPEED=600,DELAY=700;
+var track=root.querySelector('.ss-track'),orig=[].slice.call(track.children),n=orig.length;
+track.insertBefore(orig[n-1].cloneNode(true),orig[0]);track.appendChild(orig[0].cloneNode(true));
+var i=1,timer=null,busy=false,hover=false,started=false;
+function set(anim){track.style.transition=anim?'transform '+SPEED+'ms cubic-bezier(.65,0,.35,1)':'none';track.style.transform='translateX('+(-i*100)+'%)';}
+set(false);
+track.addEventListener('transitionend',function(){busy=false;if(i===n+1){i=1;set(false);}else if(i===0){i=n;set(false);}});
+function go(d){if(busy)return;busy=true;i+=d;set(true);}
+function play(){stop();if(!hover&&started)timer=setInterval(function(){go(1);},INTERVAL);}
+function stop(){clearInterval(timer);timer=null;}
+root.addEventListener('mouseenter',function(){hover=true;stop();});
+root.addEventListener('mouseleave',function(){hover=false;play();});
+root.querySelector('.ss-prev').addEventListener('click',function(){go(-1);});
+root.querySelector('.ss-next').addEventListener('click',function(){go(1);});
+document.addEventListener('visibilitychange',function(){if(document.hidden)stop();else play();});
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&!started){io.disconnect();setTimeout(function(){started=true;play();},DELAY);}});},{threshold:0.35});
+io.observe(root);
+})();
+document.querySelectorAll('.zoom').forEach(function(box){var img=box.querySelector('img');
+function maxScale(){var w=box.clientWidth,h=box.clientHeight;if(!img.naturalWidth)return 1;var fit=Math.max(w/img.naturalWidth,h/img.naturalHeight);return Math.max(1,1/fit);}
+box.addEventListener('mouseenter',function(){img.style.transform='scale('+maxScale()+')';});
+box.addEventListener('mousemove',function(e){var r=box.getBoundingClientRect();img.style.transformOrigin=((e.clientX-r.left)/r.width*100)+'% '+((e.clientY-r.top)/r.height*100)+'%';});
+box.addEventListener('mouseleave',function(){img.style.transform='scale(1)';img.style.transformOrigin='50% 50%';});
+});
+</script>
+<button type="button" id="toTop" aria-label="Back to top" style="position:fixed;right:clamp(16px,2.5vw,32px);bottom:clamp(16px,2.5vw,32px);z-index:60;width:48px;height:48px;display:flex;align-items:center;justify-content:center;border-radius:50%;border:1px solid var(--color-accent);background:color-mix(in srgb,#161616 72%,transparent);backdrop-filter:blur(6px);color:#f3f2f2;cursor:pointer;box-shadow:var(--shadow-md);opacity:0;visibility:hidden;transform:translateY(12px);transition:opacity .35s ease,transform .35s ease,visibility 0s linear .35s,background .2s;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg></button>
+<script>
+(function(){var b=document.getElementById('toTop');if(!b)return;
+b.addEventListener('mouseenter',function(){b.style.background='color-mix(in srgb,var(--color-accent) 35%,#161616)';});
+b.addEventListener('mouseleave',function(){b.style.background='color-mix(in srgb,#161616 72%,transparent)';});
+b.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+function th(){var s=document.querySelectorAll('body > section, body > main');var nav=document.querySelector('nav.nav');var nh=nav?nav.offsetHeight:0;return s.length>=3?s[2].getBoundingClientRect().top+window.scrollY-nh:window.innerHeight*1.5;}
+var t=th(),on=false;
+function upd(){var show=window.scrollY>=t-2;if(show===on)return;on=show;b.style.opacity=show?'1':'0';b.style.visibility=show?'visible':'hidden';b.style.transform=show?'none':'translateY(12px)';b.style.transition=show?'opacity .35s ease,transform .35s ease,background .2s':'opacity .35s ease,transform .35s ease,visibility 0s linear .35s,background .2s';}
+window.addEventListener('scroll',upd,{passive:true});window.addEventListener('resize',function(){t=th();upd();});window.addEventListener('load',function(){t=th();upd();});upd();
+})();
+</script>
+</body>
+</html>

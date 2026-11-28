@@ -263,7 +263,7 @@ textarea.input { min-height: 90px; resize: vertical; }
 
 
 html { scroll-behavior: smooth; }
-body { margin: 0; overflow-x: hidden; background: var(--color-bg); color: var(--color-text); font-family: var(--font-body); }
+body { margin: 0; overflow-x: clip; background: var(--color-bg); color: var(--color-text); font-family: var(--font-body); }
 a.link { color: var(--color-accent-700); text-underline-offset: 3px; }
 a.link:hover { color: var(--color-accent); }
 ::selection { background: color-mix(in srgb, var(--color-accent) 30%, transparent); }
@@ -302,7 +302,7 @@ a.link:hover { color: var(--color-accent); }
 .mega-panel .ph img { width: 100%; height: 100%; object-fit: cover; }
 .nav-links a.primene-open { color: var(--color-accent); }
 @media (max-width: 860px) { .mega { display: none; } }
-html { overflow-x: clip; }
+html {  }
 .ss-arrow { position: absolute; top: 50%; width: 46px; height: 46px; margin-top: -23px; display: flex; align-items: center; justify-content: center; border-radius: 50%; border: 1px solid var(--color-accent); background: color-mix(in srgb, #161616 55%, transparent); color: #f3f2f2; cursor: pointer; opacity: 0; transition: opacity .25s, background .2s; z-index: 2; }
 .ss-prev { left: 16px; } .ss-next { right: 16px; }
 .ss:hover .ss-arrow, .ss-arrow:focus-visible { opacity: 1; }
@@ -319,43 +319,39 @@ html { overflow-x: clip; }
 .mat-q{font-family:var(--font-heading);font-style:italic;font-weight:400;font-size:clamp(24px,2.2vw,31px);line-height:1.22;margin:26px 0 18px;text-wrap:pretty;}
 .mat-t{font-size:12.5px;letter-spacing:0.12em;line-height:1.85;text-transform:uppercase;margin:0;color:color-mix(in srgb,var(--color-text) 72%,transparent);text-wrap:pretty;}
 .mg{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));grid-template-rows:repeat(4,minmax(0,1fr));gap:12px;height:clamp(510px,44.2vw,697px);align-self:start;}
-.mg-item{position:relative;overflow:hidden;cursor:zoom-in;margin:0;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);background:var(--color-surface);}
+.mg-item{position:relative;overflow:hidden;margin:0;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);background:var(--color-surface);}
 .mg-item img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:sepia(0.22) saturate(0.82) contrast(1.05);transition:transform .8s cubic-bezier(.2,.7,.2,1);}
 .mg-item:hover img{transform:scale(1.045);}
 .mg-ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:repeating-linear-gradient(135deg,var(--color-neutral-200) 0 10px,var(--color-neutral-100) 10px 20px);font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:var(--color-neutral-700);}
 .mg-5 .mg-item:nth-child(1){grid-area:1/1/3/5}.mg-5 .mg-item:nth-child(2){grid-area:1/5/2/7}.mg-5 .mg-item:nth-child(3){grid-area:2/5/3/7}.mg-5 .mg-item:nth-child(4){grid-area:3/1/5/3}.mg-5 .mg-item:nth-child(5){grid-area:3/3/5/7}
 .mg-4 .mg-item:nth-child(1){grid-area:1/1/3/4}.mg-4 .mg-item:nth-child(2){grid-area:1/4/3/7}.mg-4 .mg-item:nth-child(3){grid-area:3/1/5/3}.mg-4 .mg-item:nth-child(4){grid-area:3/3/5/7}
 .mg-3 .mg-item:nth-child(1){grid-area:1/1/5/4}.mg-3 .mg-item:nth-child(2){grid-area:1/4/3/7}.mg-3 .mg-item:nth-child(3){grid-area:3/4/5/7}
+@media (min-width:641px){.mg-3r .mg-item:nth-child(1){grid-area:1/4/5/7}.mg-3r .mg-item:nth-child(2){grid-area:1/1/3/4}.mg-3r .mg-item:nth-child(3){grid-area:3/1/5/4}}
+@media (min-width:641px){.mg-3w{grid-template-columns:minmax(0,3.7fr) minmax(0,1fr);grid-template-rows:repeat(2,minmax(0,1fr));}.mg-3w .mg-item:nth-child(1){grid-area:1/1/3/2}.mg-3w .mg-item:nth-child(2){grid-area:1/2/2/3}.mg-3w .mg-item:nth-child(3){grid-area:2/2/3/3}.mg-3w .mg-item:nth-child(1) img{object-fit:contain;}}
 .mg-7 .mg-item:nth-child(1){grid-area:1/1/3/4}.mg-7 .mg-item:nth-child(2){grid-area:1/4/2/7}.mg-7 .mg-item:nth-child(3){grid-area:2/4/3/7}.mg-7 .mg-item:nth-child(4){grid-area:3/1/5/3}.mg-7 .mg-item:nth-child(5){grid-area:3/3/4/5}.mg-7 .mg-item:nth-child(6){grid-area:4/3/5/5}.mg-7 .mg-item:nth-child(7){grid-area:3/5/5/7}
 .mg-6 .mg-item:nth-child(1){grid-area:1/1/3/4}.mg-6 .mg-item:nth-child(2){grid-area:1/4/2/7}.mg-6 .mg-item:nth-child(3){grid-area:2/4/3/7}.mg-6 .mg-item:nth-child(4){grid-area:3/1/5/3}.mg-6 .mg-item:nth-child(5){grid-area:3/3/5/5}.mg-6 .mg-item:nth-child(6){grid-area:3/5/5/7}
-.lb{position:fixed;inset:0;z-index:80;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb,#161616 20%,transparent);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);opacity:0;visibility:hidden;transition:opacity .3s ease,visibility 0s linear .3s;}
-.lb.open{opacity:1;visibility:visible;transition:opacity .3s ease;}
-.lb-stage{display:flex;flex-direction:column;gap:14px;transform:scale(.94);transition:transform .35s cubic-bezier(.2,.7,.2,1);}
-.lb.open .lb-stage{transform:none;}
-.lb-frame{width:60vw;border:6px solid var(--color-surface);outline:1px solid rgba(182,130,53,0.6);background:var(--color-surface);box-shadow:var(--shadow-lg);}
-.lb-frame img{width:100%;height:auto;max-height:76vh;object-fit:contain;display:block;transition:opacity .25s;}
-.lb-frame .mg-ph{height:40vw;max-height:76vh;font-size:14px;}
-.lb-cap{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--font-heading);font-size:20px;color:var(--color-text);}
-.lb-cap span:last-child{font-size:15px;font-feature-settings:'tnum' 1;color:var(--color-accent-700);}
-.lb-arrow,.lb-close{position:absolute;width:52px;height:52px;display:flex;align-items:center;justify-content:center;border-radius:50%;border:1px solid var(--color-accent);background:color-mix(in srgb,#161616 55%,transparent);color:#f3f2f2;cursor:pointer;transition:background .2s;}
-.lb-arrow{top:50%;margin-top:-26px;}.lb-prev{left:calc(20vw - 84px);}.lb-next{right:calc(20vw - 84px);}
-.lb-close{top:24px;right:24px;width:44px;height:44px;}
-.lb-arrow:hover,.lb-close:hover{background:color-mix(in srgb,var(--color-accent) 35%,#161616);}
-.lb-arrow:active,.lb-close:active{background:var(--color-accent-600);}
+.veins{position:absolute;inset:-4%;width:108%;height:108%;pointer-events:none;animation:drift 46s ease-in-out infinite alternate;}
+.veins .v{fill:none;stroke:#b68235;stroke-width:1;vector-effect:non-scaling-stroke;stroke-dasharray:2600;stroke-dashoffset:2600;opacity:0;animation:vein 22s ease-in-out infinite;}
+.veins .v2{animation-duration:27s;animation-delay:-6s}.veins .v3{animation-duration:31s;animation-delay:-13s}.veins .v4{animation-duration:25s;animation-delay:-18s}.veins .v5{animation-duration:34s;animation-delay:-9s}.veins .v6{animation-duration:29s;animation-delay:-21s}
+@keyframes vein{0%{stroke-dashoffset:2600;opacity:0}12%{opacity:.55}50%{stroke-dashoffset:0;opacity:.5}88%{opacity:.25}100%{stroke-dashoffset:-2600;opacity:0}}
+@keyframes drift{0%{transform:translate3d(-1.5%,0,0) rotate(-0.6deg)}100%{transform:translate3d(1.5%,-1%,0) rotate(0.6deg)}}
+@media (prefers-reduced-motion:reduce){.veins,.veins .v{animation:none;opacity:.35;stroke-dashoffset:0}}
 @media (max-width:980px){.mat-grid{grid-template-columns:1fr;}.mat-side{max-width:560px;}}
-@media (max-width:640px){.mg{height:auto;grid-template-columns:1fr 1fr;grid-template-rows:none;grid-auto-rows:170px;}.mg .mg-item:nth-child(n){grid-area:auto;}.mg .mg-item:first-child{grid-column:1/3;grid-row:span 2;}.lb-frame{width:92vw;}.lb-prev{left:8px;}.lb-next{right:8px;}.lb-arrow{top:auto;bottom:24px;margin:0;}}
+@media (max-width:640px){.mg{height:auto;grid-template-columns:1fr 1fr;grid-template-rows:none;grid-auto-rows:170px;}.mg .mg-item:nth-child(n){grid-area:auto;}.mg .mg-item:first-child{grid-column:1/3;grid-row:span 2;}}
 
 @media (max-width:1080px){.nav-links{display:none !important}.nav-toggle{display:inline-flex !important;align-items:center;justify-content:center}.mega{display:none !important}}
 </style>
+<style>#mobileMenu{max-height:calc(100dvh - 65px);overflow-y:auto;overscroll-behavior:contain}</style>
 </head>
 <body>
 
-<nav class="nav" style="position:fixed;top:0;left:0;right:0;z-index:50;background:color-mix(in srgb, var(--color-bg) 25%, transparent);backdrop-filter:saturate(1.1) blur(6px);padding-inline:clamp(20px,5vw,72px);">
+<nav class="nav" style="position:sticky;top:0;z-index:50;background:color-mix(in srgb, var(--color-bg) 25%, transparent);backdrop-filter:saturate(1.1) blur(6px);padding-inline:clamp(20px,5vw,72px);">
   <a href="index.html#vrh" style="margin-right:auto;display:flex;align-items:center;"><img src="images/logo-coherence.png" alt="Coherence Group" style="height:48px;width:auto;display:block;"></a>
   <div class="nav-links">
     <a href="o-nama.html">O nama</a>
     <a href="kolekcija.html" aria-current="page">Kolekcija</a>
     <a href="index.html#primene" id="primeneLink" aria-haspopup="true" aria-expanded="false">Primene</a>
+    <a href="realizovani-projekti.html">Projekti</a>
     <a href="izdvajamo.html" id="izdvajamoLink" aria-haspopup="true" aria-expanded="false">Izdvajamo</a>
     <a href="index.html#kontakt">Kontakt</a>
     <a href="index.html#kontakt" class="btn btn-primary" style="text-decoration:none;">Zatraži ponudu</a>
@@ -384,19 +380,19 @@ html { overflow-x: clip; }
     <div class="mega-right">
       <div class="mega-panel active" data-key="kupatilo">
         <div><h3>Trenutak samo za sebe</h3><p>Kvarc unosi mir i eleganciju u prostor svakodnevnih rituala</p></div>
-        <div class="ph"><img src="images/meni-kupatilo.jpg" alt="Kupatilo"></div>
+        <div class="ph"><img src="images/meni-kupatilo.jpg" alt="Kupatilo sa kvarcnim pločama"></div>
       </div>
       <div class="mega-panel" data-key="kuhinja">
         <div><h3>Srce doma ima svoju scenu</h3><p>Površina na kojoj se susreću ukusi, razgovori i trenuci za pamćenje</p></div>
-        <div class="ph"><img src="images/meni-kuhinja.jpg" alt="Kuhinja"></div>
+        <div class="ph"><img src="images/meni-kuhinja.jpg" alt="Kuhinja sa kvarcnom radnom pločom"></div>
       </div>
       <div class="mega-panel" data-key="ambijent">
         <div><h3>Prostor dobija karakter</h3><p>Kvarc daje enterijeru ritam, dubinu i prepoznatljiv izraz</p></div>
-        <div class="ph"><img src="images/meni-ambijent.jpg" alt="Ambijent"></div>
+        <div class="ph"><img src="images/meni-ambijent.jpg" alt="Enterijer sa kvarcnim pločama"></div>
       </div>
       <div class="mega-panel" data-key="detalj">
         <div><h3>Završni akord prostora</h3><p>Ponekad je jedan pažljivo oblikovan detalj dovoljan da zaokruži celu priču.</p></div>
-        <div class="ph"><img src="images/meni-detalj.jpg" alt="Detalj"></div>
+        <div class="ph"><img src="images/meni-detalj.jpg" alt="Detalj od kvarcne ploče"></div>
       </div>
     </div>
   </div>
@@ -416,7 +412,7 @@ html { overflow-x: clip; }
     <div class="mega-right">
       <div class="mega-panel active" data-key="secenje">
         <div><h3>Preciznost u svakom rezu</h3><p>Kvarcne ploče sečemo po meri, kako bi se svaki element skladno uklopio u zamišljeni prostor</p></div>
-        <div class="ph"><img src="images/meni-secenje.jpg" alt="Usluge sečenja"></div>
+        <div class="ph"><img src="images/meni-secenje.jpg" alt="Sečenje kvarcnih ploča po meri"></div>
       </div>
       <div class="mega-panel" data-key="projekti">
         <div><h3>Arhitektura koja ostavlja utisak</h3><p>Otkrijte kako kvarcne obloge daju zgradama prepoznatljiv karakter i trajnu eleganciju</p></div>
@@ -435,6 +431,7 @@ html { overflow-x: clip; }
   <a href="ambijent.html" onclick="closeMenu()" style="display:block;font-family:var(--font-heading);font-size:17px;color:var(--color-text);text-decoration:none;padding:9px 0 9px 18px;">Ambijent</a>
   <a href="detalj.html" onclick="closeMenu()" style="display:block;font-family:var(--font-heading);font-size:17px;color:var(--color-text);text-decoration:none;padding:9px 0 9px 18px;">Detalj</a>
   <div style="border-bottom:1px solid var(--color-divider);margin-top:6px;"></div>
+  <a href="realizovani-projekti.html" onclick="closeMenu()" style="display:block;font-family:var(--font-heading);font-size:20px;color:var(--color-text);text-decoration:none;padding:14px 0;border-bottom:1px solid var(--color-divider);">Projekti</a>
   <a href="izdvajamo.html" onclick="closeMenu()" style="display:block;font-family:var(--font-heading);font-size:20px;color:var(--color-text);text-decoration:none;padding:14px 0 6px;">Izdvajamo</a>
   <a href="secenje.html" onclick="closeMenu()" style="display:block;font-family:var(--font-heading);font-size:17px;color:var(--color-text);text-decoration:none;padding:9px 0 9px 18px;">Usluge sečenja</a>
   <a href="projekti.html" onclick="closeMenu()" style="display:block;font-family:var(--font-heading);font-size:17px;color:var(--color-text);text-decoration:none;padding:9px 0 9px 18px;">Projekti na zgradama</a>
@@ -455,7 +452,16 @@ html { overflow-x: clip; }
   </div>
 </section>
 
-<section style="background:#161616;color:#f3f2f2;"><div style="max-width:1200px;margin:0 auto;padding:clamp(64px,9vw,120px) clamp(20px,5vw,72px);">
+<section style="position:relative;overflow:hidden;background:#161616;color:#f3f2f2;">
+  <svg class="veins" viewBox="0 0 1600 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+<path class="v v1" d="M-60,140 C240,70 430,280 720,220 S1160,40 1680,190"/>
+<path class="v v2" d="M-60,470 C190,420 390,580 650,520 S1110,330 1680,480"/>
+<path class="v v3" d="M210,-30 C270,170 170,320 340,450 S540,690 490,840"/>
+<path class="v v4" d="M1270,-30 C1190,150 1340,280 1250,430 S1110,660 1190,840"/>
+<path class="v v5" d="M-60,690 C310,640 610,730 920,670 S1420,590 1680,660"/>
+<path class="v v6" d="M760,-30 C820,120 700,240 860,360 C990,460 900,600 1010,840"/>
+</svg>
+<div style="position:relative;max-width:1200px;margin:0 auto;padding:clamp(64px,9vw,120px) clamp(20px,5vw,72px);">
   <div style="text-align:center;margin-bottom:clamp(36px,5vw,64px);">
     <h2 style="font-family:var(--font-heading);font-weight:400;font-size:clamp(30px,3.6vw,46px);line-height:1.1;letter-spacing:-0.01em;margin:0;color:var(--color-accent-400);">Srž prostora koji traje</h2>
   </div>
@@ -470,7 +476,7 @@ html { overflow-x: clip; }
   <div class="mat-grid">
     <div class="mat-side">
       <div style="display:flex;align-items:flex-start;gap:clamp(12px,1.4vw,20px);container-type:inline-size;">
-        <figure style="flex:0 0 66.667%;filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);margin:0;"><div class="zoom" style="overflow:hidden;aspect-ratio:1/1;cursor:zoom-in;"><img src="images/decor-amore-xl.jpg" alt="Dekor Amore" style="transition:transform .6s cubic-bezier(.2,.7,.2,1);transform-origin:50% 50%;width:100%;aspect-ratio:1/1;object-fit:cover;"></div></figure>
+        <figure style="flex:0 0 66.667%;filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);margin:0;"><div class="zoom" style="overflow:hidden;aspect-ratio:1/1;cursor:zoom-in;"><img src="images/decor-amore-xl.jpg" alt="Dekor Amore, kvarcna ploča" style="transition:transform .6s cubic-bezier(.2,.7,.2,1);transform-origin:50% 50%;width:100%;aspect-ratio:1/1;object-fit:cover;"></div></figure>
         <div style="min-width:0;padding-top:2px;"><h2 style="font-family:var(--font-heading);font-weight:400;font-size:clamp(13px,4.4cqi,38px);line-height:1;letter-spacing:0.02em;margin:0;white-space:nowrap;text-transform:uppercase;">Amore</h2><span style="font-family:var(--font-heading);font-style:italic;font-size:clamp(13px,3.6cqi,22px);color:var(--color-accent-700);display:block;margin-top:6px;white-space:nowrap;">Strast</span></div>
       </div>
       <div style="height:1px;background:var(--color-divider);margin-top:24px;"></div>
@@ -478,7 +484,7 @@ html { overflow-x: clip; }
       <p class="mat-t">Mlečno bela baza prožeta najmekšim potezima zemljanih žilica polako se kovitlajući u kamen koji zrači prozirnim sjajem</p>
       <a href="index.html#kontakt" class="btn btn-primary" style="text-decoration:none;margin-top:28px;">Pošaljite upit za Amore</a>
     </div>
-    <div class="mg mg-5"><figure class="mg-item" data-ph="Fotografija 1"><div class="mg-ph">Fotografija 1</div></figure><figure class="mg-item" data-ph="Fotografija 2"><div class="mg-ph">Fotografija 2</div></figure><figure class="mg-item" data-ph="Fotografija 3"><div class="mg-ph">Fotografija 3</div></figure><figure class="mg-item" data-ph="Fotografija 4"><div class="mg-ph">Fotografija 4</div></figure><figure class="mg-item" data-ph="Fotografija 5"><div class="mg-ph">Fotografija 5</div></figure></div>
+    <div class="mg mg-4"><figure class="mg-item" data-src="images/amore-1.jpg"><img src="images/amore-1.jpg" alt="Amore — primena 1" loading="lazy"></figure><figure class="mg-item" data-src="images/amore-2.jpg"><img src="images/amore-2.jpg" alt="Amore — primena 2" loading="lazy"></figure><figure class="mg-item" data-src="images/amore-3.jpg"><img src="images/amore-3.jpg" alt="Amore — primena 3" loading="lazy"></figure><figure class="mg-item" data-src="images/amore-4.jpg"><img src="images/amore-4.jpg" alt="Amore — primena 4" loading="lazy"></figure></div>
   </div>
 </section>
 
@@ -486,7 +492,7 @@ html { overflow-x: clip; }
   <div class="mat-grid">
     <div class="mat-side">
       <div style="display:flex;align-items:flex-start;gap:clamp(12px,1.4vw,20px);container-type:inline-size;">
-        <figure style="flex:0 0 66.667%;filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);margin:0;"><div class="zoom" style="overflow:hidden;aspect-ratio:1/1;cursor:zoom-in;"><img src="images/decor-figaro-xl.jpg" alt="Dekor Figaro" style="transition:transform .6s cubic-bezier(.2,.7,.2,1);transform-origin:50% 50%;width:100%;aspect-ratio:1/1;object-fit:cover;"></div></figure>
+        <figure style="flex:0 0 66.667%;filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);margin:0;"><div class="zoom" style="overflow:hidden;aspect-ratio:1/1;cursor:zoom-in;"><img src="images/decor-figaro-xl.jpg" alt="Dekor Figaro, kvarcna ploča" style="transition:transform .6s cubic-bezier(.2,.7,.2,1);transform-origin:50% 50%;width:100%;aspect-ratio:1/1;object-fit:cover;"></div></figure>
         <div style="min-width:0;padding-top:2px;"><h2 style="font-family:var(--font-heading);font-weight:400;font-size:clamp(13px,4.4cqi,38px);line-height:1;letter-spacing:0.02em;margin:0;white-space:nowrap;text-transform:uppercase;">Figaro</h2><span style="font-family:var(--font-heading);font-style:italic;font-size:clamp(13px,3.6cqi,22px);color:var(--color-accent-700);display:block;margin-top:6px;white-space:nowrap;">Karakter</span></div>
       </div>
       <div style="height:1px;background:var(--color-divider);margin-top:24px;"></div>
@@ -501,7 +507,7 @@ html { overflow-x: clip; }
   <div class="mat-grid">
     <div class="mat-side">
       <div style="display:flex;align-items:flex-start;gap:clamp(12px,1.4vw,20px);container-type:inline-size;">
-        <figure style="flex:0 0 66.667%;filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);margin:0;"><div class="zoom" style="overflow:hidden;aspect-ratio:1/1;cursor:zoom-in;"><img src="images/decor-serenade-xl.jpg" alt="Dekor Serenade" style="transition:transform .6s cubic-bezier(.2,.7,.2,1);transform-origin:50% 50%;width:100%;aspect-ratio:1/1;object-fit:cover;"></div></figure>
+        <figure style="flex:0 0 66.667%;filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);margin:0;"><div class="zoom" style="overflow:hidden;aspect-ratio:1/1;cursor:zoom-in;"><img src="images/decor-serenade-xl.jpg" alt="Dekor Serenade, kvarcna ploča" style="transition:transform .6s cubic-bezier(.2,.7,.2,1);transform-origin:50% 50%;width:100%;aspect-ratio:1/1;object-fit:cover;"></div></figure>
         <div style="min-width:0;padding-top:2px;"><h2 style="font-family:var(--font-heading);font-weight:400;font-size:clamp(13px,4.4cqi,38px);line-height:1;letter-spacing:0.02em;margin:0;white-space:nowrap;text-transform:uppercase;">Serenade</h2><span style="font-family:var(--font-heading);font-style:italic;font-size:clamp(13px,3.6cqi,22px);color:var(--color-accent-700);display:block;margin-top:6px;white-space:nowrap;">Harmonija</span></div>
       </div>
       <div style="height:1px;background:var(--color-divider);margin-top:24px;"></div>
@@ -516,7 +522,7 @@ html { overflow-x: clip; }
   <div class="mat-grid">
     <div class="mat-side">
       <div style="display:flex;align-items:flex-start;gap:clamp(12px,1.4vw,20px);container-type:inline-size;">
-        <figure style="flex:0 0 66.667%;filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);margin:0;"><div class="zoom" style="overflow:hidden;aspect-ratio:1/1;cursor:zoom-in;"><img src="images/decor-spring-xl.jpg" alt="Dekor Spring" style="transition:transform .6s cubic-bezier(.2,.7,.2,1);transform-origin:50% 50%;width:100%;aspect-ratio:1/1;object-fit:cover;"></div></figure>
+        <figure style="flex:0 0 66.667%;filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);margin:0;"><div class="zoom" style="overflow:hidden;aspect-ratio:1/1;cursor:zoom-in;"><img src="images/decor-spring-xl.jpg" alt="Dekor Spring, kvarcna ploča" style="transition:transform .6s cubic-bezier(.2,.7,.2,1);transform-origin:50% 50%;width:100%;aspect-ratio:1/1;object-fit:cover;"></div></figure>
         <div style="min-width:0;padding-top:2px;"><h2 style="font-family:var(--font-heading);font-weight:400;font-size:clamp(13px,4.4cqi,38px);line-height:1;letter-spacing:0.02em;margin:0;white-space:nowrap;text-transform:uppercase;">Spring</h2><span style="font-family:var(--font-heading);font-style:italic;font-size:clamp(13px,3.6cqi,22px);color:var(--color-accent-700);display:block;margin-top:6px;white-space:nowrap;">Svežina</span></div>
       </div>
       <div style="height:1px;background:var(--color-divider);margin-top:24px;"></div>
@@ -531,7 +537,7 @@ html { overflow-x: clip; }
   <div class="mat-grid">
     <div class="mat-side">
       <div style="display:flex;align-items:flex-start;gap:clamp(12px,1.4vw,20px);container-type:inline-size;">
-        <figure style="flex:0 0 66.667%;filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);margin:0;"><div class="zoom" style="overflow:hidden;aspect-ratio:1/1;cursor:zoom-in;"><img src="images/decor-aida-xl.jpg" alt="Dekor Aida" style="transition:transform .6s cubic-bezier(.2,.7,.2,1);transform-origin:50% 50%;width:100%;aspect-ratio:1/1;object-fit:cover;"></div></figure>
+        <figure style="flex:0 0 66.667%;filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);margin:0;"><div class="zoom" style="overflow:hidden;aspect-ratio:1/1;cursor:zoom-in;"><img src="images/decor-aida-xl.jpg" alt="Dekor Aida, kvarcna ploča" style="transition:transform .6s cubic-bezier(.2,.7,.2,1);transform-origin:50% 50%;width:100%;aspect-ratio:1/1;object-fit:cover;"></div></figure>
         <div style="min-width:0;padding-top:2px;"><h2 style="font-family:var(--font-heading);font-weight:400;font-size:clamp(13px,4.4cqi,38px);line-height:1;letter-spacing:0.02em;margin:0;white-space:nowrap;text-transform:uppercase;">Aida</h2><span style="font-family:var(--font-heading);font-style:italic;font-size:clamp(13px,3.6cqi,22px);color:var(--color-accent-700);display:block;margin-top:6px;white-space:nowrap;">Rafinesa</span></div>
       </div>
       <div style="height:1px;background:var(--color-divider);margin-top:24px;"></div>
@@ -546,7 +552,7 @@ html { overflow-x: clip; }
   <div class="mat-grid">
     <div class="mat-side">
       <div style="display:flex;align-items:flex-start;gap:clamp(12px,1.4vw,20px);container-type:inline-size;">
-        <figure style="flex:0 0 66.667%;filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);margin:0;"><div class="zoom" style="overflow:hidden;aspect-ratio:1/1;cursor:zoom-in;"><img src="images/decor-boheme-xl.jpg" alt="Dekor Boheme" style="transition:transform .6s cubic-bezier(.2,.7,.2,1);transform-origin:50% 50%;width:100%;aspect-ratio:1/1;object-fit:cover;"></div></figure>
+        <figure style="flex:0 0 66.667%;filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);margin:0;"><div class="zoom" style="overflow:hidden;aspect-ratio:1/1;cursor:zoom-in;"><img src="images/decor-boheme-xl.jpg" alt="Dekor Boheme, kvarcna ploča" style="transition:transform .6s cubic-bezier(.2,.7,.2,1);transform-origin:50% 50%;width:100%;aspect-ratio:1/1;object-fit:cover;"></div></figure>
         <div style="min-width:0;padding-top:2px;"><h2 style="font-family:var(--font-heading);font-weight:400;font-size:clamp(13px,4.4cqi,38px);line-height:1;letter-spacing:0.02em;margin:0;white-space:nowrap;text-transform:uppercase;">Boheme</h2><span style="font-family:var(--font-heading);font-style:italic;font-size:clamp(13px,3.6cqi,22px);color:var(--color-accent-700);display:block;margin-top:6px;white-space:nowrap;">Sloboda</span></div>
       </div>
       <div style="height:1px;background:var(--color-divider);margin-top:24px;"></div>
@@ -561,7 +567,7 @@ html { overflow-x: clip; }
   <div class="mat-grid">
     <div class="mat-side">
       <div style="display:flex;align-items:flex-start;gap:clamp(12px,1.4vw,20px);container-type:inline-size;">
-        <figure style="flex:0 0 66.667%;filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);margin:0;"><div class="zoom" style="overflow:hidden;aspect-ratio:1/1;cursor:zoom-in;"><img src="images/decor-sonata-xl.jpg" alt="Dekor Sonata" style="transition:transform .6s cubic-bezier(.2,.7,.2,1);transform-origin:50% 50%;width:100%;aspect-ratio:1/1;object-fit:cover;"></div></figure>
+        <figure style="flex:0 0 66.667%;filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);margin:0;"><div class="zoom" style="overflow:hidden;aspect-ratio:1/1;cursor:zoom-in;"><img src="images/decor-sonata-xl.jpg" alt="Dekor Sonata, kvarcna ploča" style="transition:transform .6s cubic-bezier(.2,.7,.2,1);transform-origin:50% 50%;width:100%;aspect-ratio:1/1;object-fit:cover;"></div></figure>
         <div style="min-width:0;padding-top:2px;"><h2 style="font-family:var(--font-heading);font-weight:400;font-size:clamp(13px,4.4cqi,38px);line-height:1;letter-spacing:0.02em;margin:0;white-space:nowrap;text-transform:uppercase;">Sonata</h2><span style="font-family:var(--font-heading);font-style:italic;font-size:clamp(13px,3.6cqi,22px);color:var(--color-accent-700);display:block;margin-top:6px;white-space:nowrap;">Balans</span></div>
       </div>
       <div style="height:1px;background:var(--color-divider);margin-top:24px;"></div>
@@ -569,14 +575,14 @@ html { overflow-x: clip; }
       <p class="mat-t">Čisti mermerno beli kvarc isprepletan najfinijim zemljanim žilicama koje razigrano sačinjavaju ploču pogodnu za najotmenije prostorije</p>
       <a href="index.html#kontakt" class="btn btn-primary" style="text-decoration:none;margin-top:28px;">Pošaljite upit za Sonata</a>
     </div>
-    <div class="mg mg-3"><figure class="mg-item" data-ph="Fotografija 1"><div class="mg-ph">Fotografija 1</div></figure><figure class="mg-item" data-ph="Fotografija 2"><div class="mg-ph">Fotografija 2</div></figure><figure class="mg-item" data-ph="Fotografija 3"><div class="mg-ph">Fotografija 3</div></figure></div>
+    <div class="mg mg-3 mg-3w"><figure class="mg-item" data-src="images/sonata-1.jpg"><img src="images/sonata-1.jpg" alt="Sonata — primena 1" loading="lazy"></figure><figure class="mg-item" data-ph="Fotografija 2"><div class="mg-ph">Fotografija 2</div></figure><figure class="mg-item" data-ph="Fotografija 3"><div class="mg-ph">Fotografija 3</div></figure></div>
   </div>
 </section>
 <section class="mat" id="moonlight" data-name="Moonlight" style="background:var(--color-surface);">
   <div class="mat-grid">
     <div class="mat-side">
       <div style="display:flex;align-items:flex-start;gap:clamp(12px,1.4vw,20px);container-type:inline-size;">
-        <figure style="flex:0 0 66.667%;filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);margin:0;"><div class="zoom" style="overflow:hidden;aspect-ratio:1/1;cursor:zoom-in;"><img src="images/decor-moonlight-xl.jpg" alt="Dekor Moonlight" style="transition:transform .6s cubic-bezier(.2,.7,.2,1);transform-origin:50% 50%;width:100%;aspect-ratio:1/1;object-fit:cover;"></div></figure>
+        <figure style="flex:0 0 66.667%;filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);margin:0;"><div class="zoom" style="overflow:hidden;aspect-ratio:1/1;cursor:zoom-in;"><img src="images/decor-moonlight-xl.jpg" alt="Dekor Moonlight, kvarcna ploča" style="transition:transform .6s cubic-bezier(.2,.7,.2,1);transform-origin:50% 50%;width:100%;aspect-ratio:1/1;object-fit:cover;"></div></figure>
         <div style="min-width:0;padding-top:2px;"><h2 style="font-family:var(--font-heading);font-weight:400;font-size:clamp(13px,4.4cqi,38px);line-height:1;letter-spacing:0.02em;margin:0;white-space:nowrap;text-transform:uppercase;">Moonlight</h2><span style="font-family:var(--font-heading);font-style:italic;font-size:clamp(13px,3.6cqi,22px);color:var(--color-accent-700);display:block;margin-top:6px;white-space:nowrap;">Misterija</span></div>
       </div>
       <div style="height:1px;background:var(--color-divider);margin-top:24px;"></div>
@@ -584,14 +590,14 @@ html { overflow-x: clip; }
       <p class="mat-t">Ekspanzivan i nesputan, Moonlight ima osnovu od najdublje crne boje sa reflektujućim srebrnim iskricama koje blistaju poput zvezda na ponoćnom nebu</p>
       <a href="index.html#kontakt" class="btn btn-primary" style="text-decoration:none;margin-top:28px;">Pošaljite upit za Moonlight</a>
     </div>
-    <div class="mg mg-3"><figure class="mg-item" data-src="images/moonlight-1.jpg"><img src="images/moonlight-1.jpg" alt="Moonlight — primena 1" loading="lazy"></figure><figure class="mg-item" data-ph="Fotografija 2"><div class="mg-ph">Fotografija 2</div></figure><figure class="mg-item" data-ph="Fotografija 3"><div class="mg-ph">Fotografija 3</div></figure></div>
+    <div class="mg mg-3"><figure class="mg-item" data-src="images/moonlight-1.jpg"><img src="images/moonlight-1.jpg" alt="Moonlight — primena 1" loading="lazy"></figure><figure class="mg-item" data-src="images/moonlight-2.jpg"><img src="images/moonlight-2.jpg" alt="Moonlight — primena 2" loading="lazy"></figure><figure class="mg-item" data-src="images/moonlight-3.jpg"><img src="images/moonlight-3.jpg" alt="Moonlight — primena 3" loading="lazy"></figure></div>
   </div>
 </section>
 <section class="mat" id="daphne" data-name="Daphne" style="background:var(--color-bg);">
   <div class="mat-grid">
     <div class="mat-side">
       <div style="display:flex;align-items:flex-start;gap:clamp(12px,1.4vw,20px);container-type:inline-size;">
-        <figure style="flex:0 0 66.667%;filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);margin:0;"><div class="zoom" style="overflow:hidden;aspect-ratio:1/1;cursor:zoom-in;"><img src="images/decor-daphne-xl.jpg" alt="Dekor Daphne" style="transition:transform .6s cubic-bezier(.2,.7,.2,1);transform-origin:50% 50%;width:100%;aspect-ratio:1/1;object-fit:cover;"></div></figure>
+        <figure style="flex:0 0 66.667%;filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);margin:0;"><div class="zoom" style="overflow:hidden;aspect-ratio:1/1;cursor:zoom-in;"><img src="images/decor-daphne-xl.jpg" alt="Dekor Daphne, kvarcna ploča" style="transition:transform .6s cubic-bezier(.2,.7,.2,1);transform-origin:50% 50%;width:100%;aspect-ratio:1/1;object-fit:cover;"></div></figure>
         <div style="min-width:0;padding-top:2px;"><h2 style="font-family:var(--font-heading);font-weight:400;font-size:clamp(13px,4.4cqi,38px);line-height:1;letter-spacing:0.02em;margin:0;white-space:nowrap;text-transform:uppercase;">Daphne</h2><span style="font-family:var(--font-heading);font-style:italic;font-size:clamp(13px,3.6cqi,22px);color:var(--color-accent-700);display:block;margin-top:6px;white-space:nowrap;">Gracioznost</span></div>
       </div>
       <div style="height:1px;background:var(--color-divider);margin-top:24px;"></div>
@@ -599,14 +605,14 @@ html { overflow-x: clip; }
       <p class="mat-t">Simfonija raskoši, sa mekim kaskadnim sivim prugama koje razmućuju kremasto-belu osnovu</p>
       <a href="index.html#kontakt" class="btn btn-primary" style="text-decoration:none;margin-top:28px;">Pošaljite upit za Daphne</a>
     </div>
-    <div class="mg mg-3"><figure class="mg-item" data-src="images/daphne-1.jpg"><img src="images/daphne-1.jpg" alt="Daphne — primena 1" loading="lazy"></figure><figure class="mg-item" data-src="images/daphne-2.jpg"><img src="images/daphne-2.jpg" alt="Daphne — primena 2" loading="lazy"></figure><figure class="mg-item" data-ph="Fotografija 3"><div class="mg-ph">Fotografija 3</div></figure></div>
+    <div class="mg mg-3 mg-3r"><figure class="mg-item" data-src="images/daphne-1.jpg"><img src="images/daphne-1.jpg" alt="Daphne — primena 1" loading="lazy"></figure><figure class="mg-item" data-src="images/daphne-2.jpg"><img src="images/daphne-2.jpg" alt="Daphne — primena 2" loading="lazy"></figure><figure class="mg-item" data-src="images/daphne-3.jpg"><img src="images/daphne-3.jpg" alt="Daphne — primena 3" loading="lazy"></figure></div>
   </div>
 </section>
 <section class="mat" id="opus" data-name="Opus" style="background:var(--color-surface);">
   <div class="mat-grid">
     <div class="mat-side">
       <div style="display:flex;align-items:flex-start;gap:clamp(12px,1.4vw,20px);container-type:inline-size;">
-        <figure style="flex:0 0 66.667%;filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);margin:0;"><div class="zoom" style="overflow:hidden;aspect-ratio:1/1;cursor:zoom-in;"><img src="images/decor-opus-xl.jpg" alt="Dekor Opus" style="transition:transform .6s cubic-bezier(.2,.7,.2,1);transform-origin:50% 50%;width:100%;aspect-ratio:1/1;object-fit:cover;"></div></figure>
+        <figure style="flex:0 0 66.667%;filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);margin:0;"><div class="zoom" style="overflow:hidden;aspect-ratio:1/1;cursor:zoom-in;"><img src="images/decor-opus-xl.jpg" alt="Dekor Opus, kvarcna ploča" style="transition:transform .6s cubic-bezier(.2,.7,.2,1);transform-origin:50% 50%;width:100%;aspect-ratio:1/1;object-fit:cover;"></div></figure>
         <div style="min-width:0;padding-top:2px;"><h2 style="font-family:var(--font-heading);font-weight:400;font-size:clamp(13px,4.4cqi,38px);line-height:1;letter-spacing:0.02em;margin:0;white-space:nowrap;text-transform:uppercase;">Opus</h2><span style="font-family:var(--font-heading);font-style:italic;font-size:clamp(13px,3.6cqi,22px);color:var(--color-accent-700);display:block;margin-top:6px;white-space:nowrap;">Majstorstvo</span></div>
       </div>
       <div style="height:1px;background:var(--color-divider);margin-top:24px;"></div>
@@ -621,7 +627,7 @@ html { overflow-x: clip; }
   <div class="mat-grid">
     <div class="mat-side">
       <div style="display:flex;align-items:flex-start;gap:clamp(12px,1.4vw,20px);container-type:inline-size;">
-        <figure style="flex:0 0 66.667%;filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);margin:0;"><div class="zoom" style="overflow:hidden;aspect-ratio:1/1;cursor:zoom-in;"><img src="images/decor-butterfly-xl.jpg" alt="Dekor Butterfly" style="transition:transform .6s cubic-bezier(.2,.7,.2,1);transform-origin:50% 50%;width:100%;aspect-ratio:1/1;object-fit:cover;"></div></figure>
+        <figure style="flex:0 0 66.667%;filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);margin:0;"><div class="zoom" style="overflow:hidden;aspect-ratio:1/1;cursor:zoom-in;"><img src="images/decor-butterfly-xl.jpg" alt="Dekor Butterfly, kvarcna ploča" style="transition:transform .6s cubic-bezier(.2,.7,.2,1);transform-origin:50% 50%;width:100%;aspect-ratio:1/1;object-fit:cover;"></div></figure>
         <div style="min-width:0;padding-top:2px;"><h2 style="font-family:var(--font-heading);font-weight:400;font-size:clamp(13px,4.4cqi,38px);line-height:1;letter-spacing:0.02em;margin:0;white-space:nowrap;text-transform:uppercase;">Butterfly</h2><span style="font-family:var(--font-heading);font-style:italic;font-size:clamp(13px,3.6cqi,22px);color:var(--color-accent-700);display:block;margin-top:6px;white-space:nowrap;">Transformacija</span></div>
       </div>
       <div style="height:1px;background:var(--color-divider);margin-top:24px;"></div>
@@ -629,14 +635,14 @@ html { overflow-x: clip; }
       <p class="mat-t">Ploča obasuta živopisnim fragmentima raznobojnih kristala koji obogaćuju svežu belu pozadinu čineći unikatni dizajn</p>
       <a href="index.html#kontakt" class="btn btn-primary" style="text-decoration:none;margin-top:28px;">Pošaljite upit za Butterfly</a>
     </div>
-    <div class="mg mg-3"><figure class="mg-item" data-src="images/butterfly-1.jpg"><img src="images/butterfly-1.jpg" alt="Butterfly — primena 1" loading="lazy"></figure><figure class="mg-item" data-src="images/butterfly-2.jpg"><img src="images/butterfly-2.jpg" alt="Butterfly — primena 2" loading="lazy"></figure><figure class="mg-item" data-ph="Fotografija 3"><div class="mg-ph">Fotografija 3</div></figure></div>
+    <div class="mg mg-3 mg-3r"><figure class="mg-item" data-src="images/butterfly-3.jpg"><img src="images/butterfly-3.jpg" alt="Butterfly — primena 3" loading="lazy"></figure><figure class="mg-item" data-src="images/butterfly-1.jpg"><img src="images/butterfly-1.jpg" alt="Butterfly — primena 1" loading="lazy"></figure><figure class="mg-item" data-src="images/butterfly-2.jpg"><img src="images/butterfly-2.jpg" alt="Butterfly — primena 2" loading="lazy"></figure></div>
   </div>
 </section>
 <section class="mat" id="elvira" data-name="Elvira" style="background:var(--color-surface);">
   <div class="mat-grid">
     <div class="mat-side">
       <div style="display:flex;align-items:flex-start;gap:clamp(12px,1.4vw,20px);container-type:inline-size;">
-        <figure style="flex:0 0 66.667%;filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);margin:0;"><div class="zoom" style="overflow:hidden;aspect-ratio:1/1;cursor:zoom-in;"><img src="images/decor-elvira-xl.jpg" alt="Dekor Elvira" style="transition:transform .6s cubic-bezier(.2,.7,.2,1);transform-origin:50% 50%;width:100%;aspect-ratio:1/1;object-fit:cover;"></div></figure>
+        <figure style="flex:0 0 66.667%;filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);margin:0;"><div class="zoom" style="overflow:hidden;aspect-ratio:1/1;cursor:zoom-in;"><img src="images/decor-elvira-xl.jpg" alt="Dekor Elvira, kvarcna ploča" style="transition:transform .6s cubic-bezier(.2,.7,.2,1);transform-origin:50% 50%;width:100%;aspect-ratio:1/1;object-fit:cover;"></div></figure>
         <div style="min-width:0;padding-top:2px;"><h2 style="font-family:var(--font-heading);font-weight:400;font-size:clamp(13px,4.4cqi,38px);line-height:1;letter-spacing:0.02em;margin:0;white-space:nowrap;text-transform:uppercase;">Elvira</h2><span style="font-family:var(--font-heading);font-style:italic;font-size:clamp(13px,3.6cqi,22px);color:var(--color-accent-700);display:block;margin-top:6px;white-space:nowrap;">Drama</span></div>
       </div>
       <div style="height:1px;background:var(--color-divider);margin-top:24px;"></div>
@@ -660,12 +666,6 @@ html { overflow-x: clip; }
   </div>
 </section>
 
-<div class="lb" id="lb" aria-hidden="true" role="dialog" aria-label="Galerija">
-  <div class="lb-stage"><div class="lb-frame" id="lbFrame"></div><div class="lb-cap"><span id="lbName"></span><span id="lbCount"></span></div></div>
-  <button type="button" class="lb-arrow lb-prev" id="lbPrev" aria-label="Prethodna fotografija"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
-  <button type="button" class="lb-arrow lb-next" id="lbNext" aria-label="Sledeća fotografija"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
-  <button type="button" class="lb-close" id="lbClose" aria-label="Zatvori galeriju"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
-</div>
 
 <footer style="border-top:1px solid var(--color-divider);background:var(--color-surface);">
   <div style="max-width:1200px;margin:0 auto;padding:48px clamp(20px,5vw,72px);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:24px;">
@@ -719,26 +719,6 @@ box.addEventListener('mouseenter',function(){img.style.transform='scale('+maxSca
 box.addEventListener('mousemove',function(e){var r=box.getBoundingClientRect();img.style.transformOrigin=((e.clientX-r.left)/r.width*100)+'% '+((e.clientY-r.top)/r.height*100)+'%';});
 box.addEventListener('mouseleave',function(){img.style.transform='scale(1)';img.style.transformOrigin='50% 50%';});
 });
-</script>
-<script>
-(function(){var lb=document.getElementById('lb'),frame=document.getElementById('lbFrame'),nameEl=document.getElementById('lbName'),cnt=document.getElementById('lbCount');
-var cur=null,idx=0,lx=0,ly=0,blocked=null;
-document.addEventListener('mousemove',function(e){lx=e.clientX;ly=e.clientY;},{passive:true});
-function render(){var it=cur.items[idx];frame.innerHTML=it.dataset.src?'<img src="'+it.dataset.src+'" alt="'+cur.name+'">':'<div class="mg-ph">'+it.dataset.ph+'</div>';nameEl.textContent=cur.name;cnt.textContent=(idx+1)+' / '+cur.items.length;}
-function open(g,i){cur=g;idx=i;render();lb.classList.add('open');lb.setAttribute('aria-hidden','false');}
-function close(){lb.classList.remove('open');lb.setAttribute('aria-hidden','true');var el=document.elementFromPoint(lx,ly);blocked=el&&el.closest?el.closest('.mg-item'):null;}
-function step(d){if(!cur)return;idx=(idx+d+cur.items.length)%cur.items.length;render();}
-document.querySelectorAll('.mat').forEach(function(sec){var g={name:sec.dataset.name,items:[].slice.call(sec.querySelectorAll('.mg-item'))};
-g.items.forEach(function(it,i){var t;
-it.addEventListener('mouseenter',function(){if(lb.classList.contains('open')||blocked===it)return;t=setTimeout(function(){open(g,i);},380);});
-it.addEventListener('mouseleave',function(){clearTimeout(t);if(blocked===it)blocked=null;});
-it.addEventListener('click',function(){clearTimeout(t);open(g,i);});});});
-document.getElementById('lbPrev').addEventListener('click',function(e){e.stopPropagation();step(-1);});
-document.getElementById('lbNext').addEventListener('click',function(e){e.stopPropagation();step(1);});
-document.getElementById('lbClose').addEventListener('click',close);
-lb.addEventListener('click',function(e){if(e.target===lb)close();});
-document.addEventListener('keydown',function(e){if(!lb.classList.contains('open'))return;if(e.key==='Escape')close();if(e.key==='ArrowLeft')step(-1);if(e.key==='ArrowRight')step(1);});
-})();
 </script>
 <button type="button" id="toTop" aria-label="Povratak na vrh" style="position:fixed;right:clamp(16px,2.5vw,32px);bottom:clamp(16px,2.5vw,32px);z-index:60;width:48px;height:48px;display:flex;align-items:center;justify-content:center;border-radius:50%;border:1px solid var(--color-accent);background:color-mix(in srgb,#161616 72%,transparent);backdrop-filter:blur(6px);color:#f3f2f2;cursor:pointer;box-shadow:var(--shadow-md);opacity:0;visibility:hidden;transform:translateY(12px);transition:opacity .35s ease,transform .35s ease,visibility 0s linear .35s,background .2s;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg></button>
 <script>

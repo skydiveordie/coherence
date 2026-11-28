@@ -262,7 +262,7 @@ textarea.input { min-height: 90px; resize: vertical; }
 
 
 html { scroll-behavior: smooth; }
-body { margin: 0; overflow-x: hidden; background: var(--color-bg); color: var(--color-text); font-family: var(--font-body); }
+body { margin: 0; overflow-x: clip; background: var(--color-bg); color: var(--color-text); font-family: var(--font-body); }
 a.link { color: var(--color-accent-700); text-underline-offset: 3px; }
 a.link:hover { color: var(--color-accent); }
 ::selection { background: color-mix(in srgb, var(--color-accent) 30%, transparent); }
@@ -301,7 +301,7 @@ a.link:hover { color: var(--color-accent); }
 .mega-panel .ph img { width: 100%; height: 100%; object-fit: cover; }
 .nav-links a.primene-open { color: var(--color-accent); }
 @media (max-width: 860px) { .mega { display: none; } }
-html { overflow-x: clip; }
+html {  }
 .ss-arrow { position: absolute; top: 50%; width: 46px; height: 46px; margin-top: -23px; display: flex; align-items: center; justify-content: center; border-radius: 50%; border: 1px solid var(--color-accent); background: color-mix(in srgb, #161616 55%, transparent); color: #f3f2f2; cursor: pointer; opacity: 0; transition: opacity .25s, background .2s; z-index: 2; }
 .ss-prev { left: 16px; } .ss-next { right: 16px; }
 .ss:hover .ss-arrow, .ss-arrow:focus-visible { opacity: 1; }
@@ -319,14 +319,15 @@ html { overflow-x: clip; }
 @keyframes drift{0%{transform:translate3d(-1.5%,0,0) rotate(-0.6deg)}100%{transform:translate3d(1.5%,-1%,0) rotate(0.6deg)}}
 @media (prefers-reduced-motion:reduce){.veins,.veins .v{animation:none;opacity:.35;stroke-dashoffset:0}}
 
-@media (max-width:1080px){.nav-links{display:none !important}.nav-toggle{display:inline-flex !important;align-items:center;justify-content:center}.mega{display:none !important}}
+@media (max-width:1200px){.nav-links{display:none !important}.nav-toggle{display:inline-flex !important;align-items:center;justify-content:center}.mega{display:none !important}}
 </style>
+<style>#mobileMenu{max-height:calc(100dvh - 65px);overflow-y:auto;overscroll-behavior:contain}</style>
 </head>
 <body>
 
-<nav class="nav" style="position:fixed;top:0;left:0;right:0;z-index:50;background:color-mix(in srgb, var(--color-bg) 25%, transparent);backdrop-filter:saturate(1.1) blur(6px);padding-inline:clamp(20px,5vw,72px);">
+<nav class="nav" style="position:sticky;top:0;z-index:50;background:color-mix(in srgb, var(--color-bg) 25%, transparent);backdrop-filter:saturate(1.1) blur(6px);padding-inline:clamp(20px,5vw,72px);">
   <a href="index.html#vrh" style="margin-right:auto;display:flex;align-items:center;"><img src="../images/logo-coherence.png" alt="Coherence Group" style="height:48px;width:auto;display:block;"></a>
-  <div class="nav-links"><a href="o-nama.html">О нас</a> <a href="kolekcija.html">Коллекция</a> <a href="index.html#primene" id="primeneLink" aria-haspopup="true" aria-expanded="false">Применение</a> <a href="izdvajamo.html" id="izdvajamoLink" aria-haspopup="true" aria-expanded="false">Избранное</a> <a href="index.html#kontakt">Контакты</a> <a href="index.html#kontakt" class="btn btn-primary" style="text-decoration:none;">Запросить предложение</a></div>
+  <div class="nav-links"><a href="o-nama.html">О нас</a> <a href="kolekcija.html">Коллекция</a> <a href="index.html#primene" id="primeneLink" aria-haspopup="true" aria-expanded="false">Применение</a> <a href="realizovani-projekti.html">Проекты</a> <a href="izdvajamo.html" id="izdvajamoLink" aria-haspopup="true" aria-expanded="false">Избранное</a> <a href="index.html#kontakt">Контакты</a> <a href="index.html#kontakt" class="btn btn-primary" style="text-decoration:none;">Запросить предложение</a></div>
   <div class="nav-links lang-sw" style="gap:2px;border:1px solid var(--color-divider);border-radius:var(--radius-md);padding:2px;margin-left:clamp(10px,1.4vw,20px);"><a href="../secenje.html" hreflang="sr" lang="sr" style="font-size:12px;letter-spacing:0.1em;padding:5px 8px;border-radius:var(--radius-sm);text-decoration:none;color:inherit;">SR</a><a href="../en/secenje.html" hreflang="en" lang="en" style="font-size:12px;letter-spacing:0.1em;padding:5px 8px;border-radius:var(--radius-sm);text-decoration:none;color:inherit;">EN</a><a href="secenje.html" hreflang="ru" lang="ru" aria-current="true" style="font-size:12px;letter-spacing:0.1em;padding:5px 8px;border-radius:var(--radius-sm);text-decoration:none;color:var(--color-accent);box-shadow:inset 0 0 0 1px var(--color-accent);">RU</a></div>
   <button type="button" class="nav-toggle" aria-label="Открыть меню" onclick="toggleMenu()">
     <svg id="iconOpen" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
@@ -346,19 +347,19 @@ html { overflow-x: clip; }
     <div class="mega-right">
       <div class="mega-panel active" data-key="kupatilo">
         <div><h3>Момент только для себя</h3><p>Кварц привносит покой и элегантность в пространство повседневных ритуалов</p></div>
-        <div class="ph"><img src="../images/meni-kupatilo.jpg" alt="Ванная"></div>
+        <div class="ph"><img src="../images/meni-kupatilo.jpg" alt="Ванная с кварцевыми поверхностями"></div>
       </div>
       <div class="mega-panel" data-key="kuhinja">
         <div><h3>У сердца дома своя сцена</h3><p>Поверхность, где встречаются вкусы, разговоры и незабываемые моменты</p></div>
-        <div class="ph"><img src="../images/meni-kuhinja.jpg" alt="Кухня"></div>
+        <div class="ph"><img src="../images/meni-kuhinja.jpg" alt="Кухня с кварцевой столешницей"></div>
       </div>
       <div class="mega-panel" data-key="ambijent">
         <div><h3>Пространство обретает характер</h3><p>Кварц придаёт интерьеру ритм, глубину и узнаваемую выразительность</p></div>
-        <div class="ph"><img src="../images/meni-ambijent.jpg" alt="Интерьер"></div>
+        <div class="ph"><img src="../images/meni-ambijent.jpg" alt="Интерьер с кварцевыми поверхностями"></div>
       </div>
       <div class="mega-panel" data-key="detalj">
         <div><h3>Заключительный аккорд пространства</h3><p>Иногда одной тщательно продуманной детали достаточно, чтобы завершить всю историю.</p></div>
-        <div class="ph"><img src="../images/meni-detalj.jpg" alt="Деталь"></div>
+        <div class="ph"><img src="../images/meni-detalj.jpg" alt="Деталь из кварцевой плиты"></div>
       </div>
     </div>
   </div>
@@ -375,7 +376,7 @@ html { overflow-x: clip; }
     <div class="mega-right">
       <div class="mega-panel active" data-key="secenje">
         <div><h3>Точность в каждом резе</h3><p>Мы режем кварцевые плиты по размеру, чтобы каждый элемент гармонично вписался в задуманное пространство</p></div>
-        <div class="ph"><img src="../images/meni-secenje.jpg" alt="Услуги резки"></div>
+        <div class="ph"><img src="../images/meni-secenje.jpg" alt="Резка кварцевых плит по размеру"></div>
       </div>
       <div class="mega-panel" data-key="projekti">
         <div><h3>Архитектура, которая впечатляет</h3><p>Узнайте, как кварцевая облицовка придаёт зданиям узнаваемый характер и неподвластную времени элегантность</p></div>
@@ -394,6 +395,7 @@ html { overflow-x: clip; }
   <a href="ambijent.html" onclick="closeMenu()" style="display:block;font-family:var(--font-heading);font-size:17px;color:var(--color-text);text-decoration:none;padding:9px 0 9px 18px;">Интерьер</a>
   <a href="detalj.html" onclick="closeMenu()" style="display:block;font-family:var(--font-heading);font-size:17px;color:var(--color-text);text-decoration:none;padding:9px 0 9px 18px;">Деталь</a>
   <div style="border-bottom:1px solid var(--color-divider);margin-top:6px;"></div>
+  <a href="realizovani-projekti.html" onclick="closeMenu()" style="display:block;font-family:var(--font-heading);font-size:20px;color:var(--color-text);text-decoration:none;padding:14px 0;border-bottom:1px solid var(--color-divider);">Проекты</a>
   <a href="izdvajamo.html" onclick="closeMenu()" style="display:block;font-family:var(--font-heading);font-size:20px;color:var(--color-text);text-decoration:none;padding:14px 0 6px;">Избранное</a>
   <a href="secenje.html" onclick="closeMenu()" style="display:block;font-family:var(--font-heading);font-size:17px;color:var(--color-text);text-decoration:none;padding:9px 0 9px 18px;">Услуги резки</a>
   <a href="projekti.html" onclick="closeMenu()" style="display:block;font-family:var(--font-heading);font-size:17px;color:var(--color-text);text-decoration:none;padding:9px 0 9px 18px;">Проекты на зданиях</a>
@@ -413,7 +415,7 @@ html { overflow-x: clip; }
 <path class="v v6" d="M760,-30 C820,120 700,240 860,360 C990,460 900,600 1010,840"></path>
 </svg>
   <div class="about-grid" style="position:relative;max-width:1200px;width:100%;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:clamp(32px,5vw,80px);align-items:center;">
-    <figure style="filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;border:6px solid #242322;outline:1px solid rgba(182,130,53,0.5);margin:0;"><img src="../images/meni-secenje.jpg" alt="Услуги резки" style="width:100%;aspect-ratio:4/3;object-fit:cover;"></figure>
+    <figure style="filter:sepia(0.22) saturate(0.82) contrast(1.05);box-sizing:border-box;border:6px solid #242322;outline:1px solid rgba(182,130,53,0.5);margin:0;"><img src="../images/meni-secenje.jpg" alt="Резка кварцевых плит по размеру" style="width:100%;aspect-ratio:4/3;object-fit:cover;"></figure>
     <div>
       <span style="display:inline-flex;align-items:center;gap:10px;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:var(--color-accent-300);border:1px solid var(--color-accent);border-radius:var(--radius-md);padding:6px 12px;margin-bottom:26px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg> Страница в разработке </span>
       <span style="display:block;font-size:13px;letter-spacing:0.14em;text-transform:uppercase;color:var(--color-accent-300);margin-bottom:14px;">Избранное — Услуги резки</span>
